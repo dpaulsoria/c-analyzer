@@ -203,7 +203,7 @@ def getTokens(lexer):
 
 
 line = " "
-code = open("test/little.c")
+code = open("tests/little.c")
 for line in code:
     validador.input(line)
     getTokens(validador)
