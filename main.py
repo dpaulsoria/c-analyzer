@@ -129,7 +129,7 @@ tokens = (
              'TILDE',  # ~
              'COMMENT',  # // y /** */
              'IGNORE',
-            # START PAUL SORIA
+
              # Preprocessor Directives
              'PP_INCLUDE',  # #include
              'PP_DEFINE',  # #define
@@ -175,12 +175,11 @@ tokens = (
              'SINGLE_APOS',  # \'
              'DOUBLE_APOS',  # \"
              'NULL',  # \0 end of line
-            # END PAUL SORIA
+
          ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 
-# START PAUL SORIA
 # Arithmetic Operators
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -195,7 +194,6 @@ t_MINUS_EQUAL = r'-='
 t_TIMES_EQUAL = r'\*='
 t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
-# END PAUL SORIA
 
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
@@ -226,7 +224,6 @@ t_B_COMPLEMENT = r'\~'
 t_SHIFT_LEFT = r'\<\<'
 t_SHIFT_RIGHT = r'\>\>'
 
-# START PAUL SORIA
 # Groups
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -234,7 +231,6 @@ t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_LCURL_BRACE = r'\{'
 t_RCURL_BRACE = r'\}'
-# END PAUL SORIA
 
 
 # Values
@@ -257,7 +253,6 @@ t_TILDE = r'\~'
 # t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
 t_ignore = " \t"
 
-# START PAUL SORIA
 # Preprocessor Directives
 t_PP_INCLUDE = r'\#include'
 t_PP_DEFINE = r'\#define'
@@ -274,19 +269,12 @@ t_PP_DATE = r'__DATE__'
 t_PP_TIME = r'__TIME__'
 t_PP_TIMESTAMP = r'__TIMESTAMP__'
 
-# END PAUL SORIA
-
-
-# START JUAN PITA
-
 # t_PP_STMACRO = r'\S+\s\S+'  # Single token Macro
 # t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
 
 t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"|\'[a-z\_\/]+\.h\''
 
-# END JUAN PITA
 
-# START PAUL SORIA
 # Format specifiers
 t_FS_CHAR = r'\%c'
 t_FS_INT = r'\%d|\%i'
@@ -314,7 +302,6 @@ t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
 t_NULL = r'\\0'  # end of line or null
 
-# END PAUL SORIA
 
 
 def t_lineCounter(t):
@@ -328,12 +315,11 @@ def t_COMMENT(t):
     t.type = reserved.get(t.value, "COMMENT")
     return t
 
-# START PAUL SORIA
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, "VARNAME")
     return t
-# END PAUL SORIA
+
 
 def t_STRING(t):
     r'\".*\"'
@@ -364,5 +350,4 @@ for line in code:
     getTokens(validador)
 code.close()
 
-# print(f"Number of unknowns {errors}")
 print("End... :)")
