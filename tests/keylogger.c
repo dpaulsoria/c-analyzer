@@ -17,9 +17,6 @@ typedef struct input_event input_event;
 static void rootCheck();
 static int openKeyboardDeviceFile(char *deviceFile);
 
-/**
- * Exit with return code -1 if user does not have root privileges
- */
 static void rootCheck() {
    if (geteuid() != 0) {
       printf("Must run as root\n");
@@ -27,12 +24,6 @@ static void rootCheck() {
    }
 }
 
-/**
- * Opens the keyboard device file
- *
- * @param  deviceFile   the path to the keyboard device file
- * @return              the file descriptor on success, error code on failure
- */
 static int openKeyboardDeviceFile(char *deviceFile) {
    int kbd_fd = open(deviceFile, O_RDONLY);
    if (kbd_fd == -1) {

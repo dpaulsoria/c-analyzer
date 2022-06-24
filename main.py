@@ -1,3 +1,5 @@
+import re
+
 import ply.lex as lexical
 
 # List of key/reserved words
@@ -35,6 +37,7 @@ reserved = {
     "enum": "ENUM",
     "union": "UNION",
 
+    # START PAUL SORIA
     # Data Type Properties
     "unsigned": "UNSIGNED",
     "signed": "SIGNED",
@@ -49,132 +52,135 @@ reserved = {
 
     # Unary Operators
     "sizeof": "SIZEOF",
+    # END PAUL SORIA
 }
 
 # List of token names
 
 tokens = (
-    # Arithmetic Operators
-    'PLUS',  # +
-    'MINUS',  # -
-    'TIMES',  # *
-    'DIVIDE',  # /
-    'MODULUS',  # %
+             # Arithmetic Operators
+             'PLUS',  # +
+             'MINUS',  # -
+             'TIMES',  # *
+             'DIVIDE',  # /
+             'MODULUS',  # %
 
-    # Arithmetic Assignment Operators
-    'EQUAL',  # =
-    'PLUS_EQUAL',  # +=
-    'MINUS_EQUAL',  # -=
-    'TIMES_EQUAL',  # *=
-    'DIV_EQUAL',  # /=
-    'MOD_EQUAL',  # %=
+             # Arithmetic Assignment Operators
+             'EQUAL',  # =
+             'PLUS_EQUAL',  # +=
+             'MINUS_EQUAL',  # -=
+             'TIMES_EQUAL',  # *=
+             'DIV_EQUAL',  # /=
+             'MOD_EQUAL',  # %=
 
-    # Bitwise Assignment Operators
-    'AND_EQUAL',  # &=
-    'OR_EQUAL',  # |=
-    'XOR_EQUAL',  # ^=
-    'COMPLEMENT_EQUAL',  # ~=
-    'SHIFTL_EQUAL',  # <<=
-    'SHIFTR_EQUAL',  # >>=
+             # Bitwise Assignment Operators
+             'AND_EQUAL',  # &=
+             'OR_EQUAL',  # |=
+             'XOR_EQUAL',  # ^=
+             'COMPLEMENT_EQUAL',  # ~=
+             'SHIFTL_EQUAL',  # <<=
+             'SHIFTR_EQUAL',  # >>=
 
-    # Comparison Operators
-    'EQUAL_TO',  # ==
-    'NOT_EQUAL',  # !=
-    'GREATER_THAN',  # >
-    'LESS_THAN',  # <
-    'GREATER_EQUAL',  # >=
-    'LESS_EQUAL',  # <=
+             # Comparison Operators
+             'EQUAL_TO',  # ==
+             'NOT_EQUAL',  # !=
+             'GREATER_THAN',  # >
+             'LESS_THAN',  # <
+             'GREATER_EQUAL',  # >=
+             'LESS_EQUAL',  # <=
 
-    # Logical Operators
-    'AND',  # &&
-    'OR',  # ||
-    'NOT',  # !
+             # Logical Operators
+             'AND',  # &&
+             'OR',  # ||
+             'NOT',  # !
 
-    # Bitwise Operators
-    'B_AND',  # &
-    'B_OR',  # |
-    'B_XOR',  # ^
-    'B_COMPLEMENT',  # ~
-    'SHIFT_LEFT',  # <<
-    'SHIFT_RIGHT',  # >>
+             # Bitwise Operators
+             'B_AND',  # &
+             'B_OR',  # |
+             'B_XOR',  # ^
+             'B_COMPLEMENT',  # ~
+             'SHIFT_LEFT',  # <<
+             'SHIFT_RIGHT',  # >>
 
-    # Groups
-    'LPAREN',  # (
-    'RPAREN',  # )
-    'LBRACKET',  # [
-    'RBRACKET',  # ]
-    'LCURL_BRACE',  # {
-    'RCURL_BRACE',  # }
+             # Groups
+             'LPAREN',  # (
+             'RPAREN',  # )
+             'LBRACKET',  # [
+             'RBRACKET',  # ]
+             'LCURL_BRACE',  # {
+             'RCURL_BRACE',  # }
 
-    # Values
-    'VARNAME',  # Variables
-    'INTEGER',
-    'DECIMAL',
-    'CHARACTER',
-    'STRING',
+             # Values
+             'VARNAME',  # Variables
+             'INTEGER',
+             'DECIMAL',
+             'CHARACTER',
+             'STRING',
 
-    # Miscellaneous
-    'SINGLE_QUOTE',
-    'DOUBLE_QUOTE',
-    'COLON',  # :
-    'SEMICOLON',  # ;
-    'DOT',  # .
-    'COMMA',  # ,
-    'QUESTIONMARK',  # ?
-    'AMPERSAND',  # &
-    'TILDE',  # ~
-    'COMMENT',  # // y /** */
-    'IGNORE',
+             # Miscellaneous
+             'SINGLE_QUOTE',
+             'DOUBLE_QUOTE',
+             'COLON',  # :
+             'SEMICOLON',  # ;
+             'DOT',  # .
+             'COMMA',  # ,
+             'QUESTIONMARK',  # ?
+             'AMPERSAND',  # &
+             'TILDE',  # ~
+             'COMMENT',  # // y /** */
+             'IGNORE',
+            # START PAUL SORIA
+             # Preprocessor Directives
+             'PP_INCLUDE',  # #include
+             'PP_DEFINE',  # #define
+             'PP_UNDEF',  # #undef
+             'PP_IF',  # #if
+             'PP_IFDEF',  # #ifdef
+             'PP_IFNDEF',  # #ifndef
+             'PP_ERROR',  # error
+             'PP_PRAGMA',  # pragma
+             # Preprocessor Macros
+             'PP_FILE',  # __FILE__
+             'PP_LINE',  # __LINE__
+             'PP_DATE',  # __DATE__
+             'PP_TIME',  # __TIME__
+             'PP_TIMESTAMP',  # __TIMESTAMP__
+             'PP_STMACRO',  # # single token macro
+             'PP_DTMACRO',  # ## double token macro
+             'HEADER_LIB',  # <stdio.h> || "lib.h"
 
-    # Preprocessor Directives
-    'PP_INCLUDE',  # #include
-    'PP_DEFINE',  # #define
-    'PP_UNDEF',  # #undef
-    'PP_IF',  # #if
-    'PP_IFDEF',  # #ifdef
-    'PP_IFNDEF',  # #ifndef
-    'PP_ERROR',  # error
-    'PP_PRAGMA',  # pragma
-    # Preprocessor Macros
-    'PP_FILE',  # __FILE__
-    'PP_LINE',  # __LINE__
-    'PP_DATE',  # __DATE__
-    'PP_TIME',  # __TIME__
-    'PP_TIMESTAMP',  # __TIMESTAMP__
-    'PP_STMACRO',  # # single token macro
-    'PP_DTMACRO',  # ## double token macro
-    'HEADER_LIB',  # <stdio.h> || "lib.h"
+             # Format specifiers
+             'FS_CHAR',  # %c
+             'FS_INT',  # %d | %i
+             'FS_LONG',  # %ld | %D
+             'FS_FLOAT',  # %f
+             'FS_SCI_NOTATION',  # %e | %E | %g | %G
+             'FS_STRING',  # %s
+             'FS_UNSIGNED_INT',  # %u
+             'FS_UNSIGNED_LONG',  # %lu | %U
+             'FS_OCT',  # %o
+             'FS_HEX',  # %x | %X
+             'FS_POINTER',  # %p
+             'FS_OCT_LONG',  # %lo | %O
+             'FS_DOUBLE',  # %lf
+             'FS_LONG_DOUBLE',  # %LF
 
-    # Format specifiers
-    'FS_CHAR',  # %c
-    'FS_INT',  # %d | %i
-    'FS_LONG',  # %ld | %D
-    'FS_FLOAT',  # %f
-    'FS_SCI_NOTATION',  # %e | %E | %g | %G
-    'FS_STRING',  # %s
-    'FS_UNSIGNED_INT',  # %u
-    'FS_UNSIGNED_LONG',  # %lu | %U
-    'FS_OCT',  # %o
-    'FS_HEX',  # %x | %X
-    'FS_POINTER',  # %p
-    'FS_OCT_LONG',  # %lo | %O
-    'FS_DOUBLE',  # %lf
-    'FS_LONG_DOUBLE',  # %LF
-
-    # Secuencias de escape
-    'NEWLINE',  # \n
-    'BACKSPACE',  # \b
-    'HTAB',  # \t
-    'VTAB',  # \v
-    'BACKSLASH',  # \\
-    'FF_PAGEBREAK',  # \f
-    'SINGLE_APOS',  # \'
-    'DOUBLE_APOS',  # \"
-    'NULL',  # \0 end of line
-) + tuple(reserved.values())
+             # Secuencias de escape
+             'NEWLINE',  # \n
+             'BACKSPACE',  # \b
+             'HTAB',  # \t
+             'VTAB',  # \v
+             'BACKSLASH',  # \\
+             'FF_PAGEBREAK',  # \f
+             'SINGLE_APOS',  # \'
+             'DOUBLE_APOS',  # \"
+             'NULL',  # \0 end of line
+            # END PAUL SORIA
+         ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
 
+# START PAUL SORIA
 # Arithmetic Operators
 t_PLUS = r'\+'
 t_MINUS = r'-'
@@ -189,6 +195,7 @@ t_MINUS_EQUAL = r'-='
 t_TIMES_EQUAL = r'\*='
 t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
+# END PAUL SORIA
 
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
@@ -219,6 +226,7 @@ t_B_COMPLEMENT = r'\~'
 t_SHIFT_LEFT = r'\<\<'
 t_SHIFT_RIGHT = r'\>\>'
 
+# START PAUL SORIA
 # Groups
 t_LPAREN = r'\('
 t_RPAREN = r'\)'
@@ -226,13 +234,15 @@ t_LBRACKET = r'\['
 t_RBRACKET = r'\]'
 t_LCURL_BRACE = r'\{'
 t_RCURL_BRACE = r'\}'
+# END PAUL SORIA
+
 
 # Values
 t_VARNAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_INTEGER = r'[0-9]+'
 t_DECIMAL = r'[0-9]*\.[0-9]+'
 t_CHARACTER = r'\'\w+\''
-t_STRING = r'\".*\"'
+# t_STRING = r'\".*\"'
 
 # Miscellaneous
 t_SINGLE_QUOTE = r'\''
@@ -244,9 +254,10 @@ t_COMMA = r'\,'
 t_QUESTIONMARK = r'\?'
 t_AMPERSAND = r'\&'
 t_TILDE = r'\~'
-#t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
+# t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
 t_ignore = " \t"
 
+# START PAUL SORIA
 # Preprocessor Directives
 t_PP_INCLUDE = r'\#include'
 t_PP_DEFINE = r'\#define'
@@ -262,37 +273,49 @@ t_PP_LINE = r'__LINE__'
 t_PP_DATE = r'__DATE__'
 t_PP_TIME = r'__TIME__'
 t_PP_TIMESTAMP = r'__TIMESTAMP__'
-t_PP_STMACRO = r'\S+\s\S+' # Single token Macro
-t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
+
+# END PAUL SORIA
+
+
+# START JUAN PITA
+
+# t_PP_STMACRO = r'\S+\s\S+'  # Single token Macro
+# t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
 
 t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"|\'[a-z\_\/]+\.h\''
 
+# END JUAN PITA
+
+# START PAUL SORIA
 # Format specifiers
-t_FS_CHAR          = r'\%c'
-t_FS_INT           = r'\%d|\%i'
-t_FS_LONG          = r'\%ld|\%D'
-t_FS_FLOAT         = r'\%f'
-t_FS_SCI_NOTATION  = r'\%e|\%E|\%g|\%G'
-t_FS_STRING        = r'\%s'
-t_FS_UNSIGNED_INT  = r'\%u'
+t_FS_CHAR = r'\%c'
+t_FS_INT = r'\%d|\%i'
+t_FS_LONG = r'\%ld|\%D'
+t_FS_FLOAT = r'\%f'
+t_FS_SCI_NOTATION = r'\%e|\%E|\%g|\%G'
+t_FS_STRING = r'\%s'
+t_FS_UNSIGNED_INT = r'\%u'
 t_FS_UNSIGNED_LONG = r'\%lu|\%U'
-t_FS_OCT           = r'\%o' 
-t_FS_HEX           = r'\%x|\%X'
-t_FS_POINTER       = r'\%p'
-t_FS_OCT_LONG      = r'\%lo|\%O'
-t_FS_DOUBLE        = r'\%lf'
-t_FS_LONG_DOUBLE   = r'\%LF'
+t_FS_OCT = r'\%o'
+t_FS_HEX = r'\%x|\%X'
+t_FS_POINTER = r'\%p'
+t_FS_OCT_LONG = r'\%lo|\%O'
+t_FS_DOUBLE = r'\%lf'
+t_FS_LONG_DOUBLE = r'\%LF'
 
 # Secuencias de escape
 t_NEWLINE = r'\\n'
 t_BACKSPACE = r'\\b'
 t_HTAB = r'\\t'
-t_VTAB = r'\\v' 
-t_BACKSLASH  = r'\\\\'
+t_VTAB = r'\\v'
+t_BACKSLASH = r'\\\\'
 t_FF_PAGEBREAK = r'\\f'  # Formfeed Page Break
 t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
-t_NULL = r'\\0' # end of line or null
+t_NULL = r'\\0'  # end of line or null
+
+# END PAUL SORIA
+
 
 def t_lineCounter(t):
     r'\n+'
@@ -303,6 +326,18 @@ def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
     r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
     t.type = reserved.get(t.value, "COMMENT")
+    return t
+
+# START PAUL SORIA
+def t_VARIABLE(t):
+    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    t.type = reserved.get(t.value, "VARNAME")
+    return t
+# END PAUL SORIA
+
+def t_STRING(t):
+    r'\".*\"'
+    t.value = t.value[1:-1]
     return t
 
 
@@ -323,7 +358,7 @@ def getTokens(lexer):
 
 
 line = " "
-code = open("tests/little.c")
+code = open("tests/keylogger.c")
 for line in code:
     validador.input(line)
     getTokens(validador)
