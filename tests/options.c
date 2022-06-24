@@ -3,7 +3,7 @@
 #include <stdlib.h> // exit
 #include <string.h>
 
-#include "options.h"
+#include "options.c"
 #include "util.h"
 
 #define VERSION "0.0.1"

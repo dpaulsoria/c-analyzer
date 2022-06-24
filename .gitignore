@@ -1,0 +1,6 @@
+node_modules/**/*
+*.DS_Store
+*.orig.*
+yarn-error.log
+package.json
+
