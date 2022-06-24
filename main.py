@@ -178,6 +178,7 @@ tokens = (
 
          ) + tuple(reserved.values())
 
+#START GABRIELA RAMOS
 # Regular expression rules for simple tokens
 
 # Arithmetic Operators
@@ -195,7 +196,6 @@ t_TIMES_EQUAL = r'\*='
 t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
 
-#START GABRIELA RAMOS
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
 t_OR_EQUAL = r'\|='
@@ -224,7 +224,6 @@ t_B_XOR = r'\^'
 t_B_COMPLEMENT = r'\~'
 t_SHIFT_LEFT = r'\<\<'
 t_SHIFT_RIGHT = r'\>\>'
-#END GABRIELA RAMOS
 
 # Groups
 t_LPAREN = r'\('
@@ -303,20 +302,17 @@ t_FF_PAGEBREAK = r'\\f'  # Formfeed Page Break
 t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
 t_NULL = r'\\0'  # end of line or null
-
-
+#END GABRIELA RAMOS
 
 def t_lineCounter(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
-#START GABRIELA RAMOS
 def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
     r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
     t.type = reserved.get(t.value, "COMMENT")
     return t
-#END GABRIELA RAMOS
 
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
@@ -331,7 +327,7 @@ def t_STRING(t):
 # END PAUL SORIA
 
 def t_error(t):
-    print("    ¡ALERT! Unknown character {t.value[0]} in line {t.lineno}")
+    print(f"    ¡ALERT! Unknown character {t.value[0]} in line {t.lineno}")
     t.lexer.skip(1)
 
 
