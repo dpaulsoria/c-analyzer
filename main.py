@@ -1,6 +1,6 @@
-import re
-
+# -*- coding: utf-8 -*-
 import ply.lex as lexical
+
 
 # List of key/reserved words
 
@@ -197,6 +197,7 @@ t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
 # END PAUL SORIA
 
+#START GABRIELA RAMOS
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
 t_OR_EQUAL = r'\|='
@@ -225,6 +226,7 @@ t_B_XOR = r'\^'
 t_B_COMPLEMENT = r'\~'
 t_SHIFT_LEFT = r'\<\<'
 t_SHIFT_RIGHT = r'\>\>'
+#END GABRIELA RAMOS
 
 # START PAUL SORIA
 # Groups
@@ -321,12 +323,13 @@ def t_lineCounter(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
-
+#START GABRIELA RAMOS
 def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
     r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
     t.type = reserved.get(t.value, "COMMENT")
     return t
+#END GABRIELA RAMOS
 
 # START PAUL SORIA
 def t_VARIABLE(t):
@@ -335,6 +338,7 @@ def t_VARIABLE(t):
     return t
 # END PAUL SORIA
 
+
 def t_STRING(t):
     r'\".*\"'
     t.value = t.value[1:-1]
@@ -342,12 +346,11 @@ def t_STRING(t):
 
 
 def t_error(t):
-    print(f"    ¡ALERT! Unknown character --> {t.value[0]} <-- in line {t.lineno}")
+    print("    ¡ALERT! Unknown character {t.value[0]} in line {t.lineno}")
     t.lexer.skip(1)
 
 
 validador = lexical.lex()
-
 
 def getTokens(lexer):
     while True:
