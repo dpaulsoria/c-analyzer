@@ -3,7 +3,7 @@ import ply.lex as lexical
 
 
 # List of key/reserved words
-
+# START PAUL SORIA
 reserved = {
     # Control Structures
     "if": "IF",
@@ -37,7 +37,6 @@ reserved = {
     "enum": "ENUM",
     "union": "UNION",
 
-    # START PAUL SORIA
     # Data Type Properties
     "unsigned": "UNSIGNED",
     "signed": "SIGNED",
@@ -52,8 +51,9 @@ reserved = {
 
     # Unary Operators
     "sizeof": "SIZEOF",
-    # END PAUL SORIA
 }
+
+# END PAUL SORIA
 
 # List of token names
 
@@ -323,13 +323,12 @@ def t_VARIABLE(t):
     t.type = reserved.get(t.value, "VARNAME")
     return t
 
-
-
+# START PAUL SORIA
 def t_STRING(t):
     r'\".*\"'
     t.value = t.value[1:-1]
     return t
-
+# END PAUL SORIA
 
 def t_error(t):
     print("    ¡ALERT! Unknown character {t.value[0]} in line {t.lineno}")
