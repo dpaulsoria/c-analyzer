@@ -2,8 +2,9 @@
 import ply.lex as lexical
 
 
-# List of key/reserved words
 # START PAUL SORIA
+
+# List of key/reserved words
 reserved = {
     # Control Structures
     "if": "IF",
@@ -55,130 +56,135 @@ reserved = {
 
 # END PAUL SORIA
 
+# START JUAN PITA
+
 # List of token names
 
 tokens = (
-             # Arithmetic Operators
-             'PLUS',  # +
-             'MINUS',  # -
-             'TIMES',  # *
-             'DIVIDE',  # /
-             'MODULUS',  # %
+    # Arithmetic Operators
+    'PLUS',  # +
+    'MINUS',  # -
+    'TIMES',  # *
+    'DIVIDE',  # /
+    'MODULUS',  # %
 
-             # Arithmetic Assignment Operators
-             'EQUAL',  # =
-             'PLUS_EQUAL',  # +=
-             'MINUS_EQUAL',  # -=
-             'TIMES_EQUAL',  # *=
-             'DIV_EQUAL',  # /=
-             'MOD_EQUAL',  # %=
+    # Arithmetic Assignment Operators
+    'EQUAL',  # =
+    'PLUS_EQUAL',  # +=
+    'MINUS_EQUAL',  # -=
+    'TIMES_EQUAL',  # *=
+    'DIV_EQUAL',  # /=
+    'MOD_EQUAL',  # %=
 
-             # Bitwise Assignment Operators
-             'AND_EQUAL',  # &=
-             'OR_EQUAL',  # |=
-             'XOR_EQUAL',  # ^=
-             'COMPLEMENT_EQUAL',  # ~=
-             'SHIFTL_EQUAL',  # <<=
-             'SHIFTR_EQUAL',  # >>=
+    # Bitwise Assignment Operators
+    'AND_EQUAL',  # &=
+    'OR_EQUAL',  # |=
+    'XOR_EQUAL',  # ^=
+    'COMPLEMENT_EQUAL',  # ~=
+    'SHIFTL_EQUAL',  # <<=
+    'SHIFTR_EQUAL',  # >>=
 
-             # Comparison Operators
-             'EQUAL_TO',  # ==
-             'NOT_EQUAL',  # !=
-             'GREATER_THAN',  # >
-             'LESS_THAN',  # <
-             'GREATER_EQUAL',  # >=
-             'LESS_EQUAL',  # <=
+    # Comparison Operators
+    'EQUAL_TO',  # ==
+    'NOT_EQUAL',  # !=
+    'GREATER_THAN',  # >
+    'LESS_THAN',  # <
+    'GREATER_EQUAL',  # >=
+    'LESS_EQUAL',  # <=
 
-             # Logical Operators
-             'AND',  # &&
-             'OR',  # ||
-             'NOT',  # !
+    # Logical Operators
+    'AND',  # &&
+    'OR',  # ||
+    'NOT',  # !
 
-             # Bitwise Operators
-             'B_AND',  # &
-             'B_OR',  # |
-             'B_XOR',  # ^
-             'B_COMPLEMENT',  # ~
-             'SHIFT_LEFT',  # <<
-             'SHIFT_RIGHT',  # >>
+    # Bitwise Operators
+    'B_AND',  # &
+    'B_OR',  # |
+    'B_XOR',  # ^
+    'B_COMPLEMENT',  # ~
+    'SHIFT_LEFT',  # <<
+    'SHIFT_RIGHT',  # >>
 
-             # Groups
-             'LPAREN',  # (
-             'RPAREN',  # )
-             'LBRACKET',  # [
-             'RBRACKET',  # ]
-             'LCURL_BRACE',  # {
-             'RCURL_BRACE',  # }
+    # Groups
+    'LPAREN',  # (
+    'RPAREN',  # )
+    'LBRACKET',  # [
+    'RBRACKET',  # ]
+    'LCURL_BRACE',  # {
+    'RCURL_BRACE',  # }
 
-             # Values
-             'VARNAME',  # Variables
-             'INTEGER',
-             'DECIMAL',
-             'CHARACTER',
-             'STRING',
+    # Values
+    'VARNAME',  # Variables
+    'INTEGER',
+    'DECIMAL',
+    'CHARACTER',
+    'STRING',
 
-             # Miscellaneous
-             'SINGLE_QUOTE',
-             'DOUBLE_QUOTE',
-             'COLON',  # :
-             'SEMICOLON',  # ;
-             'DOT',  # .
-             'COMMA',  # ,
-             'QUESTIONMARK',  # ?
-             'AMPERSAND',  # &
-             'TILDE',  # ~
-             'COMMENT',  # // y /** */
-             'IGNORE',
+    # Miscellaneous
+    'SINGLE_QUOTE',
+    'DOUBLE_QUOTE',
+    'COLON',  # :
+    'SEMICOLON',  # ;
+    'DOT',  # .
+    'COMMA',  # ,
+    'QUESTIONMARK',  # ?
+    'AMPERSAND',  # &
+    'TILDE',  # ~
+    'COMMENT',  # // y /** */
+    'IGNORE',
 
-             # Preprocessor Directives
-             'PP_INCLUDE',  # #include
-             'PP_DEFINE',  # #define
-             'PP_UNDEF',  # #undef
-             'PP_IF',  # #if
-             'PP_IFDEF',  # #ifdef
-             'PP_IFNDEF',  # #ifndef
-             'PP_ERROR',  # error
-             'PP_PRAGMA',  # pragma
-             # Preprocessor Macros
-             'PP_FILE',  # __FILE__
-             'PP_LINE',  # __LINE__
-             'PP_DATE',  # __DATE__
-             'PP_TIME',  # __TIME__
-             'PP_TIMESTAMP',  # __TIMESTAMP__
-             'PP_STMACRO',  # # single token macro
-             'PP_DTMACRO',  # ## double token macro
-             'HEADER_LIB',  # <stdio.h> || "lib.h"
+    # Preprocessor Directives
+    'PP_INCLUDE',  # #include
+    'PP_DEFINE',  # #define
+    'PP_UNDEF',  # #undef
+    'PP_IF',  # #if
+    'PP_IFDEF',  # #ifdef
+    'PP_IFNDEF',  # #ifndef
+    'PP_ERROR',  # error
+    'PP_PRAGMA',  # pragma
+    # Preprocessor Macros
+    'PP_FILE',  # __FILE__
+    'PP_LINE',  # __LINE__
+    'PP_DATE',  # __DATE__
+    'PP_TIME',  # __TIME__
+    'PP_TIMESTAMP',  # __TIMESTAMP__
+    'PP_STMACRO',  # # single token macro
+    'PP_DTMACRO',  # ## double token macro
+    'HEADER_LIB',  # <stdio.h> || "lib.h"
 
-             # Format specifiers
-             'FS_CHAR',  # %c
-             'FS_INT',  # %d | %i
-             'FS_LONG',  # %ld | %D
-             'FS_FLOAT',  # %f
-             'FS_SCI_NOTATION',  # %e | %E | %g | %G
-             'FS_STRING',  # %s
-             'FS_UNSIGNED_INT',  # %u
-             'FS_UNSIGNED_LONG',  # %lu | %U
-             'FS_OCT',  # %o
-             'FS_HEX',  # %x | %X
-             'FS_POINTER',  # %p
-             'FS_OCT_LONG',  # %lo | %O
-             'FS_DOUBLE',  # %lf
-             'FS_LONG_DOUBLE',  # %LF
+    # Format specifiers
+    'FS_CHAR',  # %c
+    'FS_INT',  # %d | %i
+    'FS_LONG',  # %ld | %D
+    'FS_FLOAT',  # %f
+    'FS_SCI_NOTATION',  # %e | %E | %g | %G
+    'FS_STRING',  # %s
+    'FS_UNSIGNED_INT',  # %u
+    'FS_UNSIGNED_LONG',  # %lu | %U
+    'FS_OCT',  # %o
+    'FS_HEX',  # %x | %X
+    'FS_POINTER',  # %p
+    'FS_OCT_LONG',  # %lo | %O
+    'FS_DOUBLE',  # %lf
+    'FS_LONG_DOUBLE',  # %LF
 
-             # Secuencias de escape
-             'NEWLINE',  # \n
-             'BACKSPACE',  # \b
-             'HTAB',  # \t
-             'VTAB',  # \v
-             'BACKSLASH',  # \\
-             'FF_PAGEBREAK',  # \f
-             'SINGLE_APOS',  # \'
-             'DOUBLE_APOS',  # \"
-             'NULL',  # \0 end of line
+    # Secuencias de escape
+    'NEWLINE',  # \n
+    'BACKSPACE',  # \b
+    'HTAB',  # \t
+    'VTAB',  # \v
+    'BACKSLASH',  # \\
+    'FF_PAGEBREAK',  # \f
+    'SINGLE_APOS',  # \'
+    'DOUBLE_APOS',  # \"
+    'NULL',  # \0 end of line
 
-         ) + tuple(reserved.values())
+) + tuple(reserved.values())
+
+# END JUAN PITA
 
 #START GABRIELA RAMOS
+
 # Regular expression rules for simple tokens
 
 # Arithmetic Operators
@@ -302,22 +308,27 @@ t_FF_PAGEBREAK = r'\\f'  # Formfeed Page Break
 t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
 t_NULL = r'\\0'  # end of line or null
+
 #END GABRIELA RAMOS
 
 def t_lineCounter(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
+# START GABRIELA RAMOS
 def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
     r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
     t.type = reserved.get(t.value, "COMMENT")
     return t
+# END GABRIELA RAMOS
 
+# START JUAN PITA
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, "VARNAME")
     return t
+# END JUAN PITA
 
 # START PAUL SORIA
 def t_STRING(t):
