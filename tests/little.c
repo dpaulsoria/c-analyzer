@@ -2,18 +2,5 @@
 
 #define VERSION 10
 
-~
-&
-|
-^
-&&
-<<
->>
->>=
-<<=
-/**
- * Opens the keyboard device file
- *
- * @param  deviceFile   the path to the keyboard device file
- * @return              the file descriptor on success, error code on failure
- */
+LOG_ERROR("%s", strerror(errno));
+LOG_ERROR("Could not open log file");

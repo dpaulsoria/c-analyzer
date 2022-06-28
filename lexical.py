@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+import re
+
 import ply.lex as lexical
 
 
@@ -283,20 +285,20 @@ t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"|\'[a-z\_\/]+\.h\''
 
 
 # Format specifiers
-t_FS_CHAR = r'\%c'
-t_FS_INT = r'\%d|\%i'
-t_FS_LONG = r'\%ld|\%D'
-t_FS_FLOAT = r'\%f'
-t_FS_SCI_NOTATION = r'\%e|\%E|\%g|\%G'
-t_FS_STRING = r'\%s'
-t_FS_UNSIGNED_INT = r'\%u'
-t_FS_UNSIGNED_LONG = r'\%lu|\%U'
-t_FS_OCT = r'\%o'
-t_FS_HEX = r'\%x|\%X'
-t_FS_POINTER = r'\%p'
-t_FS_OCT_LONG = r'\%lo|\%O'
-t_FS_DOUBLE = r'\%lf'
-t_FS_LONG_DOUBLE = r'\%LF'
+t_FS_CHAR = r'%c'
+t_FS_INT = r'%d|%i'
+t_FS_LONG = r'%ld|%D'
+t_FS_FLOAT = r'%f'
+t_FS_SCI_NOTATION = r'%e|%E|%g|%G'
+t_FS_STRING = r'%s'
+t_FS_UNSIGNED_INT = r'%u'
+t_FS_UNSIGNED_LONG = r'%lu|%U'
+t_FS_OCT = r'%o'
+t_FS_HEX = r'%x|%X'
+t_FS_POINTER = r'%p'
+t_FS_OCT_LONG = r'%lo|%O'
+t_FS_DOUBLE = r'%lf'
+t_FS_LONG_DOUBLE = r'%LF'
 
 # Secuencias de escape
 t_NEWLINE = r'\\n'
@@ -339,9 +341,46 @@ def t_VARIABLE(t):
 
 
 def t_STRING(t):
-    r"""\".*\\"""
+    r"""\".*\""""
     t.value = t.value[1:-1]
+    result_specifier = verify_format_spec(t.value)
+    if result_specifier[0]:
+        t.type = reserved.get(t.value, result_specifier[1])
+    else:
+        t.type = reserved.get(t.value, 'STRING')
     return t
+
+
+def verify_format_spec(value):
+    if bool(re.match(value, t_FS_CHAR)):
+        return True, 'FS_CHAR'
+    elif bool(re.match(value, t_FS_INT)):
+        return True, 'FS_INT'
+    elif bool(re.match(value, t_FS_LONG)):
+        return True, 'FS_LONG'
+    elif bool(re.match(value, t_FS_SCI_NOTATION)):
+        return True, 'FS_SCI_NOTATION'
+    elif bool(re.match(value, t_FS_STRING)):
+        return True, 'FS_STRING'
+    elif bool(re.match(value, t_FS_UNSIGNED_INT)):
+        return True, 'FS_UNSIGNED_INT'
+    elif bool(re.match(value, t_FS_UNSIGNED_LONG)):
+        return True, 'FS_UNSIGNED_LONG'
+    elif bool(re.match(value, t_FS_OCT)):
+        return True, 'FS_OCT'
+    elif bool(re.match(value, t_FS_HEX)):
+        return True, 'FS_HEX'
+    elif bool(re.match(value, t_FS_POINTER)):
+        return True, 'FS_POINTER'
+    elif bool(re.match(value, t_FS_OCT_LONG)):
+        return True, 'FS_OCT_LONG'
+    elif bool(re.match(value, t_FS_DOUBLE)):
+        return True, 'FS_DOUBLE'
+    elif bool(re.match(value, t_FS_LONG_DOUBLE)):
+        return True, 'FS_LONG_DOUBLE'
+    else:
+        return False, None
+
 # END PAUL SORIA
 
 
@@ -350,7 +389,7 @@ def t_error(t):
     t.lexer.skip(1)
 
 
-validador = lexical.lex()
+validator = lexical.lex()
 
 
 def getTokens(lexer):
@@ -362,10 +401,11 @@ def getTokens(lexer):
 
 
 line = " "
-code = open("tests/keylogger.c")
+code = open("tests/little.c")
 for line in code:
-    validador.input(line)
-    getTokens(validador)
+    print(">>>", line)
+    validator.input(line)
+    getTokens(validator)
 code.close()
 
 print("End... :)")
