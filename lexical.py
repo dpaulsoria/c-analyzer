@@ -313,7 +313,7 @@ t_NULL = r'\\0'  # end of line or null
 
 
 def t_lineCounter(t):
-    r'\n+'
+    r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
 
 # START GABRIELA RAMOS
@@ -321,7 +321,7 @@ def t_lineCounter(t):
 
 def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
-    r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
+    r"""\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/"""
     t.type = reserved.get(t.value, "COMMENT")
     return t
 # END GABRIELA RAMOS
@@ -330,7 +330,7 @@ def t_COMMENT(t):
 
 
 def t_VARIABLE(t):
-    r'[a-zA-Z_][a-zA-Z0-9_]*'
+    r"""[a-zA-Z_][a-zA-Z0-9_]*"""
     t.type = reserved.get(t.value, "VARNAME")
     return t
 # END JUAN PITA
@@ -339,7 +339,7 @@ def t_VARIABLE(t):
 
 
 def t_STRING(t):
-    r'\".*\"'
+    r"""\".*\\"""
     t.value = t.value[1:-1]
     return t
 # END PAUL SORIA
