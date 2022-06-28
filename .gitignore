@@ -6,5 +6,4 @@ node_modules/**/*
 *.lock
 ply/*
 ply
-functions.py
-screen.py
+GUI/*
