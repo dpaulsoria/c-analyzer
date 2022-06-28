@@ -64,5 +64,7 @@ def syntax():
 
 
 def syntactic_analyzer(data):
-    result = parser.parse(data)
-    return result
+    return parser.parse(data)
+
+
+syntax()

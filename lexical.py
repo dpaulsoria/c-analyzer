@@ -3,7 +3,6 @@ import re
 
 import ply.lex as lexical
 
-
 # START PAUL SORIA
 
 # List of key/reserved words
@@ -241,7 +240,6 @@ t_RBRACKET = r'\]'
 t_LCURL_BRACE = r'\{'
 t_RCURL_BRACE = r'\}'
 
-
 # Values
 t_VARNAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_INTEGER = r'[0-9]+'
@@ -260,7 +258,7 @@ t_QUESTIONMARK = r'\?'
 t_AMPERSAND = r'\&'
 t_TILDE = r'\~'
 # t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
-t_ignore = " \t"
+t_ignore = "\t"
 
 # Preprocessor Directives
 t_PP_INCLUDE = r'\#include'
@@ -282,7 +280,6 @@ t_PP_TIMESTAMP = r'__TIMESTAMP__'
 # t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
 
 t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"|\'[a-z\_\/]+\.h\''
-
 
 # Format specifiers
 t_FS_CHAR = r'%c'
@@ -311,12 +308,14 @@ t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
 t_NULL = r'\\0'  # end of line or null
 
+
 # END GABRIELA RAMOS
 
 
 def t_lineCounter(t):
     r"""\n+"""
     t.lexer.lineno += t.value.count("\n")
+
 
 # START GABRIELA RAMOS
 
@@ -326,6 +325,8 @@ def t_COMMENT(t):
     r"""\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/"""
     t.type = reserved.get(t.value, "COMMENT")
     return t
+
+
 # END GABRIELA RAMOS
 
 # START JUAN PITA
@@ -335,6 +336,8 @@ def t_VARIABLE(t):
     r"""[a-zA-Z_][a-zA-Z0-9_]*"""
     t.type = reserved.get(t.value, "VARNAME")
     return t
+
+
 # END JUAN PITA
 
 # START PAUL SORIA
@@ -381,6 +384,7 @@ def verify_format_spec(value):
     else:
         return False, None
 
+
 # END PAUL SORIA
 
 
@@ -403,7 +407,9 @@ def getTokens(lexer):
 line = " "
 code = open("tests/little.c")
 for line in code:
-    print(">>>", line)
+    print(">>>", line, len(line))
+    print(type(line))
+    print(bool(re.match(line, r'\t')))
     validator.input(line)
     getTokens(validator)
 code.close()
