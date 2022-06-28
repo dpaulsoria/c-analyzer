@@ -183,7 +183,7 @@ tokens = (
 
 # END JUAN PITA
 
-#START GABRIELA RAMOS
+# START GABRIELA RAMOS
 
 # Regular expression rules for simple tokens
 
@@ -309,13 +309,16 @@ t_SINGLE_APOS = r'\\\''
 t_DOUBLE_APOS = r'\\\"'
 t_NULL = r'\\0'  # end of line or null
 
-#END GABRIELA RAMOS
+# END GABRIELA RAMOS
+
 
 def t_lineCounter(t):
     r'\n+'
     t.lexer.lineno += t.value.count("\n")
 
 # START GABRIELA RAMOS
+
+
 def t_COMMENT(t):
     # r'\/\/.*|\/\*\*\s.*\s\*\/'
     r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
@@ -324,6 +327,8 @@ def t_COMMENT(t):
 # END GABRIELA RAMOS
 
 # START JUAN PITA
+
+
 def t_VARIABLE(t):
     r'[a-zA-Z_][a-zA-Z0-9_]*'
     t.type = reserved.get(t.value, "VARNAME")
@@ -331,11 +336,14 @@ def t_VARIABLE(t):
 # END JUAN PITA
 
 # START PAUL SORIA
+
+
 def t_STRING(t):
     r'\".*\"'
     t.value = t.value[1:-1]
     return t
 # END PAUL SORIA
+
 
 def t_error(t):
     print(f"    ¡ALERT! Unknown character {t.value[0]} in line {t.lineno}")
@@ -343,6 +351,7 @@ def t_error(t):
 
 
 validador = lexical.lex()
+
 
 def getTokens(lexer):
     while True:
