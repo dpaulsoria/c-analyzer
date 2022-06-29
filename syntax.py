@@ -1,4 +1,4 @@
-from lexical import tokens
+from lexicon import tokens
 import ply.yacc as yacc
 
 

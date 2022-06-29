@@ -1,0 +1,403 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AMPERSAND
+    AND
+    AND_EQUAL
+    AUTO
+    BACKSLASH
+    BACKSPACE
+    BREAK
+    B_AND
+    B_COMPLEMENT
+    B_OR
+    B_XOR
+    CASE
+    CHAR
+    CHARACTER
+    COLON
+    COMMA
+    COMPLEMENT_EQUAL
+    CONST
+    CONTINUE
+    DECIMAL
+    DEFAULT
+    DIV_EQUAL
+    DO
+    DOT
+    DOUBLE
+    DOUBLE_APOS
+    DOUBLE_QUOTE
+    ELSE
+    ELSEIF
+    ENUM
+    EQUAL
+    EQUAL_TO
+    EXTERN
+    FF_PAGEBREAK
+    FLOAT
+    FOR
+    FS_CHAR
+    FS_DOUBLE
+    FS_FLOAT
+    FS_HEX
+    FS_INT
+    FS_LONG
+    FS_LONG_DOUBLE
+    FS_OCT
+    FS_OCT_LONG
+    FS_POINTER
+    FS_SCI_NOTATION
+    FS_STRING
+    FS_UNSIGNED_INT
+    FS_UNSIGNED_LONG
+    GOTO
+    GREATER_EQUAL
+    GREATER_THAN
+    HEADER_LIB
+    HTAB
+    IF
+    IGNORE
+    INT
+    LBRACKET
+    LCURL_BRACE
+    LESS_EQUAL
+    LESS_THAN
+    LONG
+    LPAREN
+    MINUS_EQUAL
+    MOD_EQUAL
+    NEWLINE
+    NOT
+    NOT_EQUAL
+    NULL
+    OR
+    OR_EQUAL
+    PLUS_EQUAL
+    PP_DATE
+    PP_DEFINE
+    PP_DTMACRO
+    PP_ERROR
+    PP_FILE
+    PP_IF
+    PP_IFDEF
+    PP_IFNDEF
+    PP_INCLUDE
+    PP_LINE
+    PP_PRAGMA
+    PP_STMACRO
+    PP_TIME
+    PP_TIMESTAMP
+    PP_UNDEF
+    QUESTIONMARK
+    RBRACKET
+    RCURL_BRACE
+    REGISTER
+    RETURN
+    RPAREN
+    SEMICOLON
+    SHIFTL_EQUAL
+    SHIFTR_EQUAL
+    SHIFT_LEFT
+    SHIFT_RIGHT
+    SHORT
+    SIGNED
+    SINGLE_APOS
+    SINGLE_QUOTE
+    SIZEOF
+    STATIC
+    STRING
+    STRUCT
+    SWITCH
+    TILDE
+    TIMES_EQUAL
+    TYPEDEF
+    UNION
+    UNSIGNED
+    VOID
+    VOLTILE
+    VTAB
+    WHILE
+    XOR_EQUAL
+
+Grammar
+
+Rule 0     S' -> EXPRESSION
+Rule 1     EXPRESSION -> COMENTARIOLEX
+Rule 2     EXPRESSION -> VARIABLELEX
+Rule 3     EXPRESSION -> SUMA
+Rule 4     COMENTARIOLEX -> COMMENT
+Rule 5     VARIABLELEX -> VARNAME
+Rule 6     OPERADOR -> PLUS
+Rule 7     OPERADOR -> MINUS
+Rule 8     OPERADOR -> TIMES
+Rule 9     OPERADOR -> MODULUS
+Rule 10    OPERADOR -> DIVIDE
+Rule 11    SUMA -> INTEGER OPERADOR INTEGER
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 
+AND                  : 
+AND_EQUAL            : 
+AUTO                 : 
+BACKSLASH            : 
+BACKSPACE            : 
+BREAK                : 
+B_AND                : 
+B_COMPLEMENT         : 
+B_OR                 : 
+B_XOR                : 
+CASE                 : 
+CHAR                 : 
+CHARACTER            : 
+COLON                : 
+COMMA                : 
+COMMENT              : 4
+COMPLEMENT_EQUAL     : 
+CONST                : 
+CONTINUE             : 
+DECIMAL              : 
+DEFAULT              : 
+DIVIDE               : 10
+DIV_EQUAL            : 
+DO                   : 
+DOT                  : 
+DOUBLE               : 
+DOUBLE_APOS          : 
+DOUBLE_QUOTE         : 
+ELSE                 : 
+ELSEIF               : 
+ENUM                 : 
+EQUAL                : 
+EQUAL_TO             : 
+EXTERN               : 
+FF_PAGEBREAK         : 
+FLOAT                : 
+FOR                  : 
+FS_CHAR              : 
+FS_DOUBLE            : 
+FS_FLOAT             : 
+FS_HEX               : 
+FS_INT               : 
+FS_LONG              : 
+FS_LONG_DOUBLE       : 
+FS_OCT               : 
+FS_OCT_LONG          : 
+FS_POINTER           : 
+FS_SCI_NOTATION      : 
+FS_STRING            : 
+FS_UNSIGNED_INT      : 
+FS_UNSIGNED_LONG     : 
+GOTO                 : 
+GREATER_EQUAL        : 
+GREATER_THAN         : 
+HEADER_LIB           : 
+HTAB                 : 
+IF                   : 
+IGNORE               : 
+INT                  : 
+INTEGER              : 11 11
+LBRACKET             : 
+LCURL_BRACE          : 
+LESS_EQUAL           : 
+LESS_THAN            : 
+LONG                 : 
+LPAREN               : 
+MINUS                : 7
+MINUS_EQUAL          : 
+MODULUS              : 9
+MOD_EQUAL            : 
+NEWLINE              : 
+NOT                  : 
+NOT_EQUAL            : 
+NULL                 : 
+OR                   : 
+OR_EQUAL             : 
+PLUS                 : 6
+PLUS_EQUAL           : 
+PP_DATE              : 
+PP_DEFINE            : 
+PP_DTMACRO           : 
+PP_ERROR             : 
+PP_FILE              : 
+PP_IF                : 
+PP_IFDEF             : 
+PP_IFNDEF            : 
+PP_INCLUDE           : 
+PP_LINE              : 
+PP_PRAGMA            : 
+PP_STMACRO           : 
+PP_TIME              : 
+PP_TIMESTAMP         : 
+PP_UNDEF             : 
+QUESTIONMARK         : 
+RBRACKET             : 
+RCURL_BRACE          : 
+REGISTER             : 
+RETURN               : 
+RPAREN               : 
+SEMICOLON            : 
+SHIFTL_EQUAL         : 
+SHIFTR_EQUAL         : 
+SHIFT_LEFT           : 
+SHIFT_RIGHT          : 
+SHORT                : 
+SIGNED               : 
+SINGLE_APOS          : 
+SINGLE_QUOTE         : 
+SIZEOF               : 
+STATIC               : 
+STRING               : 
+STRUCT               : 
+SWITCH               : 
+TILDE                : 
+TIMES                : 8
+TIMES_EQUAL          : 
+TYPEDEF              : 
+UNION                : 
+UNSIGNED             : 
+VARNAME              : 5
+VOID                 : 
+VOLTILE              : 
+VTAB                 : 
+WHILE                : 
+XOR_EQUAL            : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+COMENTARIOLEX        : 1
+EXPRESSION           : 0
+OPERADOR             : 11
+SUMA                 : 3
+VARIABLELEX          : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . EXPRESSION
+    (1) EXPRESSION -> . COMENTARIOLEX
+    (2) EXPRESSION -> . VARIABLELEX
+    (3) EXPRESSION -> . SUMA
+    (4) COMENTARIOLEX -> . COMMENT
+    (5) VARIABLELEX -> . VARNAME
+    (11) SUMA -> . INTEGER OPERADOR INTEGER
+
+    COMMENT         shift and go to state 5
+    VARNAME         shift and go to state 6
+    INTEGER         shift and go to state 7
+
+    EXPRESSION                     shift and go to state 1
+    COMENTARIOLEX                  shift and go to state 2
+    VARIABLELEX                    shift and go to state 3
+    SUMA                           shift and go to state 4
+
+state 1
+
+    (0) S' -> EXPRESSION .
+
+
+
+state 2
+
+    (1) EXPRESSION -> COMENTARIOLEX .
+
+    $end            reduce using rule 1 (EXPRESSION -> COMENTARIOLEX .)
+
+
+state 3
+
+    (2) EXPRESSION -> VARIABLELEX .
+
+    $end            reduce using rule 2 (EXPRESSION -> VARIABLELEX .)
+
+
+state 4
+
+    (3) EXPRESSION -> SUMA .
+
+    $end            reduce using rule 3 (EXPRESSION -> SUMA .)
+
+
+state 5
+
+    (4) COMENTARIOLEX -> COMMENT .
+
+    $end            reduce using rule 4 (COMENTARIOLEX -> COMMENT .)
+
+
+state 6
+
+    (5) VARIABLELEX -> VARNAME .
+
+    $end            reduce using rule 5 (VARIABLELEX -> VARNAME .)
+
+
+state 7
+
+    (11) SUMA -> INTEGER . OPERADOR INTEGER
+    (6) OPERADOR -> . PLUS
+    (7) OPERADOR -> . MINUS
+    (8) OPERADOR -> . TIMES
+    (9) OPERADOR -> . MODULUS
+    (10) OPERADOR -> . DIVIDE
+
+    PLUS            shift and go to state 9
+    MINUS           shift and go to state 10
+    TIMES           shift and go to state 11
+    MODULUS         shift and go to state 12
+    DIVIDE          shift and go to state 13
+
+    OPERADOR                       shift and go to state 8
+
+state 8
+
+    (11) SUMA -> INTEGER OPERADOR . INTEGER
+
+    INTEGER         shift and go to state 14
+
+
+state 9
+
+    (6) OPERADOR -> PLUS .
+
+    INTEGER         reduce using rule 6 (OPERADOR -> PLUS .)
+
+
+state 10
+
+    (7) OPERADOR -> MINUS .
+
+    INTEGER         reduce using rule 7 (OPERADOR -> MINUS .)
+
+
+state 11
+
+    (8) OPERADOR -> TIMES .
+
+    INTEGER         reduce using rule 8 (OPERADOR -> TIMES .)
+
+
+state 12
+
+    (9) OPERADOR -> MODULUS .
+
+    INTEGER         reduce using rule 9 (OPERADOR -> MODULUS .)
+
+
+state 13
+
+    (10) OPERADOR -> DIVIDE .
+
+    INTEGER         reduce using rule 10 (OPERADOR -> DIVIDE .)
+
+
+state 14
+
+    (11) SUMA -> INTEGER OPERADOR INTEGER .
+
+    $end            reduce using rule 11 (SUMA -> INTEGER OPERADOR INTEGER .)
+
