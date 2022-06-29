@@ -151,7 +151,7 @@ tokens = (
     'PP_TIMESTAMP',  # __TIMESTAMP__
     'PP_STMACRO',  # # single token macro
     'PP_DTMACRO',  # ## double token macro
-    'HEADER_LIB',  # <stdio.h> || "lib.h"
+    'HEADER_LIB',  # stdio.h || lib.h
 
     # Format specifiers
     'FS_CHAR',  # %c
@@ -258,7 +258,7 @@ t_QUESTIONMARK = r'\?'
 t_AMPERSAND = r'\&'
 t_TILDE = r'\~'
 # t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
-t_ignore = "\t"
+t_ignore = "\t | \s"
 
 # Preprocessor Directives
 t_PP_INCLUDE = r'\#include'
@@ -279,7 +279,7 @@ t_PP_TIMESTAMP = r'__TIMESTAMP__'
 # t_PP_STMACRO = r'\S+\s\S+'  # Single token Macro
 # t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
 
-t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"|\'[a-z\_\/]+\.h\''
+t_HEADER_LIB = r'[a-z\_\/]+\.h|[a-z\_\/]+\.h|[a-z\_\/]+\.h'
 
 # Format specifiers
 t_FS_CHAR = r'%c'
@@ -407,9 +407,9 @@ def getTokens(lexer):
 line = " "
 code = open("tests/little.c")
 for line in code:
-    print(">>>", line, len(line))
-    print(type(line))
-    print(bool(re.match(line, r'\t')))
+    # print(">>>", line, len(line))
+    # print(type(line))
+    # print(bool(re.match(line, r'\t')))
     validator.input(line)
     getTokens(validator)
 code.close()
