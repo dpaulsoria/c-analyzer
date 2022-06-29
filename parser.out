@@ -1,0 +1,665 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    AMPERSAND
+    AND
+    AND_EQUAL
+    AUTO
+    BACKSLASH
+    BACKSPACE
+    BREAK
+    B_AND
+    B_COMPLEMENT
+    B_OR
+    B_XOR
+    CASE
+    CHARACTER
+    COLON
+    COMMA
+    COMPLEMENT_EQUAL
+    CONST
+    CONTINUE
+    DEFAULT
+    DIV_EQUAL
+    DO
+    DOT
+    DOUBLE_QUOTE
+    ENUM
+    EQUAL_TO
+    EXTERN
+    FF_PAGEBREAK
+    FS_CHAR
+    FS_DOUBLE
+    FS_FLOAT
+    FS_HEX
+    FS_INT
+    FS_LONG
+    FS_LONG_DOUBLE
+    FS_OCT
+    FS_OCT_LONG
+    FS_POINTER
+    FS_SCI_NOTATION
+    FS_STRING
+    FS_UNSIGNED_INT
+    FS_UNSIGNED_LONG
+    GOTO
+    GREATER_EQUAL
+    HTAB
+    IGNORE
+    LBRACKET
+    LCURL_BRACE
+    LESS_EQUAL
+    LPAREN
+    MINUS_EQUAL
+    MOD_EQUAL
+    NEWLINE
+    NOT
+    NOT_EQUAL
+    NULL
+    OR
+    OR_EQUAL
+    PLUS_EQUAL
+    PP_DATE
+    PP_DEFINE
+    PP_DTMACRO
+    PP_ERROR
+    PP_FILE
+    PP_IF
+    PP_IFDEF
+    PP_IFNDEF
+    PP_LINE
+    PP_PRAGMA
+    PP_STMACRO
+    PP_TIME
+    PP_TIMESTAMP
+    PP_UNDEF
+    QUESTIONMARK
+    RBRACKET
+    RCURL_BRACE
+    REGISTER
+    RETURN
+    RPAREN
+    SEMICOLON
+    SHIFTL_EQUAL
+    SHIFTR_EQUAL
+    SHIFT_LEFT
+    SHIFT_RIGHT
+    SIGNED
+    SINGLE_APOS
+    SINGLE_QUOTE
+    SIZEOF
+    STATIC
+    STRING
+    STRUCT
+    TILDE
+    TIMES_EQUAL
+    TYPEDEF
+    UNION
+    UNSIGNED
+    VOID
+    VOLTILE
+    VTAB
+    XOR_EQUAL
+
+Grammar
+
+Rule 0     S' -> EXPRESSION
+Rule 1     EXPRESSION -> COMENTARIOLEX
+Rule 2     EXPRESSION -> VARIABLELEX
+Rule 3     EXPRESSION -> OPERATION
+Rule 4     EXPRESSION -> DECLARATION
+Rule 5     EXPRESSION -> SENTENCIAS
+Rule 6     EXPRESSION -> INCLUDE
+Rule 7     INCLUDE -> PP_INCLUDE LESS_THAN HEADER_LIB GREATER_THAN
+Rule 8     INCLUDE -> PP_INCLUDE DOUBLE_APOS HEADER_LIB DOUBLE_APOS
+Rule 9     VALUE -> INTEGER
+Rule 10    VALUE -> DECIMAL
+Rule 11    SENTENCIAS -> IF
+Rule 12    SENTENCIAS -> ELSEIF
+Rule 13    SENTENCIAS -> ELSE
+Rule 14    SENTENCIAS -> FOR
+Rule 15    SENTENCIAS -> WHILE
+Rule 16    SENTENCIAS -> SWITCH
+Rule 17    DATA_TYPE -> INT
+Rule 18    DATA_TYPE -> FLOAT
+Rule 19    DATA_TYPE -> LONG
+Rule 20    DATA_TYPE -> DOUBLE
+Rule 21    DATA_TYPE -> CHAR
+Rule 22    DATA_TYPE -> SHORT
+Rule 23    DECLARATION -> DATA_TYPE VARNAME EQUAL INTEGER
+Rule 24    COMENTARIOLEX -> COMMENT
+Rule 25    VARIABLELEX -> VARNAME
+Rule 26    OPERADOR -> PLUS
+Rule 27    OPERADOR -> MINUS
+Rule 28    OPERADOR -> TIMES
+Rule 29    OPERADOR -> MODULUS
+Rule 30    OPERADOR -> DIVIDE
+Rule 31    OPERATION -> VALUE OPERADOR VALUE
+
+Terminals, with rules where they appear
+
+AMPERSAND            : 
+AND                  : 
+AND_EQUAL            : 
+AUTO                 : 
+BACKSLASH            : 
+BACKSPACE            : 
+BREAK                : 
+B_AND                : 
+B_COMPLEMENT         : 
+B_OR                 : 
+B_XOR                : 
+CASE                 : 
+CHAR                 : 21
+CHARACTER            : 
+COLON                : 
+COMMA                : 
+COMMENT              : 24
+COMPLEMENT_EQUAL     : 
+CONST                : 
+CONTINUE             : 
+DECIMAL              : 10
+DEFAULT              : 
+DIVIDE               : 30
+DIV_EQUAL            : 
+DO                   : 
+DOT                  : 
+DOUBLE               : 20
+DOUBLE_APOS          : 8 8
+DOUBLE_QUOTE         : 
+ELSE                 : 13
+ELSEIF               : 12
+ENUM                 : 
+EQUAL                : 23
+EQUAL_TO             : 
+EXTERN               : 
+FF_PAGEBREAK         : 
+FLOAT                : 18
+FOR                  : 14
+FS_CHAR              : 
+FS_DOUBLE            : 
+FS_FLOAT             : 
+FS_HEX               : 
+FS_INT               : 
+FS_LONG              : 
+FS_LONG_DOUBLE       : 
+FS_OCT               : 
+FS_OCT_LONG          : 
+FS_POINTER           : 
+FS_SCI_NOTATION      : 
+FS_STRING            : 
+FS_UNSIGNED_INT      : 
+FS_UNSIGNED_LONG     : 
+GOTO                 : 
+GREATER_EQUAL        : 
+GREATER_THAN         : 7
+HEADER_LIB           : 7 8
+HTAB                 : 
+IF                   : 11
+IGNORE               : 
+INT                  : 17
+INTEGER              : 9 23
+LBRACKET             : 
+LCURL_BRACE          : 
+LESS_EQUAL           : 
+LESS_THAN            : 7
+LONG                 : 19
+LPAREN               : 
+MINUS                : 27
+MINUS_EQUAL          : 
+MODULUS              : 29
+MOD_EQUAL            : 
+NEWLINE              : 
+NOT                  : 
+NOT_EQUAL            : 
+NULL                 : 
+OR                   : 
+OR_EQUAL             : 
+PLUS                 : 26
+PLUS_EQUAL           : 
+PP_DATE              : 
+PP_DEFINE            : 
+PP_DTMACRO           : 
+PP_ERROR             : 
+PP_FILE              : 
+PP_IF                : 
+PP_IFDEF             : 
+PP_IFNDEF            : 
+PP_INCLUDE           : 7 8
+PP_LINE              : 
+PP_PRAGMA            : 
+PP_STMACRO           : 
+PP_TIME              : 
+PP_TIMESTAMP         : 
+PP_UNDEF             : 
+QUESTIONMARK         : 
+RBRACKET             : 
+RCURL_BRACE          : 
+REGISTER             : 
+RETURN               : 
+RPAREN               : 
+SEMICOLON            : 
+SHIFTL_EQUAL         : 
+SHIFTR_EQUAL         : 
+SHIFT_LEFT           : 
+SHIFT_RIGHT          : 
+SHORT                : 22
+SIGNED               : 
+SINGLE_APOS          : 
+SINGLE_QUOTE         : 
+SIZEOF               : 
+STATIC               : 
+STRING               : 
+STRUCT               : 
+SWITCH               : 16
+TILDE                : 
+TIMES                : 28
+TIMES_EQUAL          : 
+TYPEDEF              : 
+UNION                : 
+UNSIGNED             : 
+VARNAME              : 23 25
+VOID                 : 
+VOLTILE              : 
+VTAB                 : 
+WHILE                : 15
+XOR_EQUAL            : 
+error                : 
+
+Nonterminals, with rules where they appear
+
+COMENTARIOLEX        : 1
+DATA_TYPE            : 23
+DECLARATION          : 4
+EXPRESSION           : 0
+INCLUDE              : 6
+OPERADOR             : 31
+OPERATION            : 3
+SENTENCIAS           : 5
+VALUE                : 31 31
+VARIABLELEX          : 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . EXPRESSION
+    (1) EXPRESSION -> . COMENTARIOLEX
+    (2) EXPRESSION -> . VARIABLELEX
+    (3) EXPRESSION -> . OPERATION
+    (4) EXPRESSION -> . DECLARATION
+    (5) EXPRESSION -> . SENTENCIAS
+    (6) EXPRESSION -> . INCLUDE
+    (24) COMENTARIOLEX -> . COMMENT
+    (25) VARIABLELEX -> . VARNAME
+    (31) OPERATION -> . VALUE OPERADOR VALUE
+    (23) DECLARATION -> . DATA_TYPE VARNAME EQUAL INTEGER
+    (11) SENTENCIAS -> . IF
+    (12) SENTENCIAS -> . ELSEIF
+    (13) SENTENCIAS -> . ELSE
+    (14) SENTENCIAS -> . FOR
+    (15) SENTENCIAS -> . WHILE
+    (16) SENTENCIAS -> . SWITCH
+    (7) INCLUDE -> . PP_INCLUDE LESS_THAN HEADER_LIB GREATER_THAN
+    (8) INCLUDE -> . PP_INCLUDE DOUBLE_APOS HEADER_LIB DOUBLE_APOS
+    (9) VALUE -> . INTEGER
+    (10) VALUE -> . DECIMAL
+    (17) DATA_TYPE -> . INT
+    (18) DATA_TYPE -> . FLOAT
+    (19) DATA_TYPE -> . LONG
+    (20) DATA_TYPE -> . DOUBLE
+    (21) DATA_TYPE -> . CHAR
+    (22) DATA_TYPE -> . SHORT
+
+    COMMENT         shift and go to state 8
+    VARNAME         shift and go to state 9
+    IF              shift and go to state 13
+    ELSEIF          shift and go to state 14
+    ELSE            shift and go to state 15
+    FOR             shift and go to state 16
+    WHILE           shift and go to state 17
+    SWITCH          shift and go to state 18
+    PP_INCLUDE      shift and go to state 19
+    INTEGER         shift and go to state 12
+    DECIMAL         shift and go to state 20
+    INT             shift and go to state 21
+    FLOAT           shift and go to state 22
+    LONG            shift and go to state 23
+    DOUBLE          shift and go to state 24
+    CHAR            shift and go to state 25
+    SHORT           shift and go to state 26
+
+    EXPRESSION                     shift and go to state 1
+    COMENTARIOLEX                  shift and go to state 2
+    VARIABLELEX                    shift and go to state 3
+    OPERATION                      shift and go to state 4
+    DECLARATION                    shift and go to state 5
+    SENTENCIAS                     shift and go to state 6
+    INCLUDE                        shift and go to state 7
+    VALUE                          shift and go to state 10
+    DATA_TYPE                      shift and go to state 11
+
+state 1
+
+    (0) S' -> EXPRESSION .
+
+
+
+state 2
+
+    (1) EXPRESSION -> COMENTARIOLEX .
+
+    $end            reduce using rule 1 (EXPRESSION -> COMENTARIOLEX .)
+
+
+state 3
+
+    (2) EXPRESSION -> VARIABLELEX .
+
+    $end            reduce using rule 2 (EXPRESSION -> VARIABLELEX .)
+
+
+state 4
+
+    (3) EXPRESSION -> OPERATION .
+
+    $end            reduce using rule 3 (EXPRESSION -> OPERATION .)
+
+
+state 5
+
+    (4) EXPRESSION -> DECLARATION .
+
+    $end            reduce using rule 4 (EXPRESSION -> DECLARATION .)
+
+
+state 6
+
+    (5) EXPRESSION -> SENTENCIAS .
+
+    $end            reduce using rule 5 (EXPRESSION -> SENTENCIAS .)
+
+
+state 7
+
+    (6) EXPRESSION -> INCLUDE .
+
+    $end            reduce using rule 6 (EXPRESSION -> INCLUDE .)
+
+
+state 8
+
+    (24) COMENTARIOLEX -> COMMENT .
+
+    $end            reduce using rule 24 (COMENTARIOLEX -> COMMENT .)
+
+
+state 9
+
+    (25) VARIABLELEX -> VARNAME .
+
+    $end            reduce using rule 25 (VARIABLELEX -> VARNAME .)
+
+
+state 10
+
+    (31) OPERATION -> VALUE . OPERADOR VALUE
+    (26) OPERADOR -> . PLUS
+    (27) OPERADOR -> . MINUS
+    (28) OPERADOR -> . TIMES
+    (29) OPERADOR -> . MODULUS
+    (30) OPERADOR -> . DIVIDE
+
+    PLUS            shift and go to state 28
+    MINUS           shift and go to state 29
+    TIMES           shift and go to state 30
+    MODULUS         shift and go to state 31
+    DIVIDE          shift and go to state 32
+
+    OPERADOR                       shift and go to state 27
+
+state 11
+
+    (23) DECLARATION -> DATA_TYPE . VARNAME EQUAL INTEGER
+
+    VARNAME         shift and go to state 33
+
+
+state 12
+
+    (9) VALUE -> INTEGER .
+
+    PLUS            reduce using rule 9 (VALUE -> INTEGER .)
+    MINUS           reduce using rule 9 (VALUE -> INTEGER .)
+    TIMES           reduce using rule 9 (VALUE -> INTEGER .)
+    MODULUS         reduce using rule 9 (VALUE -> INTEGER .)
+    DIVIDE          reduce using rule 9 (VALUE -> INTEGER .)
+    $end            reduce using rule 9 (VALUE -> INTEGER .)
+
+
+state 13
+
+    (11) SENTENCIAS -> IF .
+
+    $end            reduce using rule 11 (SENTENCIAS -> IF .)
+
+
+state 14
+
+    (12) SENTENCIAS -> ELSEIF .
+
+    $end            reduce using rule 12 (SENTENCIAS -> ELSEIF .)
+
+
+state 15
+
+    (13) SENTENCIAS -> ELSE .
+
+    $end            reduce using rule 13 (SENTENCIAS -> ELSE .)
+
+
+state 16
+
+    (14) SENTENCIAS -> FOR .
+
+    $end            reduce using rule 14 (SENTENCIAS -> FOR .)
+
+
+state 17
+
+    (15) SENTENCIAS -> WHILE .
+
+    $end            reduce using rule 15 (SENTENCIAS -> WHILE .)
+
+
+state 18
+
+    (16) SENTENCIAS -> SWITCH .
+
+    $end            reduce using rule 16 (SENTENCIAS -> SWITCH .)
+
+
+state 19
+
+    (7) INCLUDE -> PP_INCLUDE . LESS_THAN HEADER_LIB GREATER_THAN
+    (8) INCLUDE -> PP_INCLUDE . DOUBLE_APOS HEADER_LIB DOUBLE_APOS
+
+    LESS_THAN       shift and go to state 34
+    DOUBLE_APOS     shift and go to state 35
+
+
+state 20
+
+    (10) VALUE -> DECIMAL .
+
+    PLUS            reduce using rule 10 (VALUE -> DECIMAL .)
+    MINUS           reduce using rule 10 (VALUE -> DECIMAL .)
+    TIMES           reduce using rule 10 (VALUE -> DECIMAL .)
+    MODULUS         reduce using rule 10 (VALUE -> DECIMAL .)
+    DIVIDE          reduce using rule 10 (VALUE -> DECIMAL .)
+    $end            reduce using rule 10 (VALUE -> DECIMAL .)
+
+
+state 21
+
+    (17) DATA_TYPE -> INT .
+
+    VARNAME         reduce using rule 17 (DATA_TYPE -> INT .)
+
+
+state 22
+
+    (18) DATA_TYPE -> FLOAT .
+
+    VARNAME         reduce using rule 18 (DATA_TYPE -> FLOAT .)
+
+
+state 23
+
+    (19) DATA_TYPE -> LONG .
+
+    VARNAME         reduce using rule 19 (DATA_TYPE -> LONG .)
+
+
+state 24
+
+    (20) DATA_TYPE -> DOUBLE .
+
+    VARNAME         reduce using rule 20 (DATA_TYPE -> DOUBLE .)
+
+
+state 25
+
+    (21) DATA_TYPE -> CHAR .
+
+    VARNAME         reduce using rule 21 (DATA_TYPE -> CHAR .)
+
+
+state 26
+
+    (22) DATA_TYPE -> SHORT .
+
+    VARNAME         reduce using rule 22 (DATA_TYPE -> SHORT .)
+
+
+state 27
+
+    (31) OPERATION -> VALUE OPERADOR . VALUE
+    (9) VALUE -> . INTEGER
+    (10) VALUE -> . DECIMAL
+
+    INTEGER         shift and go to state 12
+    DECIMAL         shift and go to state 20
+
+    VALUE                          shift and go to state 36
+
+state 28
+
+    (26) OPERADOR -> PLUS .
+
+    INTEGER         reduce using rule 26 (OPERADOR -> PLUS .)
+    DECIMAL         reduce using rule 26 (OPERADOR -> PLUS .)
+
+
+state 29
+
+    (27) OPERADOR -> MINUS .
+
+    INTEGER         reduce using rule 27 (OPERADOR -> MINUS .)
+    DECIMAL         reduce using rule 27 (OPERADOR -> MINUS .)
+
+
+state 30
+
+    (28) OPERADOR -> TIMES .
+
+    INTEGER         reduce using rule 28 (OPERADOR -> TIMES .)
+    DECIMAL         reduce using rule 28 (OPERADOR -> TIMES .)
+
+
+state 31
+
+    (29) OPERADOR -> MODULUS .
+
+    INTEGER         reduce using rule 29 (OPERADOR -> MODULUS .)
+    DECIMAL         reduce using rule 29 (OPERADOR -> MODULUS .)
+
+
+state 32
+
+    (30) OPERADOR -> DIVIDE .
+
+    INTEGER         reduce using rule 30 (OPERADOR -> DIVIDE .)
+    DECIMAL         reduce using rule 30 (OPERADOR -> DIVIDE .)
+
+
+state 33
+
+    (23) DECLARATION -> DATA_TYPE VARNAME . EQUAL INTEGER
+
+    EQUAL           shift and go to state 37
+
+
+state 34
+
+    (7) INCLUDE -> PP_INCLUDE LESS_THAN . HEADER_LIB GREATER_THAN
+
+    HEADER_LIB      shift and go to state 38
+
+
+state 35
+
+    (8) INCLUDE -> PP_INCLUDE DOUBLE_APOS . HEADER_LIB DOUBLE_APOS
+
+    HEADER_LIB      shift and go to state 39
+
+
+state 36
+
+    (31) OPERATION -> VALUE OPERADOR VALUE .
+
+    $end            reduce using rule 31 (OPERATION -> VALUE OPERADOR VALUE .)
+
+
+state 37
+
+    (23) DECLARATION -> DATA_TYPE VARNAME EQUAL . INTEGER
+
+    INTEGER         shift and go to state 40
+
+
+state 38
+
+    (7) INCLUDE -> PP_INCLUDE LESS_THAN HEADER_LIB . GREATER_THAN
+
+    GREATER_THAN    shift and go to state 41
+
+
+state 39
+
+    (8) INCLUDE -> PP_INCLUDE DOUBLE_APOS HEADER_LIB . DOUBLE_APOS
+
+    DOUBLE_APOS     shift and go to state 42
+
+
+state 40
+
+    (23) DECLARATION -> DATA_TYPE VARNAME EQUAL INTEGER .
+
+    $end            reduce using rule 23 (DECLARATION -> DATA_TYPE VARNAME EQUAL INTEGER .)
+
+
+state 41
+
+    (7) INCLUDE -> PP_INCLUDE LESS_THAN HEADER_LIB GREATER_THAN .
+
+    $end            reduce using rule 7 (INCLUDE -> PP_INCLUDE LESS_THAN HEADER_LIB GREATER_THAN .)
+
+
+state 42
+
+    (8) INCLUDE -> PP_INCLUDE DOUBLE_APOS HEADER_LIB DOUBLE_APOS .
+
+    $end            reduce using rule 8 (INCLUDE -> PP_INCLUDE DOUBLE_APOS HEADER_LIB DOUBLE_APOS .)
+
