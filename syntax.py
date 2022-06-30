@@ -21,6 +21,8 @@ def p_EXPRESSION(p):
                 | INTEGER_DECLARATION
                 | DECIMAL_TYPE
                 | INTEGER_TYPE
+                | ASSIGNMENT_DECLARATION
+                | ASSIGNMENT_OPERATOR
 
     """
     p[0] = ('EXPRESSION', p[1])
@@ -124,6 +126,31 @@ def p_DECIMAL_DECLARATION(p):
     p[0] = ('DECIMAL_DECLARATION', p[1])
 
 
+def p_ASSIGNMENT_DECLARATION(p):
+    """
+    ASSIGNMENT_DECLARATION : VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    """
+    p[0] = ('ASSIGNMENT_DECLARATION', p[1])
+
+
+def p_ASSIGNMENT_OPERATOR(p):
+    """
+    ASSIGNMENT_OPERATOR : EQUAL
+                        | PLUS_EQUAL
+                        | MINUS_EQUAL
+                        | DIV_EQUAL
+                        | TIMES_EQUAL
+                        | MOD_EQUAL
+                        | AND_EQUAL
+                        | OR_EQUAL
+                        | XOR_EQUAL
+                        | COMPLEMENT_EQUAL
+                        | SHIFTL_EQUAL
+                        | SHIFTR_EQUAL
+    """
+    p[0] = ('ASSIGNMENT_OPERATOR', p[1])
+
+
 def p_COMENTARIOLEX(p):
     """
     COMENTARIOLEX : COMMENT
@@ -199,6 +226,13 @@ def p_LOGICAL_OPERATOR(p):
     """
     p[0] = ('LOGICAL_OPERATOR', p[1])
 
+
+def p_SENTENCE(p):
+    """
+    SENTENCE : NUMBER
+            | VARNAME
+    """
+    p[0] = ('SENTENCE', p[1])
 
 # END PAUL SORIA
 
