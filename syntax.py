@@ -68,27 +68,14 @@ def p_NUMBER(p):
     p[0] = ('NUMBER', p[1])
 
 
-def p_SENTENCIAS(p):
+def p_CONTROL_STRUCTURES(p):
     """
-    SENTENCIAS : IF
-                | ELSEIF
-                | ELSE
-                | FOR
-                | WHILE
-                | SWITCH
+    CONTROL_STRUCTURES : IF_STRUCTURE
+                        | FOR_STRUCTURE
+                        | WHILE_STRUCTURE
+                        | SWITCH_STRUCTURE
     """
-    p[0] = ('SENTENCIAS', p[1])
-
-
-'''
-def p_DATA_TYPE(p):
-    """
-    DATA_TYPE : INTEGER_TYPE
-            | DECIMAL_TYPE
-            | CHAR
-    """
-    p[0] = ('DATA_TYPE', p[1])
-'''
+    p[0] = ('CONTROL_STRUCTURES', p[1])
 
 
 # END GABRIELA RAMOS
