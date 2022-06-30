@@ -34,11 +34,13 @@ def p_ROOT(p):
         | COMPARISONS
         | LOGICAL_OPERATOR
         | SENTENCE
+        | SWITCH_BODY
+        | BUCLE
     """
     p[0] = ('ROOT', p[1])
 
 
-# START GABRIELA RAMOS
+# <---------- START GABRIELA RAMOS ---------->
 def p_PREPROCESOR_DIRECTIVE(p):
     """
     PREPROCESOR_DIRECTIVE : DEFINE
@@ -88,23 +90,51 @@ def p_CONTROL_STRUCTURES(p):
     p[0] = ('CONTROL_STRUCTURES', p[1])
 
 
-# END GABRIELA RAMOS
+def p_BODY_STRUCTURE(p):
+    """
+    BODY_STRUCTURE : EXPRESSIONS 
+                | EXPRESSIONS BREAK SEMICOLON
+                | EXPRESSIONS CONTINUE SEMICOLON 
+    """
+    p[0] = ('BODY_STRUCTURE', p[1])
 
-# WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+## WHILE SENTENCE
 def p_WHILE_STRUCTURE(p):
     """
-    WHILE_STRUCTURE : INTEGER
+    WHILE_STRUCTURE : WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
     """
     p[0] = ('WHILE_STRUCTURE', p[1])
 
+## SWITCH SENTENCE
+def p_SWITCH_CASE(p):
+    """
+    SWITCH_CASE : CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON
+    """
+    p[0] = ('SWITCH_CASE', p[1])
+
+def p_SWITCH_DEFAULT(p):
+    """
+    SWITCH_DEFAULT : DEFAULT COLON EXPRESSIONS BREAK SEMICOLON
+    """
+    p[0] = ('SWITCH_DEFAULT', p[1])
+
+def p_SWITCH_BODY(p):
+    """
+    SWITCH_BODY : SWITCH_CASE
+                | SWITCH_DEFAULT
+                |  SWITCH_CASE SWITCH_BODY   
+    """
+    p[0] = ('SWITCH_BODY', p[1])
 
 def p_SWITCH_STRUCTURE(p):
     """
-    SWITCH_STRUCTURE : INTEGER
+    SWITCH_STRUCTURE : SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
     """
     p[0] = ('SWITCH_STRUCTURE', p[1])
 
 
+
+## IF SENTENCE
 def p_IF_STRUCTURE(p):
     """
     IF_STRUCTURE : IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
@@ -112,14 +142,26 @@ def p_IF_STRUCTURE(p):
     p[0] = ('IF_STRUCTURE', p[1])
 
 
+## FOR SENTENCE
+def p_BUCLE(p):
+    """
+    BUCLE : VARIABLELEX INCREASE 
+            | DECREASE VARIABLELEX
+    """
+    p[0] = ('BUCLE', p[1])
+
+
+# FOR LPAREN EXPRESSIONS COMPARISONS BUCLE RPAREN
 def p_FOR_STRUCTURE(p):
     """
     FOR_STRUCTURE : INTEGER
     """
     p[0] = ('FOR_STRUCTURE', p[1])
 
+# <---------- END GABRIELA RAMOS ---------->
 
-# START PAUL SORIA
+
+# <----------- START PAUL SORIA ---------->
 
 def p_CODE(p):
     """
@@ -294,7 +336,7 @@ def p_SENTENCE(p):
     """
     p[0] = ('SENTENCE', p[1])
 
-# END PAUL SORIA
+# <---------- END PAUL SORIA ---------->
 
 
 def p_error(p):

@@ -6,19 +6,14 @@ Unused terminals:
     AUTO
     BACKSLASH
     BACKSPACE
-    BREAK
     B_AND
     B_COMPLEMENT
     B_OR
     B_XOR
-    CASE
     CHAR
     CHARACTER
-    COLON
     COMMA
     CONST
-    CONTINUE
-    DEFAULT
     DO
     DOT
     DOUBLE_APOS
@@ -74,7 +69,6 @@ Unused terminals:
     SIZEOF
     STATIC
     STRUCT
-    SWITCH
     TILDE
     TYPEDEF
     UNION
@@ -82,7 +76,6 @@ Unused terminals:
     VOID
     VOLTILE
     VTAB
-    WHILE
 
 Grammar
 
@@ -117,116 +110,129 @@ Rule 27    ROOT -> COMPARISON
 Rule 28    ROOT -> COMPARISONS
 Rule 29    ROOT -> LOGICAL_OPERATOR
 Rule 30    ROOT -> SENTENCE
-Rule 31    PREPROCESOR_DIRECTIVE -> DEFINE
-Rule 32    PREPROCESOR_DIRECTIVE -> INCLUDE
-Rule 33    DEFINE -> PP_DEFINE VARIABLELEX VALUE
-Rule 34    INCLUDE -> PP_INCLUDE HEADER_LIB
-Rule 35    VALUE -> NUMBER
-Rule 36    VALUE -> STRING
-Rule 37    NUMBER -> INTEGER
-Rule 38    NUMBER -> DECIMAL
-Rule 39    CONTROL_STRUCTURES -> IF_STRUCTURE
-Rule 40    CONTROL_STRUCTURES -> FOR_STRUCTURE
-Rule 41    CONTROL_STRUCTURES -> WHILE_STRUCTURE
-Rule 42    CONTROL_STRUCTURES -> SWITCH_STRUCTURE
-Rule 43    WHILE_STRUCTURE -> INTEGER
-Rule 44    SWITCH_STRUCTURE -> INTEGER
-Rule 45    IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-Rule 46    FOR_STRUCTURE -> INTEGER
-Rule 47    CODE -> FUNCTION
-Rule 48    CODE -> CONTROL_STRUCTURES
-Rule 49    CODE -> INTEGER_DECLARATION
-Rule 50    CODE -> DECIMAL_DECLARATION
-Rule 51    CODE -> ASSIGNMENT_DECLARATION
-Rule 52    CODE -> COMENTARIOLEX
-Rule 53    EXPRESSION -> CODE SEMICOLON
-Rule 54    EXPRESSIONS -> EXPRESSION
-Rule 55    EXPRESSIONS -> EXPRESSION EXPRESSIONS
-Rule 56    FUNCTION -> VARNAME LPAREN RPAREN
-Rule 57    INTEGER_TYPE -> INT
-Rule 58    INTEGER_TYPE -> SHORT
-Rule 59    INTEGER_TYPE -> LONG
-Rule 60    DECIMAL_TYPE -> FLOAT
-Rule 61    DECIMAL_TYPE -> DOUBLE
-Rule 62    INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER
-Rule 63    DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL
-Rule 64    ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE
-Rule 65    ASSIGNMENT_OPERATOR -> EQUAL
-Rule 66    ASSIGNMENT_OPERATOR -> PLUS_EQUAL
-Rule 67    ASSIGNMENT_OPERATOR -> MINUS_EQUAL
-Rule 68    ASSIGNMENT_OPERATOR -> DIV_EQUAL
-Rule 69    ASSIGNMENT_OPERATOR -> TIMES_EQUAL
-Rule 70    ASSIGNMENT_OPERATOR -> MOD_EQUAL
-Rule 71    ASSIGNMENT_OPERATOR -> AND_EQUAL
-Rule 72    ASSIGNMENT_OPERATOR -> OR_EQUAL
-Rule 73    ASSIGNMENT_OPERATOR -> XOR_EQUAL
-Rule 74    ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL
-Rule 75    ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL
-Rule 76    ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL
-Rule 77    COMENTARIOLEX -> COMMENT
-Rule 78    VARIABLELEX -> VARNAME
-Rule 79    OPERATOR -> PLUS
-Rule 80    OPERATOR -> MINUS
-Rule 81    OPERATOR -> TIMES
-Rule 82    OPERATOR -> MODULUS
-Rule 83    OPERATOR -> DIVIDE
-Rule 84    OPERATION -> NUMBER OPERATOR NUMBER
-Rule 85    OPERATIONS -> OPERATION
-Rule 86    OPERATIONS -> OPERATION OPERATOR OPERATIONS
-Rule 87    COMPARISON_OPERATOR -> EQUAL_TO
-Rule 88    COMPARISON_OPERATOR -> NOT_EQUAL
-Rule 89    COMPARISON_OPERATOR -> GREATER_THAN
-Rule 90    COMPARISON_OPERATOR -> LESS_THAN
-Rule 91    COMPARISON_OPERATOR -> GREATER_EQUAL
-Rule 92    COMPARISON_OPERATOR -> LESS_EQUAL
-Rule 93    COMPARISON -> VALUE COMPARISON_OPERATOR VALUE
-Rule 94    COMPARISONS -> COMPARISON
-Rule 95    COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS
-Rule 96    LOGICAL_OPERATOR -> AND
-Rule 97    LOGICAL_OPERATOR -> OR
-Rule 98    LOGICAL_OPERATOR -> NOT
-Rule 99    SENTENCE -> NUMBER
-Rule 100   SENTENCE -> VARNAME
+Rule 31    ROOT -> SWITCH_BODY
+Rule 32    ROOT -> BUCLE
+Rule 33    PREPROCESOR_DIRECTIVE -> DEFINE
+Rule 34    PREPROCESOR_DIRECTIVE -> INCLUDE
+Rule 35    DEFINE -> PP_DEFINE VARIABLELEX VALUE
+Rule 36    INCLUDE -> PP_INCLUDE HEADER_LIB
+Rule 37    VALUE -> NUMBER
+Rule 38    VALUE -> STRING
+Rule 39    NUMBER -> INTEGER
+Rule 40    NUMBER -> DECIMAL
+Rule 41    CONTROL_STRUCTURES -> IF_STRUCTURE
+Rule 42    CONTROL_STRUCTURES -> FOR_STRUCTURE
+Rule 43    CONTROL_STRUCTURES -> WHILE_STRUCTURE
+Rule 44    CONTROL_STRUCTURES -> SWITCH_STRUCTURE
+Rule 45    BODY_STRUCTURE -> EXPRESSIONS
+Rule 46    BODY_STRUCTURE -> EXPRESSIONS BREAK SEMICOLON
+Rule 47    BODY_STRUCTURE -> EXPRESSIONS CONTINUE SEMICOLON
+Rule 48    WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+Rule 49    SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON
+Rule 50    SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS BREAK SEMICOLON
+Rule 51    SWITCH_BODY -> SWITCH_CASE
+Rule 52    SWITCH_BODY -> SWITCH_DEFAULT
+Rule 53    SWITCH_BODY -> SWITCH_CASE SWITCH_BODY
+Rule 54    SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+Rule 55    IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+Rule 56    BUCLE -> VARIABLELEX INCREASE
+Rule 57    BUCLE -> DECREASE VARIABLELEX
+Rule 58    FOR_STRUCTURE -> INTEGER
+Rule 59    CODE -> FUNCTION
+Rule 60    CODE -> CONTROL_STRUCTURES
+Rule 61    CODE -> INTEGER_DECLARATION
+Rule 62    CODE -> DECIMAL_DECLARATION
+Rule 63    CODE -> ASSIGNMENT_DECLARATION
+Rule 64    CODE -> COMENTARIOLEX
+Rule 65    EXPRESSION -> CODE SEMICOLON
+Rule 66    EXPRESSIONS -> EXPRESSION
+Rule 67    EXPRESSIONS -> EXPRESSION EXPRESSIONS
+Rule 68    FUNCTION -> VARNAME LPAREN RPAREN
+Rule 69    INTEGER_TYPE -> INT
+Rule 70    INTEGER_TYPE -> SHORT
+Rule 71    INTEGER_TYPE -> LONG
+Rule 72    DECIMAL_TYPE -> FLOAT
+Rule 73    DECIMAL_TYPE -> DOUBLE
+Rule 74    INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER
+Rule 75    DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL
+Rule 76    ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE
+Rule 77    ASSIGNMENT_OPERATOR -> EQUAL
+Rule 78    ASSIGNMENT_OPERATOR -> PLUS_EQUAL
+Rule 79    ASSIGNMENT_OPERATOR -> MINUS_EQUAL
+Rule 80    ASSIGNMENT_OPERATOR -> DIV_EQUAL
+Rule 81    ASSIGNMENT_OPERATOR -> TIMES_EQUAL
+Rule 82    ASSIGNMENT_OPERATOR -> MOD_EQUAL
+Rule 83    ASSIGNMENT_OPERATOR -> AND_EQUAL
+Rule 84    ASSIGNMENT_OPERATOR -> OR_EQUAL
+Rule 85    ASSIGNMENT_OPERATOR -> XOR_EQUAL
+Rule 86    ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL
+Rule 87    ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL
+Rule 88    ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL
+Rule 89    COMENTARIOLEX -> COMMENT
+Rule 90    VARIABLELEX -> VARNAME
+Rule 91    OPERATOR -> PLUS
+Rule 92    OPERATOR -> MINUS
+Rule 93    OPERATOR -> TIMES
+Rule 94    OPERATOR -> MODULUS
+Rule 95    OPERATOR -> DIVIDE
+Rule 96    OPERATION -> NUMBER OPERATOR NUMBER
+Rule 97    OPERATIONS -> OPERATION
+Rule 98    OPERATIONS -> OPERATION OPERATOR OPERATIONS
+Rule 99    COMPARISON_OPERATOR -> EQUAL_TO
+Rule 100   COMPARISON_OPERATOR -> NOT_EQUAL
+Rule 101   COMPARISON_OPERATOR -> GREATER_THAN
+Rule 102   COMPARISON_OPERATOR -> LESS_THAN
+Rule 103   COMPARISON_OPERATOR -> GREATER_EQUAL
+Rule 104   COMPARISON_OPERATOR -> LESS_EQUAL
+Rule 105   COMPARISON -> VALUE COMPARISON_OPERATOR VALUE
+Rule 106   COMPARISONS -> COMPARISON
+Rule 107   COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS
+Rule 108   LOGICAL_OPERATOR -> AND
+Rule 109   LOGICAL_OPERATOR -> OR
+Rule 110   LOGICAL_OPERATOR -> NOT
+Rule 111   SENTENCE -> NUMBER
+Rule 112   SENTENCE -> VARNAME
 
 Terminals, with rules where they appear
 
 AMPERSAND            : 
-AND                  : 96
-AND_EQUAL            : 71
+AND                  : 108
+AND_EQUAL            : 83
 AUTO                 : 
 BACKSLASH            : 
 BACKSPACE            : 
-BREAK                : 
+BREAK                : 46 49 50
 B_AND                : 
 B_COMPLEMENT         : 
 B_OR                 : 
 B_XOR                : 
-CASE                 : 
+CASE                 : 49
 CHAR                 : 
 CHARACTER            : 
-COLON                : 
+COLON                : 49 50
 COMMA                : 
-COMMENT              : 77
-COMPLEMENT_EQUAL     : 74
+COMMENT              : 89
+COMPLEMENT_EQUAL     : 86
 CONST                : 
-CONTINUE             : 
-DECIMAL              : 38 63
-DEFAULT              : 
-DIVIDE               : 83
-DIV_EQUAL            : 68
+CONTINUE             : 47
+DECIMAL              : 40 75
+DECREASE             : 57
+DEFAULT              : 50
+DIVIDE               : 95
+DIV_EQUAL            : 80
 DO                   : 
 DOT                  : 
-DOUBLE               : 61
+DOUBLE               : 73
 DOUBLE_APOS          : 
 DOUBLE_QUOTE         : 
 ELSE                 : 
 ELSEIF               : 
 ENUM                 : 
-EQUAL                : 62 63 65
-EQUAL_TO             : 87
+EQUAL                : 74 75 77
+EQUAL_TO             : 99
 EXTERN               : 
 FF_PAGEBREAK         : 
-FLOAT                : 60
+FLOAT                : 72
 FOR                  : 
 FS_CHAR              : 
 FS_DOUBLE            : 
@@ -243,41 +249,42 @@ FS_STRING            :
 FS_UNSIGNED_INT      : 
 FS_UNSIGNED_LONG     : 
 GOTO                 : 
-GREATER_EQUAL        : 91
-GREATER_THAN         : 89
-HEADER_LIB           : 34
+GREATER_EQUAL        : 103
+GREATER_THAN         : 101
+HEADER_LIB           : 36
 HTAB                 : 
-IF                   : 45
+IF                   : 55
 IGNORE               : 
-INT                  : 57
-INTEGER              : 37 43 44 46 62
+INCREASE             : 56
+INT                  : 69
+INTEGER              : 39 49 58 74
 LBRACKET             : 
-LCURL_BRACE          : 45
-LESS_EQUAL           : 92
-LESS_THAN            : 90
-LONG                 : 59
-LPAREN               : 45 56
-MINUS                : 80
-MINUS_EQUAL          : 67
-MODULUS              : 82
-MOD_EQUAL            : 70
+LCURL_BRACE          : 48 54 55
+LESS_EQUAL           : 104
+LESS_THAN            : 102
+LONG                 : 71
+LPAREN               : 48 54 55 68
+MINUS                : 92
+MINUS_EQUAL          : 79
+MODULUS              : 94
+MOD_EQUAL            : 82
 NEWLINE              : 
-NOT                  : 98
-NOT_EQUAL            : 88
+NOT                  : 110
+NOT_EQUAL            : 100
 NULL                 : 
-OR                   : 97
-OR_EQUAL             : 72
-PLUS                 : 79
-PLUS_EQUAL           : 66
+OR                   : 109
+OR_EQUAL             : 84
+PLUS                 : 91
+PLUS_EQUAL           : 78
 PP_DATE              : 
-PP_DEFINE            : 33
+PP_DEFINE            : 35
 PP_DTMACRO           : 
 PP_ERROR             : 
 PP_FILE              : 
 PP_IF                : 
 PP_IFDEF             : 
 PP_IFNDEF            : 
-PP_INCLUDE           : 34
+PP_INCLUDE           : 36
 PP_LINE              : 
 PP_PRAGMA            : 
 PP_STMACRO           : 
@@ -286,71 +293,76 @@ PP_TIMESTAMP         :
 PP_UNDEF             : 
 QUESTIONMARK         : 
 RBRACKET             : 
-RCURL_BRACE          : 45
+RCURL_BRACE          : 48 54 55
 REGISTER             : 
 RETURN               : 
-RPAREN               : 45 56
-SEMICOLON            : 53
-SHIFTL_EQUAL         : 75
-SHIFTR_EQUAL         : 76
+RPAREN               : 48 54 55 68
+SEMICOLON            : 46 47 49 50 65
+SHIFTL_EQUAL         : 87
+SHIFTR_EQUAL         : 88
 SHIFT_LEFT           : 
 SHIFT_RIGHT          : 
-SHORT                : 58
+SHORT                : 70
 SIGNED               : 
 SINGLE_APOS          : 
 SINGLE_QUOTE         : 
 SIZEOF               : 
 STATIC               : 
-STRING               : 36
+STRING               : 38
 STRUCT               : 
-SWITCH               : 
+SWITCH               : 54
 TILDE                : 
-TIMES                : 81
-TIMES_EQUAL          : 69
+TIMES                : 93
+TIMES_EQUAL          : 81
 TYPEDEF              : 
 UNION                : 
 UNSIGNED             : 
-VARNAME              : 56 62 63 64 78 100
+VARNAME              : 68 74 75 76 90 112
 VOID                 : 
 VOLTILE              : 
 VTAB                 : 
-WHILE                : 
-XOR_EQUAL            : 73
+WHILE                : 48
+XOR_EQUAL            : 85
 error                : 
 
 Nonterminals, with rules where they appear
 
-ASSIGNMENT_DECLARATION : 19 51
-ASSIGNMENT_OPERATOR  : 20 64
-CODE                 : 11 53
-COMENTARIOLEX        : 21 52
-COMPARISON           : 27 94 95
-COMPARISONS          : 28 45 95
-COMPARISON_OPERATOR  : 26 93
-CONTROL_STRUCTURES   : 6 48
-DECIMAL_DECLARATION  : 18 50
-DECIMAL_TYPE         : 16 63
-DEFINE               : 2 31
-EXPRESSION           : 12 54 55
-EXPRESSIONS          : 13 45 55
-FOR_STRUCTURE        : 10 40
-FUNCTION             : 14 47
-IF_STRUCTURE         : 9 39
-INCLUDE              : 3 32
-INTEGER_DECLARATION  : 17 49
-INTEGER_TYPE         : 15 62
-LOGICAL_OPERATOR     : 29 95
-NUMBER               : 5 35 84 84 99
-OPERATION            : 24 85 86
-OPERATIONS           : 25 86
-OPERATOR             : 23 84 86
+ASSIGNMENT_DECLARATION : 19 63
+ASSIGNMENT_OPERATOR  : 20 76
+BODY_STRUCTURE       : 48
+BUCLE                : 32
+CODE                 : 11 65
+COMENTARIOLEX        : 21 64
+COMPARISON           : 27 106 107
+COMPARISONS          : 28 48 54 55 107
+COMPARISON_OPERATOR  : 26 105
+CONTROL_STRUCTURES   : 6 60
+DECIMAL_DECLARATION  : 18 62
+DECIMAL_TYPE         : 16 75
+DEFINE               : 2 33
+EXPRESSION           : 12 66 67
+EXPRESSIONS          : 13 45 46 47 49 50 55 67
+FOR_STRUCTURE        : 10 42
+FUNCTION             : 14 59
+IF_STRUCTURE         : 9 41
+INCLUDE              : 3 34
+INTEGER_DECLARATION  : 17 61
+INTEGER_TYPE         : 15 74
+LOGICAL_OPERATOR     : 29 107
+NUMBER               : 5 37 96 96 111
+OPERATION            : 24 97 98
+OPERATIONS           : 25 98
+OPERATOR             : 23 96 98
 PREPROCESOR_DIRECTIVE : 1
 ROOT                 : 0
-SENTENCE             : 30 64
-SWITCH_STRUCTURE     : 8 42
-VALUE                : 4 33 93 93
-VARIABLELEX          : 22 33
-WHILE_STRUCTURE      : 7 41
+SENTENCE             : 30 76
+SWITCH_BODY          : 31 53 54
+SWITCH_CASE          : 51 53
+SWITCH_DEFAULT       : 52
+SWITCH_STRUCTURE     : 8 44
+VALUE                : 4 35 105 105
+VARIABLELEX          : 22 35 56 57
+WHILE_STRUCTURE      : 7 43
 
 Parsing method: LALR
 
@@ -387,116 +399,130 @@ state 0
     (28) ROOT -> . COMPARISONS
     (29) ROOT -> . LOGICAL_OPERATOR
     (30) ROOT -> . SENTENCE
-    (31) PREPROCESOR_DIRECTIVE -> . DEFINE
-    (32) PREPROCESOR_DIRECTIVE -> . INCLUDE
-    (33) DEFINE -> . PP_DEFINE VARIABLELEX VALUE
-    (34) INCLUDE -> . PP_INCLUDE HEADER_LIB
-    (35) VALUE -> . NUMBER
-    (36) VALUE -> . STRING
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
-    (39) CONTROL_STRUCTURES -> . IF_STRUCTURE
-    (40) CONTROL_STRUCTURES -> . FOR_STRUCTURE
-    (41) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
-    (42) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
-    (43) WHILE_STRUCTURE -> . INTEGER
-    (44) SWITCH_STRUCTURE -> . INTEGER
-    (45) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-    (46) FOR_STRUCTURE -> . INTEGER
-    (47) CODE -> . FUNCTION
-    (48) CODE -> . CONTROL_STRUCTURES
-    (49) CODE -> . INTEGER_DECLARATION
-    (50) CODE -> . DECIMAL_DECLARATION
-    (51) CODE -> . ASSIGNMENT_DECLARATION
-    (52) CODE -> . COMENTARIOLEX
-    (53) EXPRESSION -> . CODE SEMICOLON
-    (54) EXPRESSIONS -> . EXPRESSION
-    (55) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (56) FUNCTION -> . VARNAME LPAREN RPAREN
-    (57) INTEGER_TYPE -> . INT
-    (58) INTEGER_TYPE -> . SHORT
-    (59) INTEGER_TYPE -> . LONG
-    (60) DECIMAL_TYPE -> . FLOAT
-    (61) DECIMAL_TYPE -> . DOUBLE
-    (62) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
-    (63) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
-    (64) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
-    (65) ASSIGNMENT_OPERATOR -> . EQUAL
-    (66) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
-    (67) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
-    (68) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
-    (69) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
-    (70) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
-    (71) ASSIGNMENT_OPERATOR -> . AND_EQUAL
-    (72) ASSIGNMENT_OPERATOR -> . OR_EQUAL
-    (73) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
-    (74) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
-    (75) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
-    (76) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
-    (77) COMENTARIOLEX -> . COMMENT
-    (78) VARIABLELEX -> . VARNAME
-    (79) OPERATOR -> . PLUS
-    (80) OPERATOR -> . MINUS
-    (81) OPERATOR -> . TIMES
-    (82) OPERATOR -> . MODULUS
-    (83) OPERATOR -> . DIVIDE
-    (84) OPERATION -> . NUMBER OPERATOR NUMBER
-    (85) OPERATIONS -> . OPERATION
-    (86) OPERATIONS -> . OPERATION OPERATOR OPERATIONS
-    (87) COMPARISON_OPERATOR -> . EQUAL_TO
-    (88) COMPARISON_OPERATOR -> . NOT_EQUAL
-    (89) COMPARISON_OPERATOR -> . GREATER_THAN
-    (90) COMPARISON_OPERATOR -> . LESS_THAN
-    (91) COMPARISON_OPERATOR -> . GREATER_EQUAL
-    (92) COMPARISON_OPERATOR -> . LESS_EQUAL
-    (93) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
-    (94) COMPARISONS -> . COMPARISON
-    (95) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
-    (96) LOGICAL_OPERATOR -> . AND
-    (97) LOGICAL_OPERATOR -> . OR
-    (98) LOGICAL_OPERATOR -> . NOT
-    (99) SENTENCE -> . NUMBER
-    (100) SENTENCE -> . VARNAME
+    (31) ROOT -> . SWITCH_BODY
+    (32) ROOT -> . BUCLE
+    (33) PREPROCESOR_DIRECTIVE -> . DEFINE
+    (34) PREPROCESOR_DIRECTIVE -> . INCLUDE
+    (35) DEFINE -> . PP_DEFINE VARIABLELEX VALUE
+    (36) INCLUDE -> . PP_INCLUDE HEADER_LIB
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (77) ASSIGNMENT_OPERATOR -> . EQUAL
+    (78) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
+    (79) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
+    (80) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
+    (81) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
+    (82) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
+    (83) ASSIGNMENT_OPERATOR -> . AND_EQUAL
+    (84) ASSIGNMENT_OPERATOR -> . OR_EQUAL
+    (85) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
+    (86) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
+    (87) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
+    (88) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
+    (89) COMENTARIOLEX -> . COMMENT
+    (90) VARIABLELEX -> . VARNAME
+    (91) OPERATOR -> . PLUS
+    (92) OPERATOR -> . MINUS
+    (93) OPERATOR -> . TIMES
+    (94) OPERATOR -> . MODULUS
+    (95) OPERATOR -> . DIVIDE
+    (96) OPERATION -> . NUMBER OPERATOR NUMBER
+    (97) OPERATIONS -> . OPERATION
+    (98) OPERATIONS -> . OPERATION OPERATOR OPERATIONS
+    (99) COMPARISON_OPERATOR -> . EQUAL_TO
+    (100) COMPARISON_OPERATOR -> . NOT_EQUAL
+    (101) COMPARISON_OPERATOR -> . GREATER_THAN
+    (102) COMPARISON_OPERATOR -> . LESS_THAN
+    (103) COMPARISON_OPERATOR -> . GREATER_EQUAL
+    (104) COMPARISON_OPERATOR -> . LESS_EQUAL
+    (105) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
+    (106) COMPARISONS -> . COMPARISON
+    (107) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
+    (108) LOGICAL_OPERATOR -> . AND
+    (109) LOGICAL_OPERATOR -> . OR
+    (110) LOGICAL_OPERATOR -> . NOT
+    (111) SENTENCE -> . NUMBER
+    (112) SENTENCE -> . VARNAME
+    (51) SWITCH_BODY -> . SWITCH_CASE
+    (52) SWITCH_BODY -> . SWITCH_DEFAULT
+    (53) SWITCH_BODY -> . SWITCH_CASE SWITCH_BODY
+    (56) BUCLE -> . VARIABLELEX INCREASE
+    (57) BUCLE -> . DECREASE VARIABLELEX
+    (49) SWITCH_CASE -> . CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON
+    (50) SWITCH_DEFAULT -> . DEFAULT COLON EXPRESSIONS BREAK SEMICOLON
 
-    PP_DEFINE       shift and go to state 32
-    PP_INCLUDE      shift and go to state 33
-    STRING          shift and go to state 34
-    INTEGER         shift and go to state 35
-    DECIMAL         shift and go to state 36
-    IF              shift and go to state 37
-    VARNAME         shift and go to state 38
-    INT             shift and go to state 39
-    SHORT           shift and go to state 40
-    LONG            shift and go to state 41
-    FLOAT           shift and go to state 42
-    DOUBLE          shift and go to state 43
-    EQUAL           shift and go to state 44
-    PLUS_EQUAL      shift and go to state 45
-    MINUS_EQUAL     shift and go to state 46
-    DIV_EQUAL       shift and go to state 47
-    TIMES_EQUAL     shift and go to state 48
-    MOD_EQUAL       shift and go to state 49
-    AND_EQUAL       shift and go to state 50
-    OR_EQUAL        shift and go to state 51
-    XOR_EQUAL       shift and go to state 52
-    COMPLEMENT_EQUAL shift and go to state 53
-    SHIFTL_EQUAL    shift and go to state 54
-    SHIFTR_EQUAL    shift and go to state 55
-    COMMENT         shift and go to state 56
-    PLUS            shift and go to state 57
-    MINUS           shift and go to state 58
-    TIMES           shift and go to state 59
-    MODULUS         shift and go to state 60
-    DIVIDE          shift and go to state 61
-    EQUAL_TO        shift and go to state 62
-    NOT_EQUAL       shift and go to state 63
-    GREATER_THAN    shift and go to state 64
-    LESS_THAN       shift and go to state 65
-    GREATER_EQUAL   shift and go to state 66
-    LESS_EQUAL      shift and go to state 67
-    AND             shift and go to state 68
-    OR              shift and go to state 69
-    NOT             shift and go to state 70
+    PP_DEFINE       shift and go to state 34
+    PP_INCLUDE      shift and go to state 35
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 37
+    DECIMAL         shift and go to state 38
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    IF              shift and go to state 41
+    VARNAME         shift and go to state 42
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
+    EQUAL           shift and go to state 48
+    PLUS_EQUAL      shift and go to state 49
+    MINUS_EQUAL     shift and go to state 50
+    DIV_EQUAL       shift and go to state 51
+    TIMES_EQUAL     shift and go to state 52
+    MOD_EQUAL       shift and go to state 53
+    AND_EQUAL       shift and go to state 54
+    OR_EQUAL        shift and go to state 55
+    XOR_EQUAL       shift and go to state 56
+    COMPLEMENT_EQUAL shift and go to state 57
+    SHIFTL_EQUAL    shift and go to state 58
+    SHIFTR_EQUAL    shift and go to state 59
+    COMMENT         shift and go to state 60
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    MODULUS         shift and go to state 64
+    DIVIDE          shift and go to state 65
+    EQUAL_TO        shift and go to state 66
+    NOT_EQUAL       shift and go to state 67
+    GREATER_THAN    shift and go to state 68
+    LESS_THAN       shift and go to state 69
+    GREATER_EQUAL   shift and go to state 70
+    LESS_EQUAL      shift and go to state 71
+    AND             shift and go to state 72
+    OR              shift and go to state 73
+    NOT             shift and go to state 74
+    DECREASE        shift and go to state 77
+    CASE            shift and go to state 78
+    DEFAULT         shift and go to state 79
 
     ROOT                           shift and go to state 1
     PREPROCESOR_DIRECTIVE          shift and go to state 2
@@ -529,6 +555,10 @@ state 0
     COMPARISONS                    shift and go to state 29
     LOGICAL_OPERATOR               shift and go to state 30
     SENTENCE                       shift and go to state 31
+    SWITCH_BODY                    shift and go to state 32
+    BUCLE                          shift and go to state 33
+    SWITCH_CASE                    shift and go to state 75
+    SWITCH_DEFAULT                 shift and go to state 76
 
 state 1
 
@@ -546,209 +576,211 @@ state 2
 state 3
 
     (2) ROOT -> DEFINE .
-    (31) PREPROCESOR_DIRECTIVE -> DEFINE .
+    (33) PREPROCESOR_DIRECTIVE -> DEFINE .
 
   ! reduce/reduce conflict for $end resolved using rule 2 (ROOT -> DEFINE .)
     $end            reduce using rule 2 (ROOT -> DEFINE .)
 
-  ! $end            [ reduce using rule 31 (PREPROCESOR_DIRECTIVE -> DEFINE .) ]
+  ! $end            [ reduce using rule 33 (PREPROCESOR_DIRECTIVE -> DEFINE .) ]
 
 
 state 4
 
     (3) ROOT -> INCLUDE .
-    (32) PREPROCESOR_DIRECTIVE -> INCLUDE .
+    (34) PREPROCESOR_DIRECTIVE -> INCLUDE .
 
   ! reduce/reduce conflict for $end resolved using rule 3 (ROOT -> INCLUDE .)
     $end            reduce using rule 3 (ROOT -> INCLUDE .)
 
-  ! $end            [ reduce using rule 32 (PREPROCESOR_DIRECTIVE -> INCLUDE .) ]
+  ! $end            [ reduce using rule 34 (PREPROCESOR_DIRECTIVE -> INCLUDE .) ]
 
 
 state 5
 
     (4) ROOT -> VALUE .
-    (93) COMPARISON -> VALUE . COMPARISON_OPERATOR VALUE
-    (87) COMPARISON_OPERATOR -> . EQUAL_TO
-    (88) COMPARISON_OPERATOR -> . NOT_EQUAL
-    (89) COMPARISON_OPERATOR -> . GREATER_THAN
-    (90) COMPARISON_OPERATOR -> . LESS_THAN
-    (91) COMPARISON_OPERATOR -> . GREATER_EQUAL
-    (92) COMPARISON_OPERATOR -> . LESS_EQUAL
+    (105) COMPARISON -> VALUE . COMPARISON_OPERATOR VALUE
+    (99) COMPARISON_OPERATOR -> . EQUAL_TO
+    (100) COMPARISON_OPERATOR -> . NOT_EQUAL
+    (101) COMPARISON_OPERATOR -> . GREATER_THAN
+    (102) COMPARISON_OPERATOR -> . LESS_THAN
+    (103) COMPARISON_OPERATOR -> . GREATER_EQUAL
+    (104) COMPARISON_OPERATOR -> . LESS_EQUAL
 
     $end            reduce using rule 4 (ROOT -> VALUE .)
-    EQUAL_TO        shift and go to state 62
-    NOT_EQUAL       shift and go to state 63
-    GREATER_THAN    shift and go to state 64
-    LESS_THAN       shift and go to state 65
-    GREATER_EQUAL   shift and go to state 66
-    LESS_EQUAL      shift and go to state 67
+    EQUAL_TO        shift and go to state 66
+    NOT_EQUAL       shift and go to state 67
+    GREATER_THAN    shift and go to state 68
+    LESS_THAN       shift and go to state 69
+    GREATER_EQUAL   shift and go to state 70
+    LESS_EQUAL      shift and go to state 71
 
-    COMPARISON_OPERATOR            shift and go to state 71
+    COMPARISON_OPERATOR            shift and go to state 80
 
 state 6
 
     (5) ROOT -> NUMBER .
-    (35) VALUE -> NUMBER .
-    (84) OPERATION -> NUMBER . OPERATOR NUMBER
-    (99) SENTENCE -> NUMBER .
-    (79) OPERATOR -> . PLUS
-    (80) OPERATOR -> . MINUS
-    (81) OPERATOR -> . TIMES
-    (82) OPERATOR -> . MODULUS
-    (83) OPERATOR -> . DIVIDE
+    (37) VALUE -> NUMBER .
+    (96) OPERATION -> NUMBER . OPERATOR NUMBER
+    (111) SENTENCE -> NUMBER .
+    (91) OPERATOR -> . PLUS
+    (92) OPERATOR -> . MINUS
+    (93) OPERATOR -> . TIMES
+    (94) OPERATOR -> . MODULUS
+    (95) OPERATOR -> . DIVIDE
 
   ! reduce/reduce conflict for $end resolved using rule 5 (ROOT -> NUMBER .)
   ! reduce/reduce conflict for $end resolved using rule 5 (ROOT -> NUMBER .)
     $end            reduce using rule 5 (ROOT -> NUMBER .)
-    EQUAL_TO        reduce using rule 35 (VALUE -> NUMBER .)
-    NOT_EQUAL       reduce using rule 35 (VALUE -> NUMBER .)
-    GREATER_THAN    reduce using rule 35 (VALUE -> NUMBER .)
-    LESS_THAN       reduce using rule 35 (VALUE -> NUMBER .)
-    GREATER_EQUAL   reduce using rule 35 (VALUE -> NUMBER .)
-    LESS_EQUAL      reduce using rule 35 (VALUE -> NUMBER .)
-    PLUS            shift and go to state 57
-    MINUS           shift and go to state 58
-    TIMES           shift and go to state 59
-    MODULUS         shift and go to state 60
-    DIVIDE          shift and go to state 61
+    EQUAL_TO        reduce using rule 37 (VALUE -> NUMBER .)
+    NOT_EQUAL       reduce using rule 37 (VALUE -> NUMBER .)
+    GREATER_THAN    reduce using rule 37 (VALUE -> NUMBER .)
+    LESS_THAN       reduce using rule 37 (VALUE -> NUMBER .)
+    GREATER_EQUAL   reduce using rule 37 (VALUE -> NUMBER .)
+    LESS_EQUAL      reduce using rule 37 (VALUE -> NUMBER .)
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    MODULUS         shift and go to state 64
+    DIVIDE          shift and go to state 65
 
-  ! $end            [ reduce using rule 35 (VALUE -> NUMBER .) ]
-  ! $end            [ reduce using rule 99 (SENTENCE -> NUMBER .) ]
+  ! $end            [ reduce using rule 37 (VALUE -> NUMBER .) ]
+  ! $end            [ reduce using rule 111 (SENTENCE -> NUMBER .) ]
 
-    OPERATOR                       shift and go to state 72
+    OPERATOR                       shift and go to state 81
 
 state 7
 
     (6) ROOT -> CONTROL_STRUCTURES .
-    (48) CODE -> CONTROL_STRUCTURES .
+    (60) CODE -> CONTROL_STRUCTURES .
 
   ! reduce/reduce conflict for $end resolved using rule 6 (ROOT -> CONTROL_STRUCTURES .)
     $end            reduce using rule 6 (ROOT -> CONTROL_STRUCTURES .)
-    SEMICOLON       reduce using rule 48 (CODE -> CONTROL_STRUCTURES .)
+    SEMICOLON       reduce using rule 60 (CODE -> CONTROL_STRUCTURES .)
 
-  ! $end            [ reduce using rule 48 (CODE -> CONTROL_STRUCTURES .) ]
+  ! $end            [ reduce using rule 60 (CODE -> CONTROL_STRUCTURES .) ]
 
 
 state 8
 
     (7) ROOT -> WHILE_STRUCTURE .
-    (41) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
+    (43) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
 
   ! reduce/reduce conflict for $end resolved using rule 7 (ROOT -> WHILE_STRUCTURE .)
     $end            reduce using rule 7 (ROOT -> WHILE_STRUCTURE .)
-    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SEMICOLON       reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
 
-  ! $end            [ reduce using rule 41 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .) ]
+  ! $end            [ reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .) ]
 
 
 state 9
 
     (8) ROOT -> SWITCH_STRUCTURE .
-    (42) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
+    (44) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
 
   ! reduce/reduce conflict for $end resolved using rule 8 (ROOT -> SWITCH_STRUCTURE .)
     $end            reduce using rule 8 (ROOT -> SWITCH_STRUCTURE .)
-    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SEMICOLON       reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
 
-  ! $end            [ reduce using rule 42 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .) ]
+  ! $end            [ reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .) ]
 
 
 state 10
 
     (9) ROOT -> IF_STRUCTURE .
-    (39) CONTROL_STRUCTURES -> IF_STRUCTURE .
+    (41) CONTROL_STRUCTURES -> IF_STRUCTURE .
 
   ! reduce/reduce conflict for $end resolved using rule 9 (ROOT -> IF_STRUCTURE .)
     $end            reduce using rule 9 (ROOT -> IF_STRUCTURE .)
-    SEMICOLON       reduce using rule 39 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
 
-  ! $end            [ reduce using rule 39 (CONTROL_STRUCTURES -> IF_STRUCTURE .) ]
+  ! $end            [ reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .) ]
 
 
 state 11
 
     (10) ROOT -> FOR_STRUCTURE .
-    (40) CONTROL_STRUCTURES -> FOR_STRUCTURE .
+    (42) CONTROL_STRUCTURES -> FOR_STRUCTURE .
 
   ! reduce/reduce conflict for $end resolved using rule 10 (ROOT -> FOR_STRUCTURE .)
     $end            reduce using rule 10 (ROOT -> FOR_STRUCTURE .)
-    SEMICOLON       reduce using rule 40 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
 
-  ! $end            [ reduce using rule 40 (CONTROL_STRUCTURES -> FOR_STRUCTURE .) ]
+  ! $end            [ reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .) ]
 
 
 state 12
 
     (11) ROOT -> CODE .
-    (53) EXPRESSION -> CODE . SEMICOLON
+    (65) EXPRESSION -> CODE . SEMICOLON
 
     $end            reduce using rule 11 (ROOT -> CODE .)
-    SEMICOLON       shift and go to state 73
+    SEMICOLON       shift and go to state 82
 
 
 state 13
 
     (12) ROOT -> EXPRESSION .
-    (54) EXPRESSIONS -> EXPRESSION .
-    (55) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
-    (54) EXPRESSIONS -> . EXPRESSION
-    (55) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (53) EXPRESSION -> . CODE SEMICOLON
-    (47) CODE -> . FUNCTION
-    (48) CODE -> . CONTROL_STRUCTURES
-    (49) CODE -> . INTEGER_DECLARATION
-    (50) CODE -> . DECIMAL_DECLARATION
-    (51) CODE -> . ASSIGNMENT_DECLARATION
-    (52) CODE -> . COMENTARIOLEX
-    (56) FUNCTION -> . VARNAME LPAREN RPAREN
-    (39) CONTROL_STRUCTURES -> . IF_STRUCTURE
-    (40) CONTROL_STRUCTURES -> . FOR_STRUCTURE
-    (41) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
-    (42) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
-    (62) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
-    (63) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
-    (64) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
-    (77) COMENTARIOLEX -> . COMMENT
-    (45) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-    (46) FOR_STRUCTURE -> . INTEGER
-    (43) WHILE_STRUCTURE -> . INTEGER
-    (44) SWITCH_STRUCTURE -> . INTEGER
-    (57) INTEGER_TYPE -> . INT
-    (58) INTEGER_TYPE -> . SHORT
-    (59) INTEGER_TYPE -> . LONG
-    (60) DECIMAL_TYPE -> . FLOAT
-    (61) DECIMAL_TYPE -> . DOUBLE
+    (66) EXPRESSIONS -> EXPRESSION .
+    (67) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
 
   ! reduce/reduce conflict for $end resolved using rule 12 (ROOT -> EXPRESSION .)
     $end            reduce using rule 12 (ROOT -> EXPRESSION .)
-    VARNAME         shift and go to state 83
-    COMMENT         shift and go to state 56
-    IF              shift and go to state 37
-    INTEGER         shift and go to state 89
-    INT             shift and go to state 39
-    SHORT           shift and go to state 40
-    LONG            shift and go to state 41
-    FLOAT           shift and go to state 42
-    DOUBLE          shift and go to state 43
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
 
-  ! $end            [ reduce using rule 54 (EXPRESSIONS -> EXPRESSION .) ]
+  ! $end            [ reduce using rule 66 (EXPRESSIONS -> EXPRESSION .) ]
 
-    EXPRESSION                     shift and go to state 74
-    EXPRESSIONS                    shift and go to state 75
-    CODE                           shift and go to state 76
-    FUNCTION                       shift and go to state 77
-    CONTROL_STRUCTURES             shift and go to state 78
-    INTEGER_DECLARATION            shift and go to state 79
-    DECIMAL_DECLARATION            shift and go to state 80
-    ASSIGNMENT_DECLARATION         shift and go to state 81
-    COMENTARIOLEX                  shift and go to state 82
-    IF_STRUCTURE                   shift and go to state 84
-    FOR_STRUCTURE                  shift and go to state 85
-    WHILE_STRUCTURE                shift and go to state 86
-    SWITCH_STRUCTURE               shift and go to state 87
-    INTEGER_TYPE                   shift and go to state 88
-    DECIMAL_TYPE                   shift and go to state 90
+    EXPRESSION                     shift and go to state 83
+    EXPRESSIONS                    shift and go to state 84
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
 
 state 14
 
@@ -760,67 +792,67 @@ state 14
 state 15
 
     (14) ROOT -> FUNCTION .
-    (47) CODE -> FUNCTION .
+    (59) CODE -> FUNCTION .
 
   ! reduce/reduce conflict for $end resolved using rule 14 (ROOT -> FUNCTION .)
     $end            reduce using rule 14 (ROOT -> FUNCTION .)
-    SEMICOLON       reduce using rule 47 (CODE -> FUNCTION .)
+    SEMICOLON       reduce using rule 59 (CODE -> FUNCTION .)
 
-  ! $end            [ reduce using rule 47 (CODE -> FUNCTION .) ]
+  ! $end            [ reduce using rule 59 (CODE -> FUNCTION .) ]
 
 
 state 16
 
     (15) ROOT -> INTEGER_TYPE .
-    (62) INTEGER_DECLARATION -> INTEGER_TYPE . VARNAME EQUAL INTEGER
+    (74) INTEGER_DECLARATION -> INTEGER_TYPE . VARNAME EQUAL INTEGER
 
     $end            reduce using rule 15 (ROOT -> INTEGER_TYPE .)
-    VARNAME         shift and go to state 91
+    VARNAME         shift and go to state 100
 
 
 state 17
 
     (16) ROOT -> DECIMAL_TYPE .
-    (63) DECIMAL_DECLARATION -> DECIMAL_TYPE . VARNAME EQUAL DECIMAL
+    (75) DECIMAL_DECLARATION -> DECIMAL_TYPE . VARNAME EQUAL DECIMAL
 
     $end            reduce using rule 16 (ROOT -> DECIMAL_TYPE .)
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 101
 
 
 state 18
 
     (17) ROOT -> INTEGER_DECLARATION .
-    (49) CODE -> INTEGER_DECLARATION .
+    (61) CODE -> INTEGER_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 17 (ROOT -> INTEGER_DECLARATION .)
     $end            reduce using rule 17 (ROOT -> INTEGER_DECLARATION .)
-    SEMICOLON       reduce using rule 49 (CODE -> INTEGER_DECLARATION .)
+    SEMICOLON       reduce using rule 61 (CODE -> INTEGER_DECLARATION .)
 
-  ! $end            [ reduce using rule 49 (CODE -> INTEGER_DECLARATION .) ]
+  ! $end            [ reduce using rule 61 (CODE -> INTEGER_DECLARATION .) ]
 
 
 state 19
 
     (18) ROOT -> DECIMAL_DECLARATION .
-    (50) CODE -> DECIMAL_DECLARATION .
+    (62) CODE -> DECIMAL_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 18 (ROOT -> DECIMAL_DECLARATION .)
     $end            reduce using rule 18 (ROOT -> DECIMAL_DECLARATION .)
-    SEMICOLON       reduce using rule 50 (CODE -> DECIMAL_DECLARATION .)
+    SEMICOLON       reduce using rule 62 (CODE -> DECIMAL_DECLARATION .)
 
-  ! $end            [ reduce using rule 50 (CODE -> DECIMAL_DECLARATION .) ]
+  ! $end            [ reduce using rule 62 (CODE -> DECIMAL_DECLARATION .) ]
 
 
 state 20
 
     (19) ROOT -> ASSIGNMENT_DECLARATION .
-    (51) CODE -> ASSIGNMENT_DECLARATION .
+    (63) CODE -> ASSIGNMENT_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 19 (ROOT -> ASSIGNMENT_DECLARATION .)
     $end            reduce using rule 19 (ROOT -> ASSIGNMENT_DECLARATION .)
-    SEMICOLON       reduce using rule 51 (CODE -> ASSIGNMENT_DECLARATION .)
+    SEMICOLON       reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .)
 
-  ! $end            [ reduce using rule 51 (CODE -> ASSIGNMENT_DECLARATION .) ]
+  ! $end            [ reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .) ]
 
 
 state 21
@@ -833,20 +865,22 @@ state 21
 state 22
 
     (21) ROOT -> COMENTARIOLEX .
-    (52) CODE -> COMENTARIOLEX .
+    (64) CODE -> COMENTARIOLEX .
 
   ! reduce/reduce conflict for $end resolved using rule 21 (ROOT -> COMENTARIOLEX .)
     $end            reduce using rule 21 (ROOT -> COMENTARIOLEX .)
-    SEMICOLON       reduce using rule 52 (CODE -> COMENTARIOLEX .)
+    SEMICOLON       reduce using rule 64 (CODE -> COMENTARIOLEX .)
 
-  ! $end            [ reduce using rule 52 (CODE -> COMENTARIOLEX .) ]
+  ! $end            [ reduce using rule 64 (CODE -> COMENTARIOLEX .) ]
 
 
 state 23
 
     (22) ROOT -> VARIABLELEX .
+    (56) BUCLE -> VARIABLELEX . INCREASE
 
     $end            reduce using rule 22 (ROOT -> VARIABLELEX .)
+    INCREASE        shift and go to state 102
 
 
 state 24
@@ -859,25 +893,25 @@ state 24
 state 25
 
     (24) ROOT -> OPERATION .
-    (85) OPERATIONS -> OPERATION .
-    (86) OPERATIONS -> OPERATION . OPERATOR OPERATIONS
-    (79) OPERATOR -> . PLUS
-    (80) OPERATOR -> . MINUS
-    (81) OPERATOR -> . TIMES
-    (82) OPERATOR -> . MODULUS
-    (83) OPERATOR -> . DIVIDE
+    (97) OPERATIONS -> OPERATION .
+    (98) OPERATIONS -> OPERATION . OPERATOR OPERATIONS
+    (91) OPERATOR -> . PLUS
+    (92) OPERATOR -> . MINUS
+    (93) OPERATOR -> . TIMES
+    (94) OPERATOR -> . MODULUS
+    (95) OPERATOR -> . DIVIDE
 
   ! reduce/reduce conflict for $end resolved using rule 24 (ROOT -> OPERATION .)
     $end            reduce using rule 24 (ROOT -> OPERATION .)
-    PLUS            shift and go to state 57
-    MINUS           shift and go to state 58
-    TIMES           shift and go to state 59
-    MODULUS         shift and go to state 60
-    DIVIDE          shift and go to state 61
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    MODULUS         shift and go to state 64
+    DIVIDE          shift and go to state 65
 
-  ! $end            [ reduce using rule 85 (OPERATIONS -> OPERATION .) ]
+  ! $end            [ reduce using rule 97 (OPERATIONS -> OPERATION .) ]
 
-    OPERATOR                       shift and go to state 93
+    OPERATOR                       shift and go to state 103
 
 state 26
 
@@ -896,21 +930,21 @@ state 27
 state 28
 
     (27) ROOT -> COMPARISON .
-    (94) COMPARISONS -> COMPARISON .
-    (95) COMPARISONS -> COMPARISON . LOGICAL_OPERATOR COMPARISONS
-    (96) LOGICAL_OPERATOR -> . AND
-    (97) LOGICAL_OPERATOR -> . OR
-    (98) LOGICAL_OPERATOR -> . NOT
+    (106) COMPARISONS -> COMPARISON .
+    (107) COMPARISONS -> COMPARISON . LOGICAL_OPERATOR COMPARISONS
+    (108) LOGICAL_OPERATOR -> . AND
+    (109) LOGICAL_OPERATOR -> . OR
+    (110) LOGICAL_OPERATOR -> . NOT
 
   ! reduce/reduce conflict for $end resolved using rule 27 (ROOT -> COMPARISON .)
     $end            reduce using rule 27 (ROOT -> COMPARISON .)
-    AND             shift and go to state 68
-    OR              shift and go to state 69
-    NOT             shift and go to state 70
+    AND             shift and go to state 72
+    OR              shift and go to state 73
+    NOT             shift and go to state 74
 
-  ! $end            [ reduce using rule 94 (COMPARISONS -> COMPARISON .) ]
+  ! $end            [ reduce using rule 106 (COMPARISONS -> COMPARISON .) ]
 
-    LOGICAL_OPERATOR               shift and go to state 94
+    LOGICAL_OPERATOR               shift and go to state 104
 
 state 29
 
@@ -935,1116 +969,1600 @@ state 31
 
 state 32
 
-    (33) DEFINE -> PP_DEFINE . VARIABLELEX VALUE
-    (78) VARIABLELEX -> . VARNAME
+    (31) ROOT -> SWITCH_BODY .
 
-    VARNAME         shift and go to state 96
+    $end            reduce using rule 31 (ROOT -> SWITCH_BODY .)
 
-    VARIABLELEX                    shift and go to state 95
 
 state 33
 
-    (34) INCLUDE -> PP_INCLUDE . HEADER_LIB
+    (32) ROOT -> BUCLE .
 
-    HEADER_LIB      shift and go to state 97
+    $end            reduce using rule 32 (ROOT -> BUCLE .)
 
 
 state 34
 
-    (36) VALUE -> STRING .
+    (35) DEFINE -> PP_DEFINE . VARIABLELEX VALUE
+    (90) VARIABLELEX -> . VARNAME
 
-    EQUAL_TO        reduce using rule 36 (VALUE -> STRING .)
-    NOT_EQUAL       reduce using rule 36 (VALUE -> STRING .)
-    GREATER_THAN    reduce using rule 36 (VALUE -> STRING .)
-    LESS_THAN       reduce using rule 36 (VALUE -> STRING .)
-    GREATER_EQUAL   reduce using rule 36 (VALUE -> STRING .)
-    LESS_EQUAL      reduce using rule 36 (VALUE -> STRING .)
-    $end            reduce using rule 36 (VALUE -> STRING .)
-    AND             reduce using rule 36 (VALUE -> STRING .)
-    OR              reduce using rule 36 (VALUE -> STRING .)
-    NOT             reduce using rule 36 (VALUE -> STRING .)
-    RPAREN          reduce using rule 36 (VALUE -> STRING .)
+    VARNAME         shift and go to state 106
 
+    VARIABLELEX                    shift and go to state 105
 
 state 35
 
-    (37) NUMBER -> INTEGER .
-    (43) WHILE_STRUCTURE -> INTEGER .
-    (44) SWITCH_STRUCTURE -> INTEGER .
-    (46) FOR_STRUCTURE -> INTEGER .
+    (36) INCLUDE -> PP_INCLUDE . HEADER_LIB
 
-  ! reduce/reduce conflict for $end resolved using rule 37 (NUMBER -> INTEGER .)
-  ! reduce/reduce conflict for $end resolved using rule 37 (NUMBER -> INTEGER .)
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-  ! reduce/reduce conflict for $end resolved using rule 37 (NUMBER -> INTEGER .)
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-    PLUS            reduce using rule 37 (NUMBER -> INTEGER .)
-    MINUS           reduce using rule 37 (NUMBER -> INTEGER .)
-    TIMES           reduce using rule 37 (NUMBER -> INTEGER .)
-    MODULUS         reduce using rule 37 (NUMBER -> INTEGER .)
-    DIVIDE          reduce using rule 37 (NUMBER -> INTEGER .)
-    $end            reduce using rule 37 (NUMBER -> INTEGER .)
-    EQUAL_TO        reduce using rule 37 (NUMBER -> INTEGER .)
-    NOT_EQUAL       reduce using rule 37 (NUMBER -> INTEGER .)
-    GREATER_THAN    reduce using rule 37 (NUMBER -> INTEGER .)
-    LESS_THAN       reduce using rule 37 (NUMBER -> INTEGER .)
-    GREATER_EQUAL   reduce using rule 37 (NUMBER -> INTEGER .)
-    LESS_EQUAL      reduce using rule 37 (NUMBER -> INTEGER .)
-    SEMICOLON       reduce using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-
-  ! $end            [ reduce using rule 43 (WHILE_STRUCTURE -> INTEGER .) ]
-  ! $end            [ reduce using rule 44 (SWITCH_STRUCTURE -> INTEGER .) ]
-  ! SEMICOLON       [ reduce using rule 44 (SWITCH_STRUCTURE -> INTEGER .) ]
-  ! $end            [ reduce using rule 46 (FOR_STRUCTURE -> INTEGER .) ]
-  ! SEMICOLON       [ reduce using rule 46 (FOR_STRUCTURE -> INTEGER .) ]
+    HEADER_LIB      shift and go to state 107
 
 
 state 36
 
-    (38) NUMBER -> DECIMAL .
+    (38) VALUE -> STRING .
 
-    PLUS            reduce using rule 38 (NUMBER -> DECIMAL .)
-    MINUS           reduce using rule 38 (NUMBER -> DECIMAL .)
-    TIMES           reduce using rule 38 (NUMBER -> DECIMAL .)
-    MODULUS         reduce using rule 38 (NUMBER -> DECIMAL .)
-    DIVIDE          reduce using rule 38 (NUMBER -> DECIMAL .)
-    $end            reduce using rule 38 (NUMBER -> DECIMAL .)
-    EQUAL_TO        reduce using rule 38 (NUMBER -> DECIMAL .)
-    NOT_EQUAL       reduce using rule 38 (NUMBER -> DECIMAL .)
-    GREATER_THAN    reduce using rule 38 (NUMBER -> DECIMAL .)
-    LESS_THAN       reduce using rule 38 (NUMBER -> DECIMAL .)
-    GREATER_EQUAL   reduce using rule 38 (NUMBER -> DECIMAL .)
-    LESS_EQUAL      reduce using rule 38 (NUMBER -> DECIMAL .)
-    AND             reduce using rule 38 (NUMBER -> DECIMAL .)
-    OR              reduce using rule 38 (NUMBER -> DECIMAL .)
-    NOT             reduce using rule 38 (NUMBER -> DECIMAL .)
-    RPAREN          reduce using rule 38 (NUMBER -> DECIMAL .)
-    SEMICOLON       reduce using rule 38 (NUMBER -> DECIMAL .)
+    EQUAL_TO        reduce using rule 38 (VALUE -> STRING .)
+    NOT_EQUAL       reduce using rule 38 (VALUE -> STRING .)
+    GREATER_THAN    reduce using rule 38 (VALUE -> STRING .)
+    LESS_THAN       reduce using rule 38 (VALUE -> STRING .)
+    GREATER_EQUAL   reduce using rule 38 (VALUE -> STRING .)
+    LESS_EQUAL      reduce using rule 38 (VALUE -> STRING .)
+    $end            reduce using rule 38 (VALUE -> STRING .)
+    AND             reduce using rule 38 (VALUE -> STRING .)
+    OR              reduce using rule 38 (VALUE -> STRING .)
+    NOT             reduce using rule 38 (VALUE -> STRING .)
+    RPAREN          reduce using rule 38 (VALUE -> STRING .)
 
 
 state 37
 
-    (45) IF_STRUCTURE -> IF . LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (39) NUMBER -> INTEGER .
+    (58) FOR_STRUCTURE -> INTEGER .
 
-    LPAREN          shift and go to state 98
+  ! reduce/reduce conflict for $end resolved using rule 39 (NUMBER -> INTEGER .)
+    PLUS            reduce using rule 39 (NUMBER -> INTEGER .)
+    MINUS           reduce using rule 39 (NUMBER -> INTEGER .)
+    TIMES           reduce using rule 39 (NUMBER -> INTEGER .)
+    MODULUS         reduce using rule 39 (NUMBER -> INTEGER .)
+    DIVIDE          reduce using rule 39 (NUMBER -> INTEGER .)
+    $end            reduce using rule 39 (NUMBER -> INTEGER .)
+    EQUAL_TO        reduce using rule 39 (NUMBER -> INTEGER .)
+    NOT_EQUAL       reduce using rule 39 (NUMBER -> INTEGER .)
+    GREATER_THAN    reduce using rule 39 (NUMBER -> INTEGER .)
+    LESS_THAN       reduce using rule 39 (NUMBER -> INTEGER .)
+    GREATER_EQUAL   reduce using rule 39 (NUMBER -> INTEGER .)
+    LESS_EQUAL      reduce using rule 39 (NUMBER -> INTEGER .)
+    SEMICOLON       reduce using rule 58 (FOR_STRUCTURE -> INTEGER .)
+
+  ! $end            [ reduce using rule 58 (FOR_STRUCTURE -> INTEGER .) ]
 
 
 state 38
 
-    (56) FUNCTION -> VARNAME . LPAREN RPAREN
-    (64) ASSIGNMENT_DECLARATION -> VARNAME . ASSIGNMENT_OPERATOR SENTENCE
-    (78) VARIABLELEX -> VARNAME .
-    (100) SENTENCE -> VARNAME .
-    (65) ASSIGNMENT_OPERATOR -> . EQUAL
-    (66) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
-    (67) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
-    (68) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
-    (69) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
-    (70) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
-    (71) ASSIGNMENT_OPERATOR -> . AND_EQUAL
-    (72) ASSIGNMENT_OPERATOR -> . OR_EQUAL
-    (73) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
-    (74) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
-    (75) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
-    (76) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
+    (40) NUMBER -> DECIMAL .
 
-  ! reduce/reduce conflict for $end resolved using rule 78 (VARIABLELEX -> VARNAME .)
-    LPAREN          shift and go to state 99
-    $end            reduce using rule 78 (VARIABLELEX -> VARNAME .)
-    EQUAL           shift and go to state 44
-    PLUS_EQUAL      shift and go to state 45
-    MINUS_EQUAL     shift and go to state 46
-    DIV_EQUAL       shift and go to state 47
-    TIMES_EQUAL     shift and go to state 48
-    MOD_EQUAL       shift and go to state 49
-    AND_EQUAL       shift and go to state 50
-    OR_EQUAL        shift and go to state 51
-    XOR_EQUAL       shift and go to state 52
-    COMPLEMENT_EQUAL shift and go to state 53
-    SHIFTL_EQUAL    shift and go to state 54
-    SHIFTR_EQUAL    shift and go to state 55
+    PLUS            reduce using rule 40 (NUMBER -> DECIMAL .)
+    MINUS           reduce using rule 40 (NUMBER -> DECIMAL .)
+    TIMES           reduce using rule 40 (NUMBER -> DECIMAL .)
+    MODULUS         reduce using rule 40 (NUMBER -> DECIMAL .)
+    DIVIDE          reduce using rule 40 (NUMBER -> DECIMAL .)
+    $end            reduce using rule 40 (NUMBER -> DECIMAL .)
+    EQUAL_TO        reduce using rule 40 (NUMBER -> DECIMAL .)
+    NOT_EQUAL       reduce using rule 40 (NUMBER -> DECIMAL .)
+    GREATER_THAN    reduce using rule 40 (NUMBER -> DECIMAL .)
+    LESS_THAN       reduce using rule 40 (NUMBER -> DECIMAL .)
+    GREATER_EQUAL   reduce using rule 40 (NUMBER -> DECIMAL .)
+    LESS_EQUAL      reduce using rule 40 (NUMBER -> DECIMAL .)
+    AND             reduce using rule 40 (NUMBER -> DECIMAL .)
+    OR              reduce using rule 40 (NUMBER -> DECIMAL .)
+    NOT             reduce using rule 40 (NUMBER -> DECIMAL .)
+    RPAREN          reduce using rule 40 (NUMBER -> DECIMAL .)
+    SEMICOLON       reduce using rule 40 (NUMBER -> DECIMAL .)
 
-  ! $end            [ reduce using rule 100 (SENTENCE -> VARNAME .) ]
-
-    ASSIGNMENT_OPERATOR            shift and go to state 100
 
 state 39
 
-    (57) INTEGER_TYPE -> INT .
+    (48) WHILE_STRUCTURE -> WHILE . LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
 
-    VARNAME         reduce using rule 57 (INTEGER_TYPE -> INT .)
-    $end            reduce using rule 57 (INTEGER_TYPE -> INT .)
+    LPAREN          shift and go to state 108
 
 
 state 40
 
-    (58) INTEGER_TYPE -> SHORT .
+    (54) SWITCH_STRUCTURE -> SWITCH . LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
 
-    VARNAME         reduce using rule 58 (INTEGER_TYPE -> SHORT .)
-    $end            reduce using rule 58 (INTEGER_TYPE -> SHORT .)
+    LPAREN          shift and go to state 109
 
 
 state 41
 
-    (59) INTEGER_TYPE -> LONG .
+    (55) IF_STRUCTURE -> IF . LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
 
-    VARNAME         reduce using rule 59 (INTEGER_TYPE -> LONG .)
-    $end            reduce using rule 59 (INTEGER_TYPE -> LONG .)
+    LPAREN          shift and go to state 110
 
 
 state 42
 
-    (60) DECIMAL_TYPE -> FLOAT .
+    (68) FUNCTION -> VARNAME . LPAREN RPAREN
+    (76) ASSIGNMENT_DECLARATION -> VARNAME . ASSIGNMENT_OPERATOR SENTENCE
+    (90) VARIABLELEX -> VARNAME .
+    (112) SENTENCE -> VARNAME .
+    (77) ASSIGNMENT_OPERATOR -> . EQUAL
+    (78) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
+    (79) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
+    (80) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
+    (81) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
+    (82) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
+    (83) ASSIGNMENT_OPERATOR -> . AND_EQUAL
+    (84) ASSIGNMENT_OPERATOR -> . OR_EQUAL
+    (85) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
+    (86) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
+    (87) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
+    (88) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
 
-    VARNAME         reduce using rule 60 (DECIMAL_TYPE -> FLOAT .)
-    $end            reduce using rule 60 (DECIMAL_TYPE -> FLOAT .)
+  ! reduce/reduce conflict for $end resolved using rule 90 (VARIABLELEX -> VARNAME .)
+    LPAREN          shift and go to state 111
+    INCREASE        reduce using rule 90 (VARIABLELEX -> VARNAME .)
+    $end            reduce using rule 90 (VARIABLELEX -> VARNAME .)
+    EQUAL           shift and go to state 48
+    PLUS_EQUAL      shift and go to state 49
+    MINUS_EQUAL     shift and go to state 50
+    DIV_EQUAL       shift and go to state 51
+    TIMES_EQUAL     shift and go to state 52
+    MOD_EQUAL       shift and go to state 53
+    AND_EQUAL       shift and go to state 54
+    OR_EQUAL        shift and go to state 55
+    XOR_EQUAL       shift and go to state 56
+    COMPLEMENT_EQUAL shift and go to state 57
+    SHIFTL_EQUAL    shift and go to state 58
+    SHIFTR_EQUAL    shift and go to state 59
 
+  ! $end            [ reduce using rule 112 (SENTENCE -> VARNAME .) ]
+
+    ASSIGNMENT_OPERATOR            shift and go to state 112
 
 state 43
 
-    (61) DECIMAL_TYPE -> DOUBLE .
+    (69) INTEGER_TYPE -> INT .
 
-    VARNAME         reduce using rule 61 (DECIMAL_TYPE -> DOUBLE .)
-    $end            reduce using rule 61 (DECIMAL_TYPE -> DOUBLE .)
+    VARNAME         reduce using rule 69 (INTEGER_TYPE -> INT .)
+    $end            reduce using rule 69 (INTEGER_TYPE -> INT .)
 
 
 state 44
 
-    (65) ASSIGNMENT_OPERATOR -> EQUAL .
+    (70) INTEGER_TYPE -> SHORT .
 
-    $end            reduce using rule 65 (ASSIGNMENT_OPERATOR -> EQUAL .)
-    VARNAME         reduce using rule 65 (ASSIGNMENT_OPERATOR -> EQUAL .)
-    INTEGER         reduce using rule 65 (ASSIGNMENT_OPERATOR -> EQUAL .)
-    DECIMAL         reduce using rule 65 (ASSIGNMENT_OPERATOR -> EQUAL .)
+    VARNAME         reduce using rule 70 (INTEGER_TYPE -> SHORT .)
+    $end            reduce using rule 70 (INTEGER_TYPE -> SHORT .)
 
 
 state 45
 
-    (66) ASSIGNMENT_OPERATOR -> PLUS_EQUAL .
+    (71) INTEGER_TYPE -> LONG .
 
-    $end            reduce using rule 66 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
-    VARNAME         reduce using rule 66 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
-    INTEGER         reduce using rule 66 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
-    DECIMAL         reduce using rule 66 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
+    VARNAME         reduce using rule 71 (INTEGER_TYPE -> LONG .)
+    $end            reduce using rule 71 (INTEGER_TYPE -> LONG .)
 
 
 state 46
 
-    (67) ASSIGNMENT_OPERATOR -> MINUS_EQUAL .
+    (72) DECIMAL_TYPE -> FLOAT .
 
-    $end            reduce using rule 67 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
-    VARNAME         reduce using rule 67 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
-    INTEGER         reduce using rule 67 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
-    DECIMAL         reduce using rule 67 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
+    VARNAME         reduce using rule 72 (DECIMAL_TYPE -> FLOAT .)
+    $end            reduce using rule 72 (DECIMAL_TYPE -> FLOAT .)
 
 
 state 47
 
-    (68) ASSIGNMENT_OPERATOR -> DIV_EQUAL .
+    (73) DECIMAL_TYPE -> DOUBLE .
 
-    $end            reduce using rule 68 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
-    VARNAME         reduce using rule 68 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
-    INTEGER         reduce using rule 68 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
-    DECIMAL         reduce using rule 68 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
+    VARNAME         reduce using rule 73 (DECIMAL_TYPE -> DOUBLE .)
+    $end            reduce using rule 73 (DECIMAL_TYPE -> DOUBLE .)
 
 
 state 48
 
-    (69) ASSIGNMENT_OPERATOR -> TIMES_EQUAL .
+    (77) ASSIGNMENT_OPERATOR -> EQUAL .
 
-    $end            reduce using rule 69 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
-    VARNAME         reduce using rule 69 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
-    INTEGER         reduce using rule 69 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
-    DECIMAL         reduce using rule 69 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
+    $end            reduce using rule 77 (ASSIGNMENT_OPERATOR -> EQUAL .)
+    VARNAME         reduce using rule 77 (ASSIGNMENT_OPERATOR -> EQUAL .)
+    INTEGER         reduce using rule 77 (ASSIGNMENT_OPERATOR -> EQUAL .)
+    DECIMAL         reduce using rule 77 (ASSIGNMENT_OPERATOR -> EQUAL .)
 
 
 state 49
 
-    (70) ASSIGNMENT_OPERATOR -> MOD_EQUAL .
+    (78) ASSIGNMENT_OPERATOR -> PLUS_EQUAL .
 
-    $end            reduce using rule 70 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
-    VARNAME         reduce using rule 70 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
-    INTEGER         reduce using rule 70 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
-    DECIMAL         reduce using rule 70 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
+    $end            reduce using rule 78 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
+    VARNAME         reduce using rule 78 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
+    INTEGER         reduce using rule 78 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
+    DECIMAL         reduce using rule 78 (ASSIGNMENT_OPERATOR -> PLUS_EQUAL .)
 
 
 state 50
 
-    (71) ASSIGNMENT_OPERATOR -> AND_EQUAL .
+    (79) ASSIGNMENT_OPERATOR -> MINUS_EQUAL .
 
-    $end            reduce using rule 71 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
-    VARNAME         reduce using rule 71 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
-    INTEGER         reduce using rule 71 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
-    DECIMAL         reduce using rule 71 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
+    $end            reduce using rule 79 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
+    VARNAME         reduce using rule 79 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
+    INTEGER         reduce using rule 79 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
+    DECIMAL         reduce using rule 79 (ASSIGNMENT_OPERATOR -> MINUS_EQUAL .)
 
 
 state 51
 
-    (72) ASSIGNMENT_OPERATOR -> OR_EQUAL .
+    (80) ASSIGNMENT_OPERATOR -> DIV_EQUAL .
 
-    $end            reduce using rule 72 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
-    VARNAME         reduce using rule 72 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
-    INTEGER         reduce using rule 72 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
-    DECIMAL         reduce using rule 72 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
+    $end            reduce using rule 80 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
+    VARNAME         reduce using rule 80 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
+    INTEGER         reduce using rule 80 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
+    DECIMAL         reduce using rule 80 (ASSIGNMENT_OPERATOR -> DIV_EQUAL .)
 
 
 state 52
 
-    (73) ASSIGNMENT_OPERATOR -> XOR_EQUAL .
+    (81) ASSIGNMENT_OPERATOR -> TIMES_EQUAL .
 
-    $end            reduce using rule 73 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
-    VARNAME         reduce using rule 73 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
-    INTEGER         reduce using rule 73 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
-    DECIMAL         reduce using rule 73 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
+    $end            reduce using rule 81 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
+    VARNAME         reduce using rule 81 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
+    INTEGER         reduce using rule 81 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
+    DECIMAL         reduce using rule 81 (ASSIGNMENT_OPERATOR -> TIMES_EQUAL .)
 
 
 state 53
 
-    (74) ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .
+    (82) ASSIGNMENT_OPERATOR -> MOD_EQUAL .
 
-    $end            reduce using rule 74 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
-    VARNAME         reduce using rule 74 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
-    INTEGER         reduce using rule 74 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
-    DECIMAL         reduce using rule 74 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
+    $end            reduce using rule 82 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
+    VARNAME         reduce using rule 82 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
+    INTEGER         reduce using rule 82 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
+    DECIMAL         reduce using rule 82 (ASSIGNMENT_OPERATOR -> MOD_EQUAL .)
 
 
 state 54
 
-    (75) ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .
+    (83) ASSIGNMENT_OPERATOR -> AND_EQUAL .
 
-    $end            reduce using rule 75 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
-    VARNAME         reduce using rule 75 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
-    INTEGER         reduce using rule 75 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
-    DECIMAL         reduce using rule 75 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
+    $end            reduce using rule 83 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
+    VARNAME         reduce using rule 83 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
+    INTEGER         reduce using rule 83 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
+    DECIMAL         reduce using rule 83 (ASSIGNMENT_OPERATOR -> AND_EQUAL .)
 
 
 state 55
 
-    (76) ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .
+    (84) ASSIGNMENT_OPERATOR -> OR_EQUAL .
 
-    $end            reduce using rule 76 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
-    VARNAME         reduce using rule 76 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
-    INTEGER         reduce using rule 76 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
-    DECIMAL         reduce using rule 76 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
+    $end            reduce using rule 84 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
+    VARNAME         reduce using rule 84 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
+    INTEGER         reduce using rule 84 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
+    DECIMAL         reduce using rule 84 (ASSIGNMENT_OPERATOR -> OR_EQUAL .)
 
 
 state 56
 
-    (77) COMENTARIOLEX -> COMMENT .
+    (85) ASSIGNMENT_OPERATOR -> XOR_EQUAL .
 
-    $end            reduce using rule 77 (COMENTARIOLEX -> COMMENT .)
-    SEMICOLON       reduce using rule 77 (COMENTARIOLEX -> COMMENT .)
+    $end            reduce using rule 85 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
+    VARNAME         reduce using rule 85 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
+    INTEGER         reduce using rule 85 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
+    DECIMAL         reduce using rule 85 (ASSIGNMENT_OPERATOR -> XOR_EQUAL .)
 
 
 state 57
 
-    (79) OPERATOR -> PLUS .
+    (86) ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .
 
-    $end            reduce using rule 79 (OPERATOR -> PLUS .)
-    INTEGER         reduce using rule 79 (OPERATOR -> PLUS .)
-    DECIMAL         reduce using rule 79 (OPERATOR -> PLUS .)
+    $end            reduce using rule 86 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
+    VARNAME         reduce using rule 86 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
+    INTEGER         reduce using rule 86 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
+    DECIMAL         reduce using rule 86 (ASSIGNMENT_OPERATOR -> COMPLEMENT_EQUAL .)
 
 
 state 58
 
-    (80) OPERATOR -> MINUS .
+    (87) ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .
 
-    $end            reduce using rule 80 (OPERATOR -> MINUS .)
-    INTEGER         reduce using rule 80 (OPERATOR -> MINUS .)
-    DECIMAL         reduce using rule 80 (OPERATOR -> MINUS .)
+    $end            reduce using rule 87 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
+    VARNAME         reduce using rule 87 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
+    INTEGER         reduce using rule 87 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
+    DECIMAL         reduce using rule 87 (ASSIGNMENT_OPERATOR -> SHIFTL_EQUAL .)
 
 
 state 59
 
-    (81) OPERATOR -> TIMES .
+    (88) ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .
 
-    $end            reduce using rule 81 (OPERATOR -> TIMES .)
-    INTEGER         reduce using rule 81 (OPERATOR -> TIMES .)
-    DECIMAL         reduce using rule 81 (OPERATOR -> TIMES .)
+    $end            reduce using rule 88 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
+    VARNAME         reduce using rule 88 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
+    INTEGER         reduce using rule 88 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
+    DECIMAL         reduce using rule 88 (ASSIGNMENT_OPERATOR -> SHIFTR_EQUAL .)
 
 
 state 60
 
-    (82) OPERATOR -> MODULUS .
+    (89) COMENTARIOLEX -> COMMENT .
 
-    $end            reduce using rule 82 (OPERATOR -> MODULUS .)
-    INTEGER         reduce using rule 82 (OPERATOR -> MODULUS .)
-    DECIMAL         reduce using rule 82 (OPERATOR -> MODULUS .)
+    $end            reduce using rule 89 (COMENTARIOLEX -> COMMENT .)
+    SEMICOLON       reduce using rule 89 (COMENTARIOLEX -> COMMENT .)
 
 
 state 61
 
-    (83) OPERATOR -> DIVIDE .
+    (91) OPERATOR -> PLUS .
 
-    $end            reduce using rule 83 (OPERATOR -> DIVIDE .)
-    INTEGER         reduce using rule 83 (OPERATOR -> DIVIDE .)
-    DECIMAL         reduce using rule 83 (OPERATOR -> DIVIDE .)
+    $end            reduce using rule 91 (OPERATOR -> PLUS .)
+    INTEGER         reduce using rule 91 (OPERATOR -> PLUS .)
+    DECIMAL         reduce using rule 91 (OPERATOR -> PLUS .)
 
 
 state 62
 
-    (87) COMPARISON_OPERATOR -> EQUAL_TO .
+    (92) OPERATOR -> MINUS .
 
-    $end            reduce using rule 87 (COMPARISON_OPERATOR -> EQUAL_TO .)
-    STRING          reduce using rule 87 (COMPARISON_OPERATOR -> EQUAL_TO .)
-    INTEGER         reduce using rule 87 (COMPARISON_OPERATOR -> EQUAL_TO .)
-    DECIMAL         reduce using rule 87 (COMPARISON_OPERATOR -> EQUAL_TO .)
+    $end            reduce using rule 92 (OPERATOR -> MINUS .)
+    INTEGER         reduce using rule 92 (OPERATOR -> MINUS .)
+    DECIMAL         reduce using rule 92 (OPERATOR -> MINUS .)
 
 
 state 63
 
-    (88) COMPARISON_OPERATOR -> NOT_EQUAL .
+    (93) OPERATOR -> TIMES .
 
-    $end            reduce using rule 88 (COMPARISON_OPERATOR -> NOT_EQUAL .)
-    STRING          reduce using rule 88 (COMPARISON_OPERATOR -> NOT_EQUAL .)
-    INTEGER         reduce using rule 88 (COMPARISON_OPERATOR -> NOT_EQUAL .)
-    DECIMAL         reduce using rule 88 (COMPARISON_OPERATOR -> NOT_EQUAL .)
+    $end            reduce using rule 93 (OPERATOR -> TIMES .)
+    INTEGER         reduce using rule 93 (OPERATOR -> TIMES .)
+    DECIMAL         reduce using rule 93 (OPERATOR -> TIMES .)
 
 
 state 64
 
-    (89) COMPARISON_OPERATOR -> GREATER_THAN .
+    (94) OPERATOR -> MODULUS .
 
-    $end            reduce using rule 89 (COMPARISON_OPERATOR -> GREATER_THAN .)
-    STRING          reduce using rule 89 (COMPARISON_OPERATOR -> GREATER_THAN .)
-    INTEGER         reduce using rule 89 (COMPARISON_OPERATOR -> GREATER_THAN .)
-    DECIMAL         reduce using rule 89 (COMPARISON_OPERATOR -> GREATER_THAN .)
+    $end            reduce using rule 94 (OPERATOR -> MODULUS .)
+    INTEGER         reduce using rule 94 (OPERATOR -> MODULUS .)
+    DECIMAL         reduce using rule 94 (OPERATOR -> MODULUS .)
 
 
 state 65
 
-    (90) COMPARISON_OPERATOR -> LESS_THAN .
+    (95) OPERATOR -> DIVIDE .
 
-    $end            reduce using rule 90 (COMPARISON_OPERATOR -> LESS_THAN .)
-    STRING          reduce using rule 90 (COMPARISON_OPERATOR -> LESS_THAN .)
-    INTEGER         reduce using rule 90 (COMPARISON_OPERATOR -> LESS_THAN .)
-    DECIMAL         reduce using rule 90 (COMPARISON_OPERATOR -> LESS_THAN .)
+    $end            reduce using rule 95 (OPERATOR -> DIVIDE .)
+    INTEGER         reduce using rule 95 (OPERATOR -> DIVIDE .)
+    DECIMAL         reduce using rule 95 (OPERATOR -> DIVIDE .)
 
 
 state 66
 
-    (91) COMPARISON_OPERATOR -> GREATER_EQUAL .
+    (99) COMPARISON_OPERATOR -> EQUAL_TO .
 
-    $end            reduce using rule 91 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
-    STRING          reduce using rule 91 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
-    INTEGER         reduce using rule 91 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
-    DECIMAL         reduce using rule 91 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
+    $end            reduce using rule 99 (COMPARISON_OPERATOR -> EQUAL_TO .)
+    STRING          reduce using rule 99 (COMPARISON_OPERATOR -> EQUAL_TO .)
+    INTEGER         reduce using rule 99 (COMPARISON_OPERATOR -> EQUAL_TO .)
+    DECIMAL         reduce using rule 99 (COMPARISON_OPERATOR -> EQUAL_TO .)
 
 
 state 67
 
-    (92) COMPARISON_OPERATOR -> LESS_EQUAL .
+    (100) COMPARISON_OPERATOR -> NOT_EQUAL .
 
-    $end            reduce using rule 92 (COMPARISON_OPERATOR -> LESS_EQUAL .)
-    STRING          reduce using rule 92 (COMPARISON_OPERATOR -> LESS_EQUAL .)
-    INTEGER         reduce using rule 92 (COMPARISON_OPERATOR -> LESS_EQUAL .)
-    DECIMAL         reduce using rule 92 (COMPARISON_OPERATOR -> LESS_EQUAL .)
+    $end            reduce using rule 100 (COMPARISON_OPERATOR -> NOT_EQUAL .)
+    STRING          reduce using rule 100 (COMPARISON_OPERATOR -> NOT_EQUAL .)
+    INTEGER         reduce using rule 100 (COMPARISON_OPERATOR -> NOT_EQUAL .)
+    DECIMAL         reduce using rule 100 (COMPARISON_OPERATOR -> NOT_EQUAL .)
 
 
 state 68
 
-    (96) LOGICAL_OPERATOR -> AND .
+    (101) COMPARISON_OPERATOR -> GREATER_THAN .
 
-    $end            reduce using rule 96 (LOGICAL_OPERATOR -> AND .)
-    STRING          reduce using rule 96 (LOGICAL_OPERATOR -> AND .)
-    INTEGER         reduce using rule 96 (LOGICAL_OPERATOR -> AND .)
-    DECIMAL         reduce using rule 96 (LOGICAL_OPERATOR -> AND .)
+    $end            reduce using rule 101 (COMPARISON_OPERATOR -> GREATER_THAN .)
+    STRING          reduce using rule 101 (COMPARISON_OPERATOR -> GREATER_THAN .)
+    INTEGER         reduce using rule 101 (COMPARISON_OPERATOR -> GREATER_THAN .)
+    DECIMAL         reduce using rule 101 (COMPARISON_OPERATOR -> GREATER_THAN .)
 
 
 state 69
 
-    (97) LOGICAL_OPERATOR -> OR .
+    (102) COMPARISON_OPERATOR -> LESS_THAN .
 
-    $end            reduce using rule 97 (LOGICAL_OPERATOR -> OR .)
-    STRING          reduce using rule 97 (LOGICAL_OPERATOR -> OR .)
-    INTEGER         reduce using rule 97 (LOGICAL_OPERATOR -> OR .)
-    DECIMAL         reduce using rule 97 (LOGICAL_OPERATOR -> OR .)
+    $end            reduce using rule 102 (COMPARISON_OPERATOR -> LESS_THAN .)
+    STRING          reduce using rule 102 (COMPARISON_OPERATOR -> LESS_THAN .)
+    INTEGER         reduce using rule 102 (COMPARISON_OPERATOR -> LESS_THAN .)
+    DECIMAL         reduce using rule 102 (COMPARISON_OPERATOR -> LESS_THAN .)
 
 
 state 70
 
-    (98) LOGICAL_OPERATOR -> NOT .
+    (103) COMPARISON_OPERATOR -> GREATER_EQUAL .
 
-    $end            reduce using rule 98 (LOGICAL_OPERATOR -> NOT .)
-    STRING          reduce using rule 98 (LOGICAL_OPERATOR -> NOT .)
-    INTEGER         reduce using rule 98 (LOGICAL_OPERATOR -> NOT .)
-    DECIMAL         reduce using rule 98 (LOGICAL_OPERATOR -> NOT .)
+    $end            reduce using rule 103 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
+    STRING          reduce using rule 103 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
+    INTEGER         reduce using rule 103 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
+    DECIMAL         reduce using rule 103 (COMPARISON_OPERATOR -> GREATER_EQUAL .)
 
 
 state 71
 
-    (93) COMPARISON -> VALUE COMPARISON_OPERATOR . VALUE
-    (35) VALUE -> . NUMBER
-    (36) VALUE -> . STRING
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (104) COMPARISON_OPERATOR -> LESS_EQUAL .
 
-    STRING          shift and go to state 34
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    $end            reduce using rule 104 (COMPARISON_OPERATOR -> LESS_EQUAL .)
+    STRING          reduce using rule 104 (COMPARISON_OPERATOR -> LESS_EQUAL .)
+    INTEGER         reduce using rule 104 (COMPARISON_OPERATOR -> LESS_EQUAL .)
+    DECIMAL         reduce using rule 104 (COMPARISON_OPERATOR -> LESS_EQUAL .)
 
-    VALUE                          shift and go to state 101
-    NUMBER                         shift and go to state 102
 
 state 72
 
-    (84) OPERATION -> NUMBER OPERATOR . NUMBER
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (108) LOGICAL_OPERATOR -> AND .
 
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    $end            reduce using rule 108 (LOGICAL_OPERATOR -> AND .)
+    STRING          reduce using rule 108 (LOGICAL_OPERATOR -> AND .)
+    INTEGER         reduce using rule 108 (LOGICAL_OPERATOR -> AND .)
+    DECIMAL         reduce using rule 108 (LOGICAL_OPERATOR -> AND .)
 
-    NUMBER                         shift and go to state 104
 
 state 73
 
-    (53) EXPRESSION -> CODE SEMICOLON .
+    (109) LOGICAL_OPERATOR -> OR .
 
-    VARNAME         reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    COMMENT         reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    IF              reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    INTEGER         reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    INT             reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    SHORT           reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    LONG            reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    FLOAT           reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    DOUBLE          reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    $end            reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
-    RCURL_BRACE     reduce using rule 53 (EXPRESSION -> CODE SEMICOLON .)
+    $end            reduce using rule 109 (LOGICAL_OPERATOR -> OR .)
+    STRING          reduce using rule 109 (LOGICAL_OPERATOR -> OR .)
+    INTEGER         reduce using rule 109 (LOGICAL_OPERATOR -> OR .)
+    DECIMAL         reduce using rule 109 (LOGICAL_OPERATOR -> OR .)
 
 
 state 74
 
-    (54) EXPRESSIONS -> EXPRESSION .
-    (55) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
-    (54) EXPRESSIONS -> . EXPRESSION
-    (55) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (53) EXPRESSION -> . CODE SEMICOLON
-    (47) CODE -> . FUNCTION
-    (48) CODE -> . CONTROL_STRUCTURES
-    (49) CODE -> . INTEGER_DECLARATION
-    (50) CODE -> . DECIMAL_DECLARATION
-    (51) CODE -> . ASSIGNMENT_DECLARATION
-    (52) CODE -> . COMENTARIOLEX
-    (56) FUNCTION -> . VARNAME LPAREN RPAREN
-    (39) CONTROL_STRUCTURES -> . IF_STRUCTURE
-    (40) CONTROL_STRUCTURES -> . FOR_STRUCTURE
-    (41) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
-    (42) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
-    (62) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
-    (63) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
-    (64) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
-    (77) COMENTARIOLEX -> . COMMENT
-    (45) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-    (46) FOR_STRUCTURE -> . INTEGER
-    (43) WHILE_STRUCTURE -> . INTEGER
-    (44) SWITCH_STRUCTURE -> . INTEGER
-    (57) INTEGER_TYPE -> . INT
-    (58) INTEGER_TYPE -> . SHORT
-    (59) INTEGER_TYPE -> . LONG
-    (60) DECIMAL_TYPE -> . FLOAT
-    (61) DECIMAL_TYPE -> . DOUBLE
+    (110) LOGICAL_OPERATOR -> NOT .
 
-    $end            reduce using rule 54 (EXPRESSIONS -> EXPRESSION .)
-    RCURL_BRACE     reduce using rule 54 (EXPRESSIONS -> EXPRESSION .)
-    VARNAME         shift and go to state 83
-    COMMENT         shift and go to state 56
-    IF              shift and go to state 37
-    INTEGER         shift and go to state 89
-    INT             shift and go to state 39
-    SHORT           shift and go to state 40
-    LONG            shift and go to state 41
-    FLOAT           shift and go to state 42
-    DOUBLE          shift and go to state 43
+    $end            reduce using rule 110 (LOGICAL_OPERATOR -> NOT .)
+    STRING          reduce using rule 110 (LOGICAL_OPERATOR -> NOT .)
+    INTEGER         reduce using rule 110 (LOGICAL_OPERATOR -> NOT .)
+    DECIMAL         reduce using rule 110 (LOGICAL_OPERATOR -> NOT .)
 
-    EXPRESSION                     shift and go to state 74
-    EXPRESSIONS                    shift and go to state 75
-    CODE                           shift and go to state 76
-    FUNCTION                       shift and go to state 77
-    CONTROL_STRUCTURES             shift and go to state 78
-    INTEGER_DECLARATION            shift and go to state 79
-    DECIMAL_DECLARATION            shift and go to state 80
-    ASSIGNMENT_DECLARATION         shift and go to state 81
-    COMENTARIOLEX                  shift and go to state 82
-    IF_STRUCTURE                   shift and go to state 84
-    FOR_STRUCTURE                  shift and go to state 85
-    WHILE_STRUCTURE                shift and go to state 86
-    SWITCH_STRUCTURE               shift and go to state 87
-    INTEGER_TYPE                   shift and go to state 88
-    DECIMAL_TYPE                   shift and go to state 90
 
 state 75
 
-    (55) EXPRESSIONS -> EXPRESSION EXPRESSIONS .
+    (51) SWITCH_BODY -> SWITCH_CASE .
+    (53) SWITCH_BODY -> SWITCH_CASE . SWITCH_BODY
+    (51) SWITCH_BODY -> . SWITCH_CASE
+    (52) SWITCH_BODY -> . SWITCH_DEFAULT
+    (53) SWITCH_BODY -> . SWITCH_CASE SWITCH_BODY
+    (49) SWITCH_CASE -> . CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON
+    (50) SWITCH_DEFAULT -> . DEFAULT COLON EXPRESSIONS BREAK SEMICOLON
 
-    $end            reduce using rule 55 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
-    RCURL_BRACE     reduce using rule 55 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
+    $end            reduce using rule 51 (SWITCH_BODY -> SWITCH_CASE .)
+    RCURL_BRACE     reduce using rule 51 (SWITCH_BODY -> SWITCH_CASE .)
+    CASE            shift and go to state 78
+    DEFAULT         shift and go to state 79
 
+    SWITCH_CASE                    shift and go to state 75
+    SWITCH_BODY                    shift and go to state 113
+    SWITCH_DEFAULT                 shift and go to state 76
 
 state 76
 
-    (53) EXPRESSION -> CODE . SEMICOLON
+    (52) SWITCH_BODY -> SWITCH_DEFAULT .
 
-    SEMICOLON       shift and go to state 73
+    $end            reduce using rule 52 (SWITCH_BODY -> SWITCH_DEFAULT .)
+    RCURL_BRACE     reduce using rule 52 (SWITCH_BODY -> SWITCH_DEFAULT .)
 
 
 state 77
 
-    (47) CODE -> FUNCTION .
+    (57) BUCLE -> DECREASE . VARIABLELEX
+    (90) VARIABLELEX -> . VARNAME
 
-    SEMICOLON       reduce using rule 47 (CODE -> FUNCTION .)
+    VARNAME         shift and go to state 106
 
+    VARIABLELEX                    shift and go to state 114
 
 state 78
 
-    (48) CODE -> CONTROL_STRUCTURES .
+    (49) SWITCH_CASE -> CASE . INTEGER COLON EXPRESSIONS BREAK SEMICOLON
 
-    SEMICOLON       reduce using rule 48 (CODE -> CONTROL_STRUCTURES .)
+    INTEGER         shift and go to state 115
 
 
 state 79
 
-    (49) CODE -> INTEGER_DECLARATION .
+    (50) SWITCH_DEFAULT -> DEFAULT . COLON EXPRESSIONS BREAK SEMICOLON
 
-    SEMICOLON       reduce using rule 49 (CODE -> INTEGER_DECLARATION .)
+    COLON           shift and go to state 116
 
 
 state 80
 
-    (50) CODE -> DECIMAL_DECLARATION .
+    (105) COMPARISON -> VALUE COMPARISON_OPERATOR . VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    SEMICOLON       reduce using rule 50 (CODE -> DECIMAL_DECLARATION .)
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    VALUE                          shift and go to state 117
+    NUMBER                         shift and go to state 118
 
 state 81
 
-    (51) CODE -> ASSIGNMENT_DECLARATION .
+    (96) OPERATION -> NUMBER OPERATOR . NUMBER
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    SEMICOLON       reduce using rule 51 (CODE -> ASSIGNMENT_DECLARATION .)
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    NUMBER                         shift and go to state 120
 
 state 82
 
-    (52) CODE -> COMENTARIOLEX .
+    (65) EXPRESSION -> CODE SEMICOLON .
 
-    SEMICOLON       reduce using rule 52 (CODE -> COMENTARIOLEX .)
+    VARNAME         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    COMMENT         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    IF              reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    INTEGER         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    WHILE           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    SWITCH          reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    INT             reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    SHORT           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    LONG            reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    FLOAT           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    DOUBLE          reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    $end            reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    BREAK           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    CONTINUE        reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    RCURL_BRACE     reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
 
 
 state 83
 
-    (56) FUNCTION -> VARNAME . LPAREN RPAREN
-    (64) ASSIGNMENT_DECLARATION -> VARNAME . ASSIGNMENT_OPERATOR SENTENCE
-    (65) ASSIGNMENT_OPERATOR -> . EQUAL
-    (66) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
-    (67) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
-    (68) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
-    (69) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
-    (70) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
-    (71) ASSIGNMENT_OPERATOR -> . AND_EQUAL
-    (72) ASSIGNMENT_OPERATOR -> . OR_EQUAL
-    (73) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
-    (74) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
-    (75) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
-    (76) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
+    (66) EXPRESSIONS -> EXPRESSION .
+    (67) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
 
-    LPAREN          shift and go to state 99
-    EQUAL           shift and go to state 44
-    PLUS_EQUAL      shift and go to state 45
-    MINUS_EQUAL     shift and go to state 46
-    DIV_EQUAL       shift and go to state 47
-    TIMES_EQUAL     shift and go to state 48
-    MOD_EQUAL       shift and go to state 49
-    AND_EQUAL       shift and go to state 50
-    OR_EQUAL        shift and go to state 51
-    XOR_EQUAL       shift and go to state 52
-    COMPLEMENT_EQUAL shift and go to state 53
-    SHIFTL_EQUAL    shift and go to state 54
-    SHIFTR_EQUAL    shift and go to state 55
+    $end            reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
+    BREAK           reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
+    CONTINUE        reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
+    RCURL_BRACE     reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
 
-    ASSIGNMENT_OPERATOR            shift and go to state 100
+    EXPRESSION                     shift and go to state 83
+    EXPRESSIONS                    shift and go to state 84
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
 
 state 84
 
-    (39) CONTROL_STRUCTURES -> IF_STRUCTURE .
+    (67) EXPRESSIONS -> EXPRESSION EXPRESSIONS .
 
-    SEMICOLON       reduce using rule 39 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    $end            reduce using rule 67 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
+    BREAK           reduce using rule 67 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
+    CONTINUE        reduce using rule 67 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
+    RCURL_BRACE     reduce using rule 67 (EXPRESSIONS -> EXPRESSION EXPRESSIONS .)
 
 
 state 85
 
-    (40) CONTROL_STRUCTURES -> FOR_STRUCTURE .
+    (65) EXPRESSION -> CODE . SEMICOLON
 
-    SEMICOLON       reduce using rule 40 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SEMICOLON       shift and go to state 82
 
 
 state 86
 
-    (41) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
+    (59) CODE -> FUNCTION .
 
-    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SEMICOLON       reduce using rule 59 (CODE -> FUNCTION .)
 
 
 state 87
 
-    (42) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
+    (60) CODE -> CONTROL_STRUCTURES .
 
-    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SEMICOLON       reduce using rule 60 (CODE -> CONTROL_STRUCTURES .)
 
 
 state 88
 
-    (62) INTEGER_DECLARATION -> INTEGER_TYPE . VARNAME EQUAL INTEGER
+    (61) CODE -> INTEGER_DECLARATION .
 
-    VARNAME         shift and go to state 91
+    SEMICOLON       reduce using rule 61 (CODE -> INTEGER_DECLARATION .)
 
 
 state 89
 
-    (46) FOR_STRUCTURE -> INTEGER .
-    (43) WHILE_STRUCTURE -> INTEGER .
-    (44) SWITCH_STRUCTURE -> INTEGER .
+    (62) CODE -> DECIMAL_DECLARATION .
 
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-  ! reduce/reduce conflict for SEMICOLON resolved using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-    SEMICOLON       reduce using rule 43 (WHILE_STRUCTURE -> INTEGER .)
-
-  ! SEMICOLON       [ reduce using rule 46 (FOR_STRUCTURE -> INTEGER .) ]
-  ! SEMICOLON       [ reduce using rule 44 (SWITCH_STRUCTURE -> INTEGER .) ]
+    SEMICOLON       reduce using rule 62 (CODE -> DECIMAL_DECLARATION .)
 
 
 state 90
 
-    (63) DECIMAL_DECLARATION -> DECIMAL_TYPE . VARNAME EQUAL DECIMAL
+    (63) CODE -> ASSIGNMENT_DECLARATION .
 
-    VARNAME         shift and go to state 92
+    SEMICOLON       reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .)
 
 
 state 91
 
-    (62) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME . EQUAL INTEGER
+    (64) CODE -> COMENTARIOLEX .
 
-    EQUAL           shift and go to state 105
+    SEMICOLON       reduce using rule 64 (CODE -> COMENTARIOLEX .)
 
 
 state 92
 
-    (63) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME . EQUAL DECIMAL
+    (68) FUNCTION -> VARNAME . LPAREN RPAREN
+    (76) ASSIGNMENT_DECLARATION -> VARNAME . ASSIGNMENT_OPERATOR SENTENCE
+    (77) ASSIGNMENT_OPERATOR -> . EQUAL
+    (78) ASSIGNMENT_OPERATOR -> . PLUS_EQUAL
+    (79) ASSIGNMENT_OPERATOR -> . MINUS_EQUAL
+    (80) ASSIGNMENT_OPERATOR -> . DIV_EQUAL
+    (81) ASSIGNMENT_OPERATOR -> . TIMES_EQUAL
+    (82) ASSIGNMENT_OPERATOR -> . MOD_EQUAL
+    (83) ASSIGNMENT_OPERATOR -> . AND_EQUAL
+    (84) ASSIGNMENT_OPERATOR -> . OR_EQUAL
+    (85) ASSIGNMENT_OPERATOR -> . XOR_EQUAL
+    (86) ASSIGNMENT_OPERATOR -> . COMPLEMENT_EQUAL
+    (87) ASSIGNMENT_OPERATOR -> . SHIFTL_EQUAL
+    (88) ASSIGNMENT_OPERATOR -> . SHIFTR_EQUAL
 
-    EQUAL           shift and go to state 106
+    LPAREN          shift and go to state 111
+    EQUAL           shift and go to state 48
+    PLUS_EQUAL      shift and go to state 49
+    MINUS_EQUAL     shift and go to state 50
+    DIV_EQUAL       shift and go to state 51
+    TIMES_EQUAL     shift and go to state 52
+    MOD_EQUAL       shift and go to state 53
+    AND_EQUAL       shift and go to state 54
+    OR_EQUAL        shift and go to state 55
+    XOR_EQUAL       shift and go to state 56
+    COMPLEMENT_EQUAL shift and go to state 57
+    SHIFTL_EQUAL    shift and go to state 58
+    SHIFTR_EQUAL    shift and go to state 59
 
+    ASSIGNMENT_OPERATOR            shift and go to state 112
 
 state 93
 
-    (86) OPERATIONS -> OPERATION OPERATOR . OPERATIONS
-    (85) OPERATIONS -> . OPERATION
-    (86) OPERATIONS -> . OPERATION OPERATOR OPERATIONS
-    (84) OPERATION -> . NUMBER OPERATOR NUMBER
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (41) CONTROL_STRUCTURES -> IF_STRUCTURE .
 
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
 
-    OPERATION                      shift and go to state 107
-    OPERATIONS                     shift and go to state 108
-    NUMBER                         shift and go to state 109
 
 state 94
 
-    (95) COMPARISONS -> COMPARISON LOGICAL_OPERATOR . COMPARISONS
-    (94) COMPARISONS -> . COMPARISON
-    (95) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
-    (93) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
-    (35) VALUE -> . NUMBER
-    (36) VALUE -> . STRING
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (42) CONTROL_STRUCTURES -> FOR_STRUCTURE .
 
-    STRING          shift and go to state 34
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
 
-    COMPARISON                     shift and go to state 110
-    COMPARISONS                    shift and go to state 111
-    VALUE                          shift and go to state 112
-    NUMBER                         shift and go to state 102
 
 state 95
 
-    (33) DEFINE -> PP_DEFINE VARIABLELEX . VALUE
-    (35) VALUE -> . NUMBER
-    (36) VALUE -> . STRING
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (43) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
 
-    STRING          shift and go to state 34
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    SEMICOLON       reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
 
-    VALUE                          shift and go to state 113
-    NUMBER                         shift and go to state 102
 
 state 96
 
-    (78) VARIABLELEX -> VARNAME .
+    (44) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
 
-    STRING          reduce using rule 78 (VARIABLELEX -> VARNAME .)
-    INTEGER         reduce using rule 78 (VARIABLELEX -> VARNAME .)
-    DECIMAL         reduce using rule 78 (VARIABLELEX -> VARNAME .)
+    SEMICOLON       reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
 
 
 state 97
 
-    (34) INCLUDE -> PP_INCLUDE HEADER_LIB .
+    (74) INTEGER_DECLARATION -> INTEGER_TYPE . VARNAME EQUAL INTEGER
 
-    $end            reduce using rule 34 (INCLUDE -> PP_INCLUDE HEADER_LIB .)
+    VARNAME         shift and go to state 100
 
 
 state 98
 
-    (45) IF_STRUCTURE -> IF LPAREN . COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-    (94) COMPARISONS -> . COMPARISON
-    (95) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
-    (93) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
-    (35) VALUE -> . NUMBER
-    (36) VALUE -> . STRING
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (58) FOR_STRUCTURE -> INTEGER .
 
-    STRING          shift and go to state 34
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    SEMICOLON       reduce using rule 58 (FOR_STRUCTURE -> INTEGER .)
 
-    COMPARISONS                    shift and go to state 114
-    COMPARISON                     shift and go to state 110
-    VALUE                          shift and go to state 112
-    NUMBER                         shift and go to state 102
 
 state 99
 
-    (56) FUNCTION -> VARNAME LPAREN . RPAREN
+    (75) DECIMAL_DECLARATION -> DECIMAL_TYPE . VARNAME EQUAL DECIMAL
 
-    RPAREN          shift and go to state 115
+    VARNAME         shift and go to state 101
 
 
 state 100
 
-    (64) ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR . SENTENCE
-    (99) SENTENCE -> . NUMBER
-    (100) SENTENCE -> . VARNAME
-    (37) NUMBER -> . INTEGER
-    (38) NUMBER -> . DECIMAL
+    (74) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME . EQUAL INTEGER
 
-    VARNAME         shift and go to state 116
-    INTEGER         shift and go to state 103
-    DECIMAL         shift and go to state 36
+    EQUAL           shift and go to state 121
 
-    SENTENCE                       shift and go to state 117
-    NUMBER                         shift and go to state 118
 
 state 101
 
-    (93) COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .
+    (75) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME . EQUAL DECIMAL
 
-    AND             reduce using rule 93 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
-    OR              reduce using rule 93 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
-    NOT             reduce using rule 93 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
-    $end            reduce using rule 93 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
-    RPAREN          reduce using rule 93 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
+    EQUAL           shift and go to state 122
 
 
 state 102
 
-    (35) VALUE -> NUMBER .
+    (56) BUCLE -> VARIABLELEX INCREASE .
 
-    AND             reduce using rule 35 (VALUE -> NUMBER .)
-    OR              reduce using rule 35 (VALUE -> NUMBER .)
-    NOT             reduce using rule 35 (VALUE -> NUMBER .)
-    $end            reduce using rule 35 (VALUE -> NUMBER .)
-    RPAREN          reduce using rule 35 (VALUE -> NUMBER .)
-    EQUAL_TO        reduce using rule 35 (VALUE -> NUMBER .)
-    NOT_EQUAL       reduce using rule 35 (VALUE -> NUMBER .)
-    GREATER_THAN    reduce using rule 35 (VALUE -> NUMBER .)
-    LESS_THAN       reduce using rule 35 (VALUE -> NUMBER .)
-    GREATER_EQUAL   reduce using rule 35 (VALUE -> NUMBER .)
-    LESS_EQUAL      reduce using rule 35 (VALUE -> NUMBER .)
+    $end            reduce using rule 56 (BUCLE -> VARIABLELEX INCREASE .)
 
 
 state 103
 
-    (37) NUMBER -> INTEGER .
+    (98) OPERATIONS -> OPERATION OPERATOR . OPERATIONS
+    (97) OPERATIONS -> . OPERATION
+    (98) OPERATIONS -> . OPERATION OPERATOR OPERATIONS
+    (96) OPERATION -> . NUMBER OPERATOR NUMBER
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    AND             reduce using rule 37 (NUMBER -> INTEGER .)
-    OR              reduce using rule 37 (NUMBER -> INTEGER .)
-    NOT             reduce using rule 37 (NUMBER -> INTEGER .)
-    $end            reduce using rule 37 (NUMBER -> INTEGER .)
-    RPAREN          reduce using rule 37 (NUMBER -> INTEGER .)
-    PLUS            reduce using rule 37 (NUMBER -> INTEGER .)
-    MINUS           reduce using rule 37 (NUMBER -> INTEGER .)
-    TIMES           reduce using rule 37 (NUMBER -> INTEGER .)
-    MODULUS         reduce using rule 37 (NUMBER -> INTEGER .)
-    DIVIDE          reduce using rule 37 (NUMBER -> INTEGER .)
-    EQUAL_TO        reduce using rule 37 (NUMBER -> INTEGER .)
-    NOT_EQUAL       reduce using rule 37 (NUMBER -> INTEGER .)
-    GREATER_THAN    reduce using rule 37 (NUMBER -> INTEGER .)
-    LESS_THAN       reduce using rule 37 (NUMBER -> INTEGER .)
-    GREATER_EQUAL   reduce using rule 37 (NUMBER -> INTEGER .)
-    LESS_EQUAL      reduce using rule 37 (NUMBER -> INTEGER .)
-    SEMICOLON       reduce using rule 37 (NUMBER -> INTEGER .)
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    OPERATION                      shift and go to state 123
+    OPERATIONS                     shift and go to state 124
+    NUMBER                         shift and go to state 125
 
 state 104
 
-    (84) OPERATION -> NUMBER OPERATOR NUMBER .
+    (107) COMPARISONS -> COMPARISON LOGICAL_OPERATOR . COMPARISONS
+    (106) COMPARISONS -> . COMPARISON
+    (107) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
+    (105) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    PLUS            reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
-    MINUS           reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
-    TIMES           reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
-    MODULUS         reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
-    DIVIDE          reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
-    $end            reduce using rule 84 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    COMPARISON                     shift and go to state 126
+    COMPARISONS                    shift and go to state 127
+    VALUE                          shift and go to state 128
+    NUMBER                         shift and go to state 118
 
 state 105
 
-    (62) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL . INTEGER
+    (35) DEFINE -> PP_DEFINE VARIABLELEX . VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
+    STRING          shift and go to state 36
     INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    VALUE                          shift and go to state 129
+    NUMBER                         shift and go to state 118
 
 state 106
 
-    (63) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL . DECIMAL
+    (90) VARIABLELEX -> VARNAME .
 
-    DECIMAL         shift and go to state 120
+    STRING          reduce using rule 90 (VARIABLELEX -> VARNAME .)
+    INTEGER         reduce using rule 90 (VARIABLELEX -> VARNAME .)
+    DECIMAL         reduce using rule 90 (VARIABLELEX -> VARNAME .)
+    $end            reduce using rule 90 (VARIABLELEX -> VARNAME .)
 
 
 state 107
 
-    (85) OPERATIONS -> OPERATION .
-    (86) OPERATIONS -> OPERATION . OPERATOR OPERATIONS
-    (79) OPERATOR -> . PLUS
-    (80) OPERATOR -> . MINUS
-    (81) OPERATOR -> . TIMES
-    (82) OPERATOR -> . MODULUS
-    (83) OPERATOR -> . DIVIDE
+    (36) INCLUDE -> PP_INCLUDE HEADER_LIB .
 
-    $end            reduce using rule 85 (OPERATIONS -> OPERATION .)
-    PLUS            shift and go to state 57
-    MINUS           shift and go to state 58
-    TIMES           shift and go to state 59
-    MODULUS         shift and go to state 60
-    DIVIDE          shift and go to state 61
+    $end            reduce using rule 36 (INCLUDE -> PP_INCLUDE HEADER_LIB .)
 
-    OPERATOR                       shift and go to state 93
 
 state 108
 
-    (86) OPERATIONS -> OPERATION OPERATOR OPERATIONS .
+    (48) WHILE_STRUCTURE -> WHILE LPAREN . COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (106) COMPARISONS -> . COMPARISON
+    (107) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
+    (105) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    $end            reduce using rule 86 (OPERATIONS -> OPERATION OPERATOR OPERATIONS .)
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
+    COMPARISONS                    shift and go to state 130
+    COMPARISON                     shift and go to state 126
+    VALUE                          shift and go to state 128
+    NUMBER                         shift and go to state 118
 
 state 109
 
-    (84) OPERATION -> NUMBER . OPERATOR NUMBER
-    (79) OPERATOR -> . PLUS
-    (80) OPERATOR -> . MINUS
-    (81) OPERATOR -> . TIMES
-    (82) OPERATOR -> . MODULUS
-    (83) OPERATOR -> . DIVIDE
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN . COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (106) COMPARISONS -> . COMPARISON
+    (107) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
+    (105) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    PLUS            shift and go to state 57
-    MINUS           shift and go to state 58
-    TIMES           shift and go to state 59
-    MODULUS         shift and go to state 60
-    DIVIDE          shift and go to state 61
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
-    OPERATOR                       shift and go to state 72
+    COMPARISONS                    shift and go to state 131
+    COMPARISON                     shift and go to state 126
+    VALUE                          shift and go to state 128
+    NUMBER                         shift and go to state 118
 
 state 110
 
-    (94) COMPARISONS -> COMPARISON .
-    (95) COMPARISONS -> COMPARISON . LOGICAL_OPERATOR COMPARISONS
-    (96) LOGICAL_OPERATOR -> . AND
-    (97) LOGICAL_OPERATOR -> . OR
-    (98) LOGICAL_OPERATOR -> . NOT
+    (55) IF_STRUCTURE -> IF LPAREN . COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (106) COMPARISONS -> . COMPARISON
+    (107) COMPARISONS -> . COMPARISON LOGICAL_OPERATOR COMPARISONS
+    (105) COMPARISON -> . VALUE COMPARISON_OPERATOR VALUE
+    (37) VALUE -> . NUMBER
+    (38) VALUE -> . STRING
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    $end            reduce using rule 94 (COMPARISONS -> COMPARISON .)
-    RPAREN          reduce using rule 94 (COMPARISONS -> COMPARISON .)
-    AND             shift and go to state 68
-    OR              shift and go to state 69
-    NOT             shift and go to state 70
+    STRING          shift and go to state 36
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
-    LOGICAL_OPERATOR               shift and go to state 94
+    COMPARISONS                    shift and go to state 132
+    COMPARISON                     shift and go to state 126
+    VALUE                          shift and go to state 128
+    NUMBER                         shift and go to state 118
 
 state 111
 
-    (95) COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .
+    (68) FUNCTION -> VARNAME LPAREN . RPAREN
 
-    $end            reduce using rule 95 (COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .)
-    RPAREN          reduce using rule 95 (COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .)
+    RPAREN          shift and go to state 133
 
 
 state 112
 
-    (93) COMPARISON -> VALUE . COMPARISON_OPERATOR VALUE
-    (87) COMPARISON_OPERATOR -> . EQUAL_TO
-    (88) COMPARISON_OPERATOR -> . NOT_EQUAL
-    (89) COMPARISON_OPERATOR -> . GREATER_THAN
-    (90) COMPARISON_OPERATOR -> . LESS_THAN
-    (91) COMPARISON_OPERATOR -> . GREATER_EQUAL
-    (92) COMPARISON_OPERATOR -> . LESS_EQUAL
+    (76) ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR . SENTENCE
+    (111) SENTENCE -> . NUMBER
+    (112) SENTENCE -> . VARNAME
+    (39) NUMBER -> . INTEGER
+    (40) NUMBER -> . DECIMAL
 
-    EQUAL_TO        shift and go to state 62
-    NOT_EQUAL       shift and go to state 63
-    GREATER_THAN    shift and go to state 64
-    LESS_THAN       shift and go to state 65
-    GREATER_EQUAL   shift and go to state 66
-    LESS_EQUAL      shift and go to state 67
+    VARNAME         shift and go to state 134
+    INTEGER         shift and go to state 119
+    DECIMAL         shift and go to state 38
 
-    COMPARISON_OPERATOR            shift and go to state 71
+    SENTENCE                       shift and go to state 135
+    NUMBER                         shift and go to state 136
 
 state 113
 
-    (33) DEFINE -> PP_DEFINE VARIABLELEX VALUE .
+    (53) SWITCH_BODY -> SWITCH_CASE SWITCH_BODY .
 
-    $end            reduce using rule 33 (DEFINE -> PP_DEFINE VARIABLELEX VALUE .)
+    $end            reduce using rule 53 (SWITCH_BODY -> SWITCH_CASE SWITCH_BODY .)
+    RCURL_BRACE     reduce using rule 53 (SWITCH_BODY -> SWITCH_CASE SWITCH_BODY .)
 
 
 state 114
 
-    (45) IF_STRUCTURE -> IF LPAREN COMPARISONS . RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (57) BUCLE -> DECREASE VARIABLELEX .
 
-    RPAREN          shift and go to state 121
+    $end            reduce using rule 57 (BUCLE -> DECREASE VARIABLELEX .)
 
 
 state 115
 
-    (56) FUNCTION -> VARNAME LPAREN RPAREN .
+    (49) SWITCH_CASE -> CASE INTEGER . COLON EXPRESSIONS BREAK SEMICOLON
 
-    $end            reduce using rule 56 (FUNCTION -> VARNAME LPAREN RPAREN .)
-    SEMICOLON       reduce using rule 56 (FUNCTION -> VARNAME LPAREN RPAREN .)
+    COLON           shift and go to state 137
 
 
 state 116
 
-    (100) SENTENCE -> VARNAME .
+    (50) SWITCH_DEFAULT -> DEFAULT COLON . EXPRESSIONS BREAK SEMICOLON
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
 
-    $end            reduce using rule 100 (SENTENCE -> VARNAME .)
-    SEMICOLON       reduce using rule 100 (SENTENCE -> VARNAME .)
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
 
+    EXPRESSIONS                    shift and go to state 138
+    EXPRESSION                     shift and go to state 83
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
 
 state 117
 
-    (64) ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .
+    (105) COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .
 
-    $end            reduce using rule 64 (ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .)
-    SEMICOLON       reduce using rule 64 (ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .)
+    AND             reduce using rule 105 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
+    OR              reduce using rule 105 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
+    NOT             reduce using rule 105 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
+    $end            reduce using rule 105 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
+    RPAREN          reduce using rule 105 (COMPARISON -> VALUE COMPARISON_OPERATOR VALUE .)
 
 
 state 118
 
-    (99) SENTENCE -> NUMBER .
+    (37) VALUE -> NUMBER .
 
-    $end            reduce using rule 99 (SENTENCE -> NUMBER .)
-    SEMICOLON       reduce using rule 99 (SENTENCE -> NUMBER .)
+    AND             reduce using rule 37 (VALUE -> NUMBER .)
+    OR              reduce using rule 37 (VALUE -> NUMBER .)
+    NOT             reduce using rule 37 (VALUE -> NUMBER .)
+    $end            reduce using rule 37 (VALUE -> NUMBER .)
+    RPAREN          reduce using rule 37 (VALUE -> NUMBER .)
+    EQUAL_TO        reduce using rule 37 (VALUE -> NUMBER .)
+    NOT_EQUAL       reduce using rule 37 (VALUE -> NUMBER .)
+    GREATER_THAN    reduce using rule 37 (VALUE -> NUMBER .)
+    LESS_THAN       reduce using rule 37 (VALUE -> NUMBER .)
+    GREATER_EQUAL   reduce using rule 37 (VALUE -> NUMBER .)
+    LESS_EQUAL      reduce using rule 37 (VALUE -> NUMBER .)
 
 
 state 119
 
-    (62) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .
+    (39) NUMBER -> INTEGER .
 
-    $end            reduce using rule 62 (INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .)
-    SEMICOLON       reduce using rule 62 (INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .)
+    AND             reduce using rule 39 (NUMBER -> INTEGER .)
+    OR              reduce using rule 39 (NUMBER -> INTEGER .)
+    NOT             reduce using rule 39 (NUMBER -> INTEGER .)
+    $end            reduce using rule 39 (NUMBER -> INTEGER .)
+    RPAREN          reduce using rule 39 (NUMBER -> INTEGER .)
+    PLUS            reduce using rule 39 (NUMBER -> INTEGER .)
+    MINUS           reduce using rule 39 (NUMBER -> INTEGER .)
+    TIMES           reduce using rule 39 (NUMBER -> INTEGER .)
+    MODULUS         reduce using rule 39 (NUMBER -> INTEGER .)
+    DIVIDE          reduce using rule 39 (NUMBER -> INTEGER .)
+    EQUAL_TO        reduce using rule 39 (NUMBER -> INTEGER .)
+    NOT_EQUAL       reduce using rule 39 (NUMBER -> INTEGER .)
+    GREATER_THAN    reduce using rule 39 (NUMBER -> INTEGER .)
+    LESS_THAN       reduce using rule 39 (NUMBER -> INTEGER .)
+    GREATER_EQUAL   reduce using rule 39 (NUMBER -> INTEGER .)
+    LESS_EQUAL      reduce using rule 39 (NUMBER -> INTEGER .)
+    SEMICOLON       reduce using rule 39 (NUMBER -> INTEGER .)
 
 
 state 120
 
-    (63) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .
+    (96) OPERATION -> NUMBER OPERATOR NUMBER .
 
-    $end            reduce using rule 63 (DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .)
-    SEMICOLON       reduce using rule 63 (DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .)
+    PLUS            reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    MINUS           reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    TIMES           reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    MODULUS         reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    DIVIDE          reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
+    $end            reduce using rule 96 (OPERATION -> NUMBER OPERATOR NUMBER .)
 
 
 state 121
 
-    (45) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN . LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (74) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL . INTEGER
 
-    LCURL_BRACE     shift and go to state 122
+    INTEGER         shift and go to state 139
 
 
 state 122
 
-    (45) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE . EXPRESSIONS RCURL_BRACE
-    (54) EXPRESSIONS -> . EXPRESSION
-    (55) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (53) EXPRESSION -> . CODE SEMICOLON
-    (47) CODE -> . FUNCTION
-    (48) CODE -> . CONTROL_STRUCTURES
-    (49) CODE -> . INTEGER_DECLARATION
-    (50) CODE -> . DECIMAL_DECLARATION
-    (51) CODE -> . ASSIGNMENT_DECLARATION
-    (52) CODE -> . COMENTARIOLEX
-    (56) FUNCTION -> . VARNAME LPAREN RPAREN
-    (39) CONTROL_STRUCTURES -> . IF_STRUCTURE
-    (40) CONTROL_STRUCTURES -> . FOR_STRUCTURE
-    (41) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
-    (42) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
-    (62) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
-    (63) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
-    (64) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
-    (77) COMENTARIOLEX -> . COMMENT
-    (45) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
-    (46) FOR_STRUCTURE -> . INTEGER
-    (43) WHILE_STRUCTURE -> . INTEGER
-    (44) SWITCH_STRUCTURE -> . INTEGER
-    (57) INTEGER_TYPE -> . INT
-    (58) INTEGER_TYPE -> . SHORT
-    (59) INTEGER_TYPE -> . LONG
-    (60) DECIMAL_TYPE -> . FLOAT
-    (61) DECIMAL_TYPE -> . DOUBLE
+    (75) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL . DECIMAL
 
-    VARNAME         shift and go to state 83
-    COMMENT         shift and go to state 56
-    IF              shift and go to state 37
-    INTEGER         shift and go to state 89
-    INT             shift and go to state 39
-    SHORT           shift and go to state 40
-    LONG            shift and go to state 41
-    FLOAT           shift and go to state 42
-    DOUBLE          shift and go to state 43
+    DECIMAL         shift and go to state 140
 
-    EXPRESSIONS                    shift and go to state 123
-    EXPRESSION                     shift and go to state 74
-    CODE                           shift and go to state 76
-    FUNCTION                       shift and go to state 77
-    CONTROL_STRUCTURES             shift and go to state 78
-    INTEGER_DECLARATION            shift and go to state 79
-    DECIMAL_DECLARATION            shift and go to state 80
-    ASSIGNMENT_DECLARATION         shift and go to state 81
-    COMENTARIOLEX                  shift and go to state 82
-    IF_STRUCTURE                   shift and go to state 84
-    FOR_STRUCTURE                  shift and go to state 85
-    WHILE_STRUCTURE                shift and go to state 86
-    SWITCH_STRUCTURE               shift and go to state 87
-    INTEGER_TYPE                   shift and go to state 88
-    DECIMAL_TYPE                   shift and go to state 90
 
 state 123
 
-    (45) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS . RCURL_BRACE
+    (97) OPERATIONS -> OPERATION .
+    (98) OPERATIONS -> OPERATION . OPERATOR OPERATIONS
+    (91) OPERATOR -> . PLUS
+    (92) OPERATOR -> . MINUS
+    (93) OPERATOR -> . TIMES
+    (94) OPERATOR -> . MODULUS
+    (95) OPERATOR -> . DIVIDE
 
-    RCURL_BRACE     shift and go to state 124
+    $end            reduce using rule 97 (OPERATIONS -> OPERATION .)
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    MODULUS         shift and go to state 64
+    DIVIDE          shift and go to state 65
 
+    OPERATOR                       shift and go to state 103
 
 state 124
 
-    (45) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .
+    (98) OPERATIONS -> OPERATION OPERATOR OPERATIONS .
 
-    $end            reduce using rule 45 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
-    SEMICOLON       reduce using rule 45 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    $end            reduce using rule 98 (OPERATIONS -> OPERATION OPERATOR OPERATIONS .)
+
+
+state 125
+
+    (96) OPERATION -> NUMBER . OPERATOR NUMBER
+    (91) OPERATOR -> . PLUS
+    (92) OPERATOR -> . MINUS
+    (93) OPERATOR -> . TIMES
+    (94) OPERATOR -> . MODULUS
+    (95) OPERATOR -> . DIVIDE
+
+    PLUS            shift and go to state 61
+    MINUS           shift and go to state 62
+    TIMES           shift and go to state 63
+    MODULUS         shift and go to state 64
+    DIVIDE          shift and go to state 65
+
+    OPERATOR                       shift and go to state 81
+
+state 126
+
+    (106) COMPARISONS -> COMPARISON .
+    (107) COMPARISONS -> COMPARISON . LOGICAL_OPERATOR COMPARISONS
+    (108) LOGICAL_OPERATOR -> . AND
+    (109) LOGICAL_OPERATOR -> . OR
+    (110) LOGICAL_OPERATOR -> . NOT
+
+    $end            reduce using rule 106 (COMPARISONS -> COMPARISON .)
+    RPAREN          reduce using rule 106 (COMPARISONS -> COMPARISON .)
+    AND             shift and go to state 72
+    OR              shift and go to state 73
+    NOT             shift and go to state 74
+
+    LOGICAL_OPERATOR               shift and go to state 104
+
+state 127
+
+    (107) COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .
+
+    $end            reduce using rule 107 (COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .)
+    RPAREN          reduce using rule 107 (COMPARISONS -> COMPARISON LOGICAL_OPERATOR COMPARISONS .)
+
+
+state 128
+
+    (105) COMPARISON -> VALUE . COMPARISON_OPERATOR VALUE
+    (99) COMPARISON_OPERATOR -> . EQUAL_TO
+    (100) COMPARISON_OPERATOR -> . NOT_EQUAL
+    (101) COMPARISON_OPERATOR -> . GREATER_THAN
+    (102) COMPARISON_OPERATOR -> . LESS_THAN
+    (103) COMPARISON_OPERATOR -> . GREATER_EQUAL
+    (104) COMPARISON_OPERATOR -> . LESS_EQUAL
+
+    EQUAL_TO        shift and go to state 66
+    NOT_EQUAL       shift and go to state 67
+    GREATER_THAN    shift and go to state 68
+    LESS_THAN       shift and go to state 69
+    GREATER_EQUAL   shift and go to state 70
+    LESS_EQUAL      shift and go to state 71
+
+    COMPARISON_OPERATOR            shift and go to state 80
+
+state 129
+
+    (35) DEFINE -> PP_DEFINE VARIABLELEX VALUE .
+
+    $end            reduce using rule 35 (DEFINE -> PP_DEFINE VARIABLELEX VALUE .)
+
+
+state 130
+
+    (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS . RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+
+    RPAREN          shift and go to state 141
+
+
+state 131
+
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS . RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+
+    RPAREN          shift and go to state 142
+
+
+state 132
+
+    (55) IF_STRUCTURE -> IF LPAREN COMPARISONS . RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+
+    RPAREN          shift and go to state 143
+
+
+state 133
+
+    (68) FUNCTION -> VARNAME LPAREN RPAREN .
+
+    $end            reduce using rule 68 (FUNCTION -> VARNAME LPAREN RPAREN .)
+    SEMICOLON       reduce using rule 68 (FUNCTION -> VARNAME LPAREN RPAREN .)
+
+
+state 134
+
+    (112) SENTENCE -> VARNAME .
+
+    $end            reduce using rule 112 (SENTENCE -> VARNAME .)
+    SEMICOLON       reduce using rule 112 (SENTENCE -> VARNAME .)
+
+
+state 135
+
+    (76) ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .
+
+    $end            reduce using rule 76 (ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .)
+    SEMICOLON       reduce using rule 76 (ASSIGNMENT_DECLARATION -> VARNAME ASSIGNMENT_OPERATOR SENTENCE .)
+
+
+state 136
+
+    (111) SENTENCE -> NUMBER .
+
+    $end            reduce using rule 111 (SENTENCE -> NUMBER .)
+    SEMICOLON       reduce using rule 111 (SENTENCE -> NUMBER .)
+
+
+state 137
+
+    (49) SWITCH_CASE -> CASE INTEGER COLON . EXPRESSIONS BREAK SEMICOLON
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
+
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
+
+    EXPRESSIONS                    shift and go to state 144
+    EXPRESSION                     shift and go to state 83
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
+
+state 138
+
+    (50) SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS . BREAK SEMICOLON
+
+    BREAK           shift and go to state 145
+
+
+state 139
+
+    (74) INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .
+
+    $end            reduce using rule 74 (INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .)
+    SEMICOLON       reduce using rule 74 (INTEGER_DECLARATION -> INTEGER_TYPE VARNAME EQUAL INTEGER .)
+
+
+state 140
+
+    (75) DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .
+
+    $end            reduce using rule 75 (DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .)
+    SEMICOLON       reduce using rule 75 (DECIMAL_DECLARATION -> DECIMAL_TYPE VARNAME EQUAL DECIMAL .)
+
+
+state 141
+
+    (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN . LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+
+    LCURL_BRACE     shift and go to state 146
+
+
+state 142
+
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN . LCURL_BRACE SWITCH_BODY RCURL_BRACE
+
+    LCURL_BRACE     shift and go to state 147
+
+
+state 143
+
+    (55) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN . LCURL_BRACE EXPRESSIONS RCURL_BRACE
+
+    LCURL_BRACE     shift and go to state 148
+
+
+state 144
+
+    (49) SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS . BREAK SEMICOLON
+
+    BREAK           shift and go to state 149
+
+
+state 145
+
+    (50) SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS BREAK . SEMICOLON
+
+    SEMICOLON       shift and go to state 150
+
+
+state 146
+
+    (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE . BODY_STRUCTURE RCURL_BRACE
+    (45) BODY_STRUCTURE -> . EXPRESSIONS
+    (46) BODY_STRUCTURE -> . EXPRESSIONS BREAK SEMICOLON
+    (47) BODY_STRUCTURE -> . EXPRESSIONS CONTINUE SEMICOLON
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
+
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
+
+    BODY_STRUCTURE                 shift and go to state 151
+    EXPRESSIONS                    shift and go to state 152
+    EXPRESSION                     shift and go to state 83
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
+
+state 147
+
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE . SWITCH_BODY RCURL_BRACE
+    (51) SWITCH_BODY -> . SWITCH_CASE
+    (52) SWITCH_BODY -> . SWITCH_DEFAULT
+    (53) SWITCH_BODY -> . SWITCH_CASE SWITCH_BODY
+    (49) SWITCH_CASE -> . CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON
+    (50) SWITCH_DEFAULT -> . DEFAULT COLON EXPRESSIONS BREAK SEMICOLON
+
+    CASE            shift and go to state 78
+    DEFAULT         shift and go to state 79
+
+    SWITCH_BODY                    shift and go to state 153
+    SWITCH_CASE                    shift and go to state 75
+    SWITCH_DEFAULT                 shift and go to state 76
+
+state 148
+
+    (55) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE . EXPRESSIONS RCURL_BRACE
+    (66) EXPRESSIONS -> . EXPRESSION
+    (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
+    (65) EXPRESSION -> . CODE SEMICOLON
+    (59) CODE -> . FUNCTION
+    (60) CODE -> . CONTROL_STRUCTURES
+    (61) CODE -> . INTEGER_DECLARATION
+    (62) CODE -> . DECIMAL_DECLARATION
+    (63) CODE -> . ASSIGNMENT_DECLARATION
+    (64) CODE -> . COMENTARIOLEX
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
+    (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
+    (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
+    (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
+    (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    (89) COMENTARIOLEX -> . COMMENT
+    (55) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    (58) FOR_STRUCTURE -> . INTEGER
+    (48) WHILE_STRUCTURE -> . WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE
+    (54) SWITCH_STRUCTURE -> . SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE
+    (69) INTEGER_TYPE -> . INT
+    (70) INTEGER_TYPE -> . SHORT
+    (71) INTEGER_TYPE -> . LONG
+    (72) DECIMAL_TYPE -> . FLOAT
+    (73) DECIMAL_TYPE -> . DOUBLE
+
+    VARNAME         shift and go to state 92
+    COMMENT         shift and go to state 60
+    IF              shift and go to state 41
+    INTEGER         shift and go to state 98
+    WHILE           shift and go to state 39
+    SWITCH          shift and go to state 40
+    INT             shift and go to state 43
+    SHORT           shift and go to state 44
+    LONG            shift and go to state 45
+    FLOAT           shift and go to state 46
+    DOUBLE          shift and go to state 47
+
+    EXPRESSIONS                    shift and go to state 154
+    EXPRESSION                     shift and go to state 83
+    CODE                           shift and go to state 85
+    FUNCTION                       shift and go to state 86
+    CONTROL_STRUCTURES             shift and go to state 87
+    INTEGER_DECLARATION            shift and go to state 88
+    DECIMAL_DECLARATION            shift and go to state 89
+    ASSIGNMENT_DECLARATION         shift and go to state 90
+    COMENTARIOLEX                  shift and go to state 91
+    IF_STRUCTURE                   shift and go to state 93
+    FOR_STRUCTURE                  shift and go to state 94
+    WHILE_STRUCTURE                shift and go to state 95
+    SWITCH_STRUCTURE               shift and go to state 96
+    INTEGER_TYPE                   shift and go to state 97
+    DECIMAL_TYPE                   shift and go to state 99
+
+state 149
+
+    (49) SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK . SEMICOLON
+
+    SEMICOLON       shift and go to state 155
+
+
+state 150
+
+    (50) SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS BREAK SEMICOLON .
+
+    $end            reduce using rule 50 (SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS BREAK SEMICOLON .)
+    RCURL_BRACE     reduce using rule 50 (SWITCH_DEFAULT -> DEFAULT COLON EXPRESSIONS BREAK SEMICOLON .)
+
+
+state 151
+
+    (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE . RCURL_BRACE
+
+    RCURL_BRACE     shift and go to state 156
+
+
+state 152
+
+    (45) BODY_STRUCTURE -> EXPRESSIONS .
+    (46) BODY_STRUCTURE -> EXPRESSIONS . BREAK SEMICOLON
+    (47) BODY_STRUCTURE -> EXPRESSIONS . CONTINUE SEMICOLON
+
+    RCURL_BRACE     reduce using rule 45 (BODY_STRUCTURE -> EXPRESSIONS .)
+    BREAK           shift and go to state 157
+    CONTINUE        shift and go to state 158
+
+
+state 153
+
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY . RCURL_BRACE
+
+    RCURL_BRACE     shift and go to state 159
+
+
+state 154
+
+    (55) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS . RCURL_BRACE
+
+    RCURL_BRACE     shift and go to state 160
+
+
+state 155
+
+    (49) SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON .
+
+    CASE            reduce using rule 49 (SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON .)
+    DEFAULT         reduce using rule 49 (SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON .)
+    $end            reduce using rule 49 (SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON .)
+    RCURL_BRACE     reduce using rule 49 (SWITCH_CASE -> CASE INTEGER COLON EXPRESSIONS BREAK SEMICOLON .)
+
+
+state 156
+
+    (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .
+
+    $end            reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    SEMICOLON       reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+
+
+state 157
+
+    (46) BODY_STRUCTURE -> EXPRESSIONS BREAK . SEMICOLON
+
+    SEMICOLON       shift and go to state 161
+
+
+state 158
+
+    (47) BODY_STRUCTURE -> EXPRESSIONS CONTINUE . SEMICOLON
+
+    SEMICOLON       shift and go to state 162
+
+
+state 159
+
+    (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .
+
+    $end            reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    SEMICOLON       reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+
+
+state 160
+
+    (55) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .
+
+    $end            reduce using rule 55 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    SEMICOLON       reduce using rule 55 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+
+
+state 161
+
+    (46) BODY_STRUCTURE -> EXPRESSIONS BREAK SEMICOLON .
+
+    RCURL_BRACE     reduce using rule 46 (BODY_STRUCTURE -> EXPRESSIONS BREAK SEMICOLON .)
+
+
+state 162
+
+    (47) BODY_STRUCTURE -> EXPRESSIONS CONTINUE SEMICOLON .
+
+    RCURL_BRACE     reduce using rule 47 (BODY_STRUCTURE -> EXPRESSIONS CONTINUE SEMICOLON .)
 
 WARNING: 
 WARNING: Conflicts:
@@ -2083,23 +2601,9 @@ WARNING: reduce/reduce conflict in state 25 resolved using rule (ROOT -> OPERATI
 WARNING: rejected rule (OPERATIONS -> OPERATION) in state 25
 WARNING: reduce/reduce conflict in state 28 resolved using rule (ROOT -> COMPARISON)
 WARNING: rejected rule (COMPARISONS -> COMPARISON) in state 28
-WARNING: reduce/reduce conflict in state 35 resolved using rule (NUMBER -> INTEGER)
-WARNING: rejected rule (WHILE_STRUCTURE -> INTEGER) in state 35
-WARNING: reduce/reduce conflict in state 35 resolved using rule (NUMBER -> INTEGER)
-WARNING: rejected rule (SWITCH_STRUCTURE -> INTEGER) in state 35
-WARNING: reduce/reduce conflict in state 35 resolved using rule (WHILE_STRUCTURE -> INTEGER)
-WARNING: rejected rule (SWITCH_STRUCTURE -> INTEGER) in state 35
-WARNING: reduce/reduce conflict in state 35 resolved using rule (NUMBER -> INTEGER)
-WARNING: rejected rule (FOR_STRUCTURE -> INTEGER) in state 35
-WARNING: reduce/reduce conflict in state 35 resolved using rule (WHILE_STRUCTURE -> INTEGER)
-WARNING: rejected rule (FOR_STRUCTURE -> INTEGER) in state 35
-WARNING: reduce/reduce conflict in state 38 resolved using rule (VARIABLELEX -> VARNAME)
-WARNING: rejected rule (SENTENCE -> VARNAME) in state 38
-WARNING: reduce/reduce conflict in state 89 resolved using rule (WHILE_STRUCTURE -> INTEGER)
-WARNING: rejected rule (FOR_STRUCTURE -> INTEGER) in state 89
-WARNING: reduce/reduce conflict in state 89 resolved using rule (WHILE_STRUCTURE -> INTEGER)
-WARNING: rejected rule (SWITCH_STRUCTURE -> INTEGER) in state 89
+WARNING: reduce/reduce conflict in state 37 resolved using rule (NUMBER -> INTEGER)
+WARNING: rejected rule (FOR_STRUCTURE -> INTEGER) in state 37
+WARNING: reduce/reduce conflict in state 42 resolved using rule (VARIABLELEX -> VARNAME)
+WARNING: rejected rule (SENTENCE -> VARNAME) in state 42
 WARNING: Rule (PREPROCESOR_DIRECTIVE -> DEFINE) is never reduced
 WARNING: Rule (PREPROCESOR_DIRECTIVE -> INCLUDE) is never reduced
-WARNING: Rule (SWITCH_STRUCTURE -> INTEGER) is never reduced
-WARNING: Rule (FOR_STRUCTURE -> INTEGER) is never reduced

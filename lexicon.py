@@ -98,6 +98,9 @@ tokens = (
     'OR',  # ||
     'NOT',  # !
 
+    'INCREASE',
+    'DECREASE',
+
     # Bitwise Operators
     'B_AND',  # &
     'B_OR',  # |
@@ -202,6 +205,10 @@ t_MINUS_EQUAL = r'-='
 t_TIMES_EQUAL = r'\*='
 t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
+
+
+t_INCREASE = r'\++'
+t_DECREASE = r'\--'
 
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
