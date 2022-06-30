@@ -9,7 +9,6 @@ def p_ROOT(p):
                 | OPERATION
                 | OPERATIONS
                 | OPERATOR
-                | SENTENCIAS
                 | INCLUDE
                 | DEFINE
                 | PREPROCESOR_DIRECTIVE
@@ -79,6 +78,71 @@ def p_CONTROL_STRUCTURES(p):
 
 
 # END GABRIELA RAMOS
+
+
+def p_WHILE_STRUCTURE(p):
+    """
+    WHILE_STRUCTURE : WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    """
+    p[0] = ('WHILE_STRUCTURE', p[1])
+
+
+def p_SWITCH_STRUCTURE(p):
+    """
+    SWITCH_STRUCTURE : INTEGER
+    """
+    p[0] = ('SWITCH_STRUCTURE', p[1])
+
+
+def p_IF_STRUCTURE(p):
+    """
+    IF_STRUCTURE : IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    """
+    p[0] = ('IF_STRUCTURE', p[1])
+
+
+def p_FOR_STRUCTURE(p):
+    """
+    FOR_STRUCTURE : VARNAME
+    """
+    p[0] = ('FOR_STRUCTURE', p[1])
+
+
+# START PAUL SORIA
+
+def p_CODE(p):
+    """
+    CODE : FUNCTION
+        | CONTROL_STRUCTURES
+        | INTEGER_DECLARATION
+        | DECIMAL_DECLARATION
+        | ASSIGNMENT_DECLARATION
+        | COMENTARIOLEX
+    """
+    p[0] = ('CODE', p[1])
+
+
+def p_EXPRESSION(p):
+    """
+    EXPRESSION : CODE SEMICOLON
+    """
+    p[0] = ('EXPRESSION', p[1])
+
+
+def p_EXPRESSIONS(p):
+    """
+    EXPRESSIONS : EXPRESSION
+                | EXPRESSION EXPRESSIONS
+    """
+    p[0] = ('EXPRESSIONS', p[1])
+
+
+def p_FUNCTION(p):
+    """
+    FUNCTION : VARNAME LPAREN RPAREN
+    """
+    p[0] = ('FUNCTION', p[1])
+
 
 def p_INTEGER_TYPE(p):
     """
