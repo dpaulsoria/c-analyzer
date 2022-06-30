@@ -2,9 +2,9 @@ from lexicon import tokens
 import ply.yacc as yacc
 
 
-def p_EXPRESSION(p):
+def p_ROOT(p):
     """
-    EXPRESSION : COMENTARIOLEX
+    ROOT : COMENTARIOLEX
                 | VARIABLELEX 
                 | OPERATION
                 | OPERATIONS
@@ -25,7 +25,7 @@ def p_EXPRESSION(p):
                 | ASSIGNMENT_OPERATOR
 
     """
-    p[0] = ('EXPRESSION', p[1])
+    p[0] = ('ROOT', p[1])
 
 
 # START GABRIELA RAMOS
@@ -79,8 +79,6 @@ def p_CONTROL_STRUCTURES(p):
 
 
 # END GABRIELA RAMOS
-
-# START PAUL SORIA
 
 def p_INTEGER_TYPE(p):
     """
