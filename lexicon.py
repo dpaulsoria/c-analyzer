@@ -258,7 +258,7 @@ t_QUESTIONMARK = r'\?'
 t_AMPERSAND = r'\&'
 t_TILDE = r'\~'
 # t_COMMENT = r'\/\/.*|\/\*(\*(?!\/)|[^*])*\*\/'
-t_ignore = "\t | \s"
+t_ignore = " \t"
 
 # Preprocessor Directives
 t_PP_INCLUDE = r'\#include'

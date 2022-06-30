@@ -4,25 +4,36 @@ import ply.yacc as yacc
 
 def p_ROOT(p):
     """
-    ROOT : COMENTARIOLEX
-                | VARIABLELEX 
-                | OPERATION
-                | OPERATIONS
-                | OPERATOR
-                | INCLUDE
-                | DEFINE
-                | PREPROCESOR_DIRECTIVE
-                | LOGICAL_OPERATOR
-                | COMPARISONS
-                | COMPARISON
-                | COMPARISON_OPERATOR
-                | DECIMAL_DECLARATION
-                | INTEGER_DECLARATION
-                | DECIMAL_TYPE
-                | INTEGER_TYPE
-                | ASSIGNMENT_DECLARATION
-                | ASSIGNMENT_OPERATOR
-
+    ROOT : PREPROCESOR_DIRECTIVE
+        | DEFINE
+        | INCLUDE
+        | VALUE
+        | NUMBER
+        | CONTROL_STRUCTURES
+        | WHILE_STRUCTURE
+        | SWITCH_STRUCTURE
+        | IF_STRUCTURE
+        | FOR_STRUCTURE
+        | CODE
+        | EXPRESSION
+        | EXPRESSIONS
+        | FUNCTION
+        | INTEGER_TYPE
+        | DECIMAL_TYPE
+        | INTEGER_DECLARATION
+        | DECIMAL_DECLARATION
+        | ASSIGNMENT_DECLARATION
+        | ASSIGNMENT_OPERATOR
+        | COMENTARIOLEX
+        | VARIABLELEX
+        | OPERATOR
+        | OPERATION
+        | OPERATIONS
+        | COMPARISON_OPERATOR
+        | COMPARISON
+        | COMPARISONS
+        | LOGICAL_OPERATOR
+        | SENTENCE
     """
     p[0] = ('ROOT', p[1])
 
@@ -79,10 +90,10 @@ def p_CONTROL_STRUCTURES(p):
 
 # END GABRIELA RAMOS
 
-
+# WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
 def p_WHILE_STRUCTURE(p):
     """
-    WHILE_STRUCTURE : WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+    WHILE_STRUCTURE : INTEGER
     """
     p[0] = ('WHILE_STRUCTURE', p[1])
 
@@ -103,7 +114,7 @@ def p_IF_STRUCTURE(p):
 
 def p_FOR_STRUCTURE(p):
     """
-    FOR_STRUCTURE : VARNAME
+    FOR_STRUCTURE : INTEGER
     """
     p[0] = ('FOR_STRUCTURE', p[1])
 
