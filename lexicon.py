@@ -279,7 +279,7 @@ t_PP_TIMESTAMP = r'__TIMESTAMP__'
 # t_PP_STMACRO = r'\S+\s\S+'  # Single token Macro
 # t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
 
-t_HEADER_LIB = r' \<[a-z\_\/]+\.h\> | \"[a-z\_\/]+\.h\" '
+t_HEADER_LIB = r'<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"'
 
 # Format specifiers
 t_FS_CHAR = r'%c'
@@ -344,17 +344,13 @@ def t_VARIABLE(t):
 
 
 def t_STRING(t):
-    r"""\".*\""""
-    t.value = t.value[1:-1]
-    result_specifier = verify_format_spec(t.value)
+    r"""\"[^<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"].*\""""
+
+    result_specifier = verify_format_spec(t.value[1:-1])
     if result_specifier[0]:
         t.type = reserved.get(t.value, result_specifier[1])
     else:
-        if bool(re.match(t.value, r'\"[a-z\_\/]+\.h\"')):
-            t.type = reserved.get(t.value, 'HEADER_LIB')
-            return t
-        else:
-            t.type = reserved.get(t.value, 'STRING')
+        t.type = reserved.get(t.value, 'STRING')
     return t
 
 
