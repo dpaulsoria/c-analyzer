@@ -7,21 +7,32 @@ def p_EXPRESSION(p):
     EXPRESSION : COMENTARIOLEX
                 | VARIABLELEX 
                 | OPERATION
-                | DECLARATION
+                | OPERATIONS
+                | OPERATOR
                 | SENTENCIAS
                 | INCLUDE
-                | PREPROCCESOR_DIRECTIVE
+                | DEFINE
+                | PREPROCESOR_DIRECTIVE
+                | LOGICAL_OPERATOR
+                | COMPARISONS
+                | COMPARISON
+                | COMPARISON_OPERATOR
+                | DECIMAL_DECLARATION
+                | INTEGER_DECLARATION
+                | DECIMAL_TYPE
+                | INTEGER_TYPE
 
     """
     p[0] = ('EXPRESSION', p[1])
 
 
 # START GABRIELA RAMOS
-def p_PREPROCCESOR_DIRECTIVE(p):
+def p_PREPROCESOR_DIRECTIVE(p):
     """
-    PREPROCCESOR_DIRECTIVE : DEFINE 
+    PREPROCESOR_DIRECTIVE : DEFINE
                             | INCLUDE
     """
+    p[0] = ('PREPROCESOR_DIRECTIVE', p[1])
 
 
 def p_DEFINE(p):
@@ -30,6 +41,7 @@ def p_DEFINE(p):
     
     """
     p[0] = ('DEFINE', p[1])
+
 
 def p_INCLUDE(p):
     """
@@ -43,6 +55,8 @@ def p_VALUE(p):
     VALUE : NUMBER 
             | STRING
     """
+    p[0] = ('VALUE', p[1])
+
 
 def p_NUMBER(p):
     """
@@ -64,6 +78,7 @@ def p_SENTENCIAS(p):
     p[0] = ('SENTENCIAS', p[1])
 
 
+'''
 def p_DATA_TYPE(p):
     """
     DATA_TYPE : INTEGER_TYPE
@@ -71,7 +86,12 @@ def p_DATA_TYPE(p):
             | CHAR
     """
     p[0] = ('DATA_TYPE', p[1])
+'''
 
+
+# END GABRIELA RAMOS
+
+# START PAUL SORIA
 
 def p_INTEGER_TYPE(p):
     """
@@ -90,13 +110,6 @@ def p_DECIMAL_TYPE(p):
     p[0] = ('DECIMAL_TYPE', p[1])
 
 
-def p_DECLARATION(p):
-    """
-    DECLARATION : DATA_TYPE VARNAME EQUAL INTEGER
-    """
-    p[0] = ('DECLARATION', p[1])
-
-
 def p_INTEGER_DECLARATION(p):
     """
     INTEGER_DECLARATION : INTEGER_TYPE VARNAME EQUAL INTEGER
@@ -109,8 +122,6 @@ def p_DECIMAL_DECLARATION(p):
     DECIMAL_DECLARATION : DECIMAL_TYPE VARNAME EQUAL DECIMAL
     """
     p[0] = ('DECIMAL_DECLARATION', p[1])
-
-# END GABRIELA RAMOS
 
 
 def p_COMENTARIOLEX(p):
@@ -127,22 +138,69 @@ def p_VARIABLELEX(p):
     p[0] = ('VARNAME', p[1])
 
 
-def p_OPERADOR(p):
+def p_OPERATOR(p):
     """
-    OPERADOR : PLUS
+    OPERATOR : PLUS
               | MINUS
               | TIMES
               | MODULUS
               | DIVIDE
     """
-    p[0] = ('OPERADOR', p[1])
+    p[0] = ('OPERATOR', p[1])
 
 
 def p_OPERATION(p):
     """
-    OPERATION : NUMBER OPERADOR NUMBER
+    OPERATION : NUMBER OPERATOR NUMBER
     """
     p[0] = ('OPERATION', p[1])
+
+
+def p_OPERATIONS(p):
+    """
+    OPERATIONS : OPERATION
+                | OPERATION OPERATOR OPERATIONS
+    """
+    p[0] = ('OPERATIONS', p[1])
+
+
+def p_COMPARISON_OPERATOR(p):
+    """
+    COMPARISON_OPERATOR : EQUAL_TO
+                        | NOT_EQUAL
+                        | GREATER_THAN
+                        | LESS_THAN
+                        | GREATER_EQUAL
+                        | LESS_EQUAL
+    """
+    p[0] = ('COMPARISON_OPERATOR', p[1])
+
+
+def p_COMPARISON(p):
+    """
+    COMPARISON : VALUE COMPARISON_OPERATOR VALUE
+    """
+    p[0] = ('COMPARISON', p[1])
+
+
+def p_COMPARISONS(p):
+    """
+    COMPARISONS : COMPARISON
+                | COMPARISON LOGICAL_OPERATOR COMPARISONS
+    """
+    p[0] = ('COMPARISONS', p[1])
+
+
+def p_LOGICAL_OPERATOR(p):
+    """
+    LOGICAL_OPERATOR : AND
+                    | OR
+                    | NOT
+    """
+    p[0] = ('LOGICAL_OPERATOR', p[1])
+
+
+# END PAUL SORIA
 
 
 def p_error(p):
