@@ -10,13 +10,27 @@ def p_EXPRESSION(p):
                 | DECLARATION
                 | SENTENCIAS
                 | INCLUDE
-
+                | PREPROCCESOR_DIRECTIVE
 
     """
     p[0] = ('EXPRESSION', p[1])
 
 
 # START GABRIELA RAMOS
+def p_PREPROCCESOR_DIRECTIVE(p):
+    """
+    PREPROCCESOR_DIRECTIVE : DEFINE 
+                            | INCLUDE
+    """
+
+
+def p_DEFINE(p):
+    """
+    DEFINE : PP_DEFINE VARIABLELEX VALUE
+    
+    """
+    p[0] = ('DEFINE', p[1])
+
 def p_INCLUDE(p):
     """
     INCLUDE : PP_INCLUDE HEADER_LIB
@@ -26,10 +40,16 @@ def p_INCLUDE(p):
 
 def p_VALUE(p):
     """
-    VALUE : INTEGER
+    VALUE : NUMBER 
+            | STRING
+    """
+
+def p_NUMBER(p):
+    """
+    NUMBER : INTEGER
             | DECIMAL
     """ 
-    p[0] = ('VALUE', p[1])
+    p[0] = ('NUMBER', p[1])
 
 
 def p_SENTENCIAS(p):
@@ -120,7 +140,7 @@ def p_OPERADOR(p):
 
 def p_OPERATION(p):
     """
-    OPERATION : VALUE OPERADOR VALUE
+    OPERATION : NUMBER OPERADOR NUMBER
     """
     p[0] = ('OPERATION', p[1])
 
