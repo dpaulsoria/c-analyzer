@@ -18,10 +18,10 @@ def p_EXPRESSION(p):
 
 # START GABRIELA RAMOS
 def p_INCLUDE(p):
-  """
-    INCLUDE : PP_INCLUDE LESS_THAN HEADER_LIB GREATER_THAN 
-              | PP_INCLUDE DOUBLE_APOS HEADER_LIB DOUBLE_APOS
-  """
+    """
+    INCLUDE : PP_INCLUDE HEADER_LIB
+    """
+    p[0] = ('INCLUDE', p[1])
 
 
 def p_VALUE(p):
@@ -41,25 +41,54 @@ def p_SENTENCIAS(p):
                 | WHILE
                 | SWITCH
     """
-    p[0] = ('SENTENCIAS',p[1])
+    p[0] = ('SENTENCIAS', p[1])
 
 
 def p_DATA_TYPE(p):
     """
-    DATA_TYPE : INT 
-                | FLOAT
-                | LONG 
-                | DOUBLE
-                | CHAR
-                | SHORT           
+    DATA_TYPE : INTEGER_TYPE
+            | DECIMAL_TYPE
+            | CHAR
     """
-    p[0] = ('DATA_TYPE',p[1])
+    p[0] = ('DATA_TYPE', p[1])
+
+
+def p_INTEGER_TYPE(p):
+    """
+    INTEGER_TYPE : INT
+                | SHORT
+                | LONG
+    """
+    p[0] = ('INTEGER_TYPE', p[1])
+
+
+def p_DECIMAL_TYPE(p):
+    """
+    DECIMAL_TYPE : FLOAT
+                | DOUBLE
+    """
+    p[0] = ('DECIMAL_TYPE', p[1])
+
 
 def p_DECLARATION(p):
     """
     DECLARATION : DATA_TYPE VARNAME EQUAL INTEGER
     """
-    p[0] = ('DECLARATION',p[1])
+    p[0] = ('DECLARATION', p[1])
+
+
+def p_INTEGER_DECLARATION(p):
+    """
+    INTEGER_DECLARATION : INTEGER_TYPE VARNAME EQUAL INTEGER
+    """
+    p[0] = ('INTEGER_DECLARATION', p[1])
+
+
+def p_DECIMAL_DECLARATION(p):
+    """
+    DECIMAL_DECLARATION : DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    """
+    p[0] = ('DECIMAL_DECLARATION', p[1])
 
 # END GABRIELA RAMOS
 
