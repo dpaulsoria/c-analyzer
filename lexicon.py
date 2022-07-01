@@ -9,7 +9,6 @@ import ply.lex as lexical
 reserved = {
     # Control Structures
     "if": "IF",
-    "else if": "ELSEIF",
     "else": "ELSE",
     "switch": "SWITCH",
     "case": "CASE",
@@ -341,13 +340,24 @@ def t_COMMENT(t):
 
 def t_VARIABLE(t):
     r"""[a-zA-Z_][a-zA-Z0-9_]*"""
-    t.type = reserved.get(t.value, "VARNAME")
-    return t
+    result_reserved = verify_reserved(t.value)
 
+    if result_reserved[0]:
+        t.type = reserved.get(t.value, result_reserved[1])
+    else:
+        t.type = reserved.get(t.value, "VARNAME")
+    return t
 
 # END JUAN PITA
 
 # START PAUL SORIA
+
+
+def verify_reserved(value):
+    for i in reserved.values():
+        if bool(re.match(value, i.lower())):
+            return True, i
+    return False, None
 
 
 def t_STRING(t):
