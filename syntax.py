@@ -46,7 +46,7 @@ def p_ROOT(p):
 def p_PREPROCESOR_DIRECTIVE(p):
     """
     PREPROCESOR_DIRECTIVE : DEFINE
-                            | INCLUDE
+                          | INCLUDE
     """
     p[0] = ('PREPROCESOR_DIRECTIVE', p[1])
 
@@ -69,7 +69,7 @@ def p_INCLUDE(p):
 def p_VALUE(p):
     """
     VALUE : NUMBER 
-            | STRING
+          | STRING
     """
     p[0] = ('VALUE', p[1])
 
@@ -77,7 +77,7 @@ def p_VALUE(p):
 def p_NUMBER(p):
     """
     NUMBER : INTEGER
-            | DECIMAL
+           | DECIMAL
     """ 
     p[0] = ('NUMBER', p[1])
 
@@ -85,9 +85,9 @@ def p_NUMBER(p):
 def p_CONTROL_STRUCTURES(p):
     """
     CONTROL_STRUCTURES : IF_STRUCTURE
-                        | FOR_STRUCTURE
-                        | WHILE_STRUCTURE
-                        | SWITCH_STRUCTURE
+                       | FOR_STRUCTURE
+                       | WHILE_STRUCTURE
+                       | SWITCH_STRUCTURE
     """
     p[0] = ('CONTROL_STRUCTURES', p[1])
 
@@ -95,8 +95,8 @@ def p_CONTROL_STRUCTURES(p):
 def p_BODY_STRUCTURE(p):
     """
     BODY_STRUCTURE : EXPRESSIONS 
-                | EXPRESSIONS BREAK SEMICOLON
-                | EXPRESSIONS CONTINUE SEMICOLON 
+                   | EXPRESSIONS BREAK SEMICOLON
+                   | EXPRESSIONS CONTINUE SEMICOLON
     """
     p[0] = ('BODY_STRUCTURE', p[1])
 
@@ -147,7 +147,7 @@ def p_SWITCH_STRUCTURE(p):
 def p_BUCLE(p):
     """
     BUCLE : VARIABLELEX INCREASE 
-            | DECREASE VARIABLELEX
+          | DECREASE VARIABLELEX
     """
     p[0] = ('BUCLE', p[1])
 
@@ -185,10 +185,10 @@ def p_ELSE_STRUCTURE(p):
 def p_CODE(p):
     """
     CODE : FUNCTION
-        | INTEGER_DECLARATION
-        | DECIMAL_DECLARATION
-        | ASSIGNMENT_DECLARATION
-        | COMENTARIOLEX
+         | INTEGER_DECLARATION
+         | DECIMAL_DECLARATION
+         | ASSIGNMENT_DECLARATION
+         | COMENTARIOLEX
     """
     p[0] = ('CODE', p[1])
 
@@ -196,7 +196,7 @@ def p_CODE(p):
 def p_EXPRESSION(p):
     """
     EXPRESSION : CODE SEMICOLON
-                | CONTROL_STRUCTURES
+               | CONTROL_STRUCTURES
     """
     p[0] = ('EXPRESSION', p[1])
 
@@ -227,8 +227,8 @@ def p_FUNCTION_ARGUMENTS(p):
 def p_INTEGER_TYPE(p):
     """
     INTEGER_TYPE : INT
-                | SHORT
-                | LONG
+                 | SHORT
+                 | LONG
     """
     p[0] = ('INTEGER_TYPE', p[1])
 
@@ -236,7 +236,7 @@ def p_INTEGER_TYPE(p):
 def p_DECIMAL_TYPE(p):
     """
     DECIMAL_TYPE : FLOAT
-                | DOUBLE
+                 | DOUBLE
     """
     p[0] = ('DECIMAL_TYPE', p[1])
 
@@ -297,10 +297,10 @@ def p_VARIABLELEX(p):
 def p_OPERATOR(p):
     """
     OPERATOR : PLUS
-              | MINUS
-              | TIMES
-              | MODULUS
-              | DIVIDE
+             | MINUS
+             | TIMES
+             | MODULUS
+             | DIVIDE
     """
     p[0] = ('OPERATOR', p[1])
 
@@ -350,8 +350,8 @@ def p_COMPARISONS(p):
 def p_LOGICAL_OPERATOR(p):
     """
     LOGICAL_OPERATOR : AND
-                    | OR
-                    | NOT
+                     | OR
+                     | NOT
     """
     p[0] = ('LOGICAL_OPERATOR', p[1])
 
@@ -359,7 +359,7 @@ def p_LOGICAL_OPERATOR(p):
 def p_SENTENCE(p):
     """
     SENTENCE : NUMBER
-            | VARNAME
+             | VARNAME
     """
     p[0] = ('SENTENCE', p[1])
 
@@ -367,7 +367,7 @@ def p_SENTENCE(p):
 def p_SENTENCES(p):
     """
     SENTENCES : SENTENCE
-                | SENTENCE COMMA SENTENCES
+              | SENTENCE COMMA SENTENCES
     """
     p[0] = ('SENTENCES', p[1])
 
