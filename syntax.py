@@ -37,6 +37,7 @@ def p_ROOT(p):
         | SWITCH_BODY
         | BUCLE
         | ELSE_STRUCTURE
+        | FUNCTION_ARGUMENTS
     """
     p[0] = ('ROOT', p[1])
 
@@ -210,9 +211,17 @@ def p_EXPRESSIONS(p):
 
 def p_FUNCTION(p):
     """
-    FUNCTION : VARNAME LPAREN RPAREN
+    FUNCTION : VARNAME LPAREN FUNCTION_ARGUMENTS RPAREN
     """
     p[0] = ('FUNCTION', p[1])
+
+
+def p_FUNCTION_ARGUMENTS(p):
+    """
+    FUNCTION_ARGUMENTS : SENTENCES
+                       | COMPARISONS
+    """
+    p[0] = ('FUNCTION_ARGUMENTS', p[1])
 
 
 def p_INTEGER_TYPE(p):
@@ -353,6 +362,14 @@ def p_SENTENCE(p):
             | VARNAME
     """
     p[0] = ('SENTENCE', p[1])
+
+
+def p_SENTENCES(p):
+    """
+    SENTENCES : SENTENCE
+                | SENTENCE COMMA SENTENCES
+    """
+    p[0] = ('SENTENCES', p[1])
 
 # <---------- END PAUL SORIA ---------->
 
