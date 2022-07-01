@@ -36,6 +36,7 @@ def p_ROOT(p):
         | SENTENCE
         | SWITCH_BODY
         | BUCLE
+        | ELSE_STRUCTURE
     """
     p[0] = ('ROOT', p[1])
 
@@ -167,10 +168,17 @@ def p_FOR_STRUCTURE(p):
 def p_IF_STRUCTURE(p):
     """
     IF_STRUCTURE : IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
+                 | IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE ELSE_STRUCTURE
     """
     p[0] = ('IF_STRUCTURE', p[1])
 
-# def p_COMPARISON_ARGUMENT(p):
+
+def p_ELSE_STRUCTURE(p):
+    """
+    ELSE_STRUCTURE : ELSE LCURL_BRACE EXPRESSIONS RCURL_BRACE
+                   | ELSE IF_STRUCTURE
+    """
+    p[0] = ('ELSE_STRUCTURE', p[1])
 
 
 def p_CODE(p):
