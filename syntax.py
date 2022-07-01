@@ -5,39 +5,40 @@ import ply.yacc as yacc
 def p_ROOT(p):
     """
     ROOT : PREPROCESOR_DIRECTIVE
-        | DEFINE
-        | INCLUDE
-        | VALUE
-        | NUMBER
-        | CONTROL_STRUCTURES
-        | WHILE_STRUCTURE
-        | SWITCH_STRUCTURE
-        | IF_STRUCTURE
-        | FOR_STRUCTURE
-        | CODE
-        | EXPRESSION
-        | EXPRESSIONS
-        | FUNCTION
-        | INTEGER_TYPE
-        | DECIMAL_TYPE
-        | INTEGER_DECLARATION
-        | DECIMAL_DECLARATION
-        | ASSIGNMENT_DECLARATION
-        | ASSIGNMENT_OPERATOR
-        | COMENTARIOLEX
-        | VARIABLELEX
-        | OPERATOR
-        | OPERATION
-        | OPERATIONS
-        | COMPARISON_OPERATOR
-        | COMPARISON
-        | COMPARISONS
-        | LOGICAL_OPERATOR
-        | SENTENCE
-        | SWITCH_BODY
-        | BUCLE
-        | ELSE_STRUCTURE
-        | FUNCTION_ARGUMENTS
+         | DEFINE
+         | INCLUDE
+         | VALUE
+         | NUMBER
+         | CONTROL_STRUCTURES
+         | WHILE_STRUCTURE
+         | SWITCH_STRUCTURE
+         | IF_STRUCTURE
+         | FOR_STRUCTURE
+         | CODE
+         | EXPRESSION
+         | EXPRESSIONS
+         | FUNCTION
+         | INTEGER_TYPE
+         | DECIMAL_TYPE
+         | INTEGER_DECLARATION
+         | DECIMAL_DECLARATION
+         | ASSIGNMENT_DECLARATION
+         | ASSIGNMENT_OPERATOR
+         | COMENTARIOLEX
+         | VARIABLELEX
+         | OPERATOR
+         | OPERATION
+         | OPERATIONS
+         | COMPARISON_OPERATOR
+         | COMPARISON
+         | COMPARISONS
+         | LOGICAL_OPERATOR
+         | SENTENCE
+         | SWITCH_BODY
+         | BUCLE
+         | ELSE_STRUCTURE
+         | FUNCTION_ARGUMENTS
+         | DECLARATIONS
     """
     p[0] = ('ROOT', p[1])
 
@@ -155,7 +156,7 @@ def p_BUCLE(p):
 # FOR LPAREN EXPRESSIONS COMPARISONS BUCLE RPAREN
 def p_FOR_STRUCTURE(p):
     """
-    FOR_STRUCTURE : INTEGER
+    FOR_STRUCTURE : FOR LPAREN DECLARATIONS SEMICOLON COMPARISONS SEMICOLON BUCLE RPAREN
     """
     p[0] = ('FOR_STRUCTURE', p[1])
 
@@ -180,6 +181,14 @@ def p_ELSE_STRUCTURE(p):
                    | ELSE IF_STRUCTURE
     """
     p[0] = ('ELSE_STRUCTURE', p[1])
+
+
+def p_DECLARATIONS(p):
+    """
+    DECLARATIONS : INTEGER_DECLARATION
+                 | DECIMAL_DECLARATION
+    """
+    p[0] = ('DECLARATIONS', p[1])
 
 
 def p_CODE(p):
@@ -335,6 +344,7 @@ def p_COMPARISON_OPERATOR(p):
 def p_COMPARISON(p):
     """
     COMPARISON : VALUE COMPARISON_OPERATOR VALUE
+               | SENTENCE COMPARISON_OPERATOR SENTENCE
     """
     p[0] = ('COMPARISON', p[1])
 
