@@ -247,9 +247,9 @@ t_LCURL_BRACE = r'\{'
 t_RCURL_BRACE = r'\}'
 
 # Values
-t_VARNAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
-t_INTEGER = r'[0-9]+'
-t_DECIMAL = r'[0-9]*\.[0-9]+'
+# t_VARNAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
+t_INTEGER = r'-\s*\d+|\d+'
+t_DECIMAL = r'-\s*\d*\.d+|\d*\.\d+'
 t_CHARACTER = r'\'\w+\''
 # t_STRING = r'\".*\"'
 
@@ -354,9 +354,10 @@ def t_VARIABLE(t):
 
 
 def verify_reserved(value):
-    for i in reserved.values():
-        if bool(re.match(value, i.lower())):
-            return True, i
+    for k in reserved:
+        v = reserved.get(k)
+        if bool(re.fullmatch(r'^('+str(k)+')$', value)):
+            return True, v
     return False, None
 
 

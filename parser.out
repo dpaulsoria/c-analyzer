@@ -138,12 +138,12 @@ Rule 56    BUCLE -> DECREASE VARIABLELEX
 Rule 57    FOR_STRUCTURE -> INTEGER
 Rule 58    IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
 Rule 59    CODE -> FUNCTION
-Rule 60    CODE -> CONTROL_STRUCTURES
-Rule 61    CODE -> INTEGER_DECLARATION
-Rule 62    CODE -> DECIMAL_DECLARATION
-Rule 63    CODE -> ASSIGNMENT_DECLARATION
-Rule 64    CODE -> COMENTARIOLEX
-Rule 65    EXPRESSION -> CODE SEMICOLON
+Rule 60    CODE -> INTEGER_DECLARATION
+Rule 61    CODE -> DECIMAL_DECLARATION
+Rule 62    CODE -> ASSIGNMENT_DECLARATION
+Rule 63    CODE -> COMENTARIOLEX
+Rule 64    EXPRESSION -> CODE SEMICOLON
+Rule 65    EXPRESSION -> CONTROL_STRUCTURES
 Rule 66    EXPRESSIONS -> EXPRESSION
 Rule 67    EXPRESSIONS -> EXPRESSION EXPRESSIONS
 Rule 68    FUNCTION -> VARNAME LPAREN RPAREN
@@ -295,7 +295,7 @@ RCURL_BRACE          : 48 54 58
 REGISTER             : 
 RETURN               : 
 RPAREN               : 48 54 58 68
-SEMICOLON            : 46 47 49 50 65
+SEMICOLON            : 46 47 49 50 64
 SHIFTL_EQUAL         : 87
 SHIFTR_EQUAL         : 88
 SHIFT_LEFT           : 
@@ -325,17 +325,17 @@ error                :
 
 Nonterminals, with rules where they appear
 
-ASSIGNMENT_DECLARATION : 19 63
+ASSIGNMENT_DECLARATION : 19 62
 ASSIGNMENT_OPERATOR  : 20 76
 BODY_STRUCTURE       : 48
 BUCLE                : 32
-CODE                 : 11 65
-COMENTARIOLEX        : 21 64
+CODE                 : 11 64
+COMENTARIOLEX        : 21 63
 COMPARISON           : 27 106 107
 COMPARISONS          : 28 48 54 58 107
 COMPARISON_OPERATOR  : 26 105
-CONTROL_STRUCTURES   : 6 60
-DECIMAL_DECLARATION  : 18 62
+CONTROL_STRUCTURES   : 6 65
+DECIMAL_DECLARATION  : 18 61
 DECIMAL_TYPE         : 16 75
 DEFINE               : 2 33
 EXPRESSION           : 12 66 67
@@ -344,7 +344,7 @@ FOR_STRUCTURE        : 10 42
 FUNCTION             : 14 59
 IF_STRUCTURE         : 9 41
 INCLUDE              : 3 34
-INTEGER_DECLARATION  : 17 61
+INTEGER_DECLARATION  : 17 60
 INTEGER_TYPE         : 15 74
 LOGICAL_OPERATOR     : 29 107
 NUMBER               : 5 37 96 96 111
@@ -416,12 +416,12 @@ state 0
     (58) IF_STRUCTURE -> . IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE
     (57) FOR_STRUCTURE -> . INTEGER
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
     (68) FUNCTION -> . VARNAME LPAREN RPAREN
@@ -649,13 +649,23 @@ state 6
 state 7
 
     (6) ROOT -> CONTROL_STRUCTURES .
-    (60) CODE -> CONTROL_STRUCTURES .
+    (65) EXPRESSION -> CONTROL_STRUCTURES .
 
   ! reduce/reduce conflict for $end resolved using rule 6 (ROOT -> CONTROL_STRUCTURES .)
     $end            reduce using rule 6 (ROOT -> CONTROL_STRUCTURES .)
-    SEMICOLON       reduce using rule 60 (CODE -> CONTROL_STRUCTURES .)
+    VARNAME         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    COMMENT         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    IF              reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    INTEGER         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    WHILE           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    SWITCH          reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    INT             reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    SHORT           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    LONG            reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    FLOAT           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    DOUBLE          reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
 
-  ! $end            [ reduce using rule 60 (CODE -> CONTROL_STRUCTURES .) ]
+  ! $end            [ reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .) ]
 
 
 state 8
@@ -665,7 +675,17 @@ state 8
 
   ! reduce/reduce conflict for $end resolved using rule 7 (ROOT -> WHILE_STRUCTURE .)
     $end            reduce using rule 7 (ROOT -> WHILE_STRUCTURE .)
-    SEMICOLON       reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    VARNAME         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    COMMENT         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    IF              reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    INTEGER         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    WHILE           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SWITCH          reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    INT             reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SHORT           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    LONG            reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    FLOAT           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    DOUBLE          reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
 
   ! $end            [ reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .) ]
 
@@ -677,7 +697,17 @@ state 9
 
   ! reduce/reduce conflict for $end resolved using rule 8 (ROOT -> SWITCH_STRUCTURE .)
     $end            reduce using rule 8 (ROOT -> SWITCH_STRUCTURE .)
-    SEMICOLON       reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    VARNAME         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    COMMENT         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    IF              reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    INTEGER         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    WHILE           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SWITCH          reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    INT             reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SHORT           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    LONG            reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    FLOAT           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    DOUBLE          reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
 
   ! $end            [ reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .) ]
 
@@ -689,7 +719,17 @@ state 10
 
   ! reduce/reduce conflict for $end resolved using rule 9 (ROOT -> IF_STRUCTURE .)
     $end            reduce using rule 9 (ROOT -> IF_STRUCTURE .)
-    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    VARNAME         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    COMMENT         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    IF              reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    INTEGER         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    WHILE           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    SWITCH          reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    INT             reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    SHORT           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    LONG            reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    FLOAT           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    DOUBLE          reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
 
   ! $end            [ reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .) ]
 
@@ -701,7 +741,17 @@ state 11
 
   ! reduce/reduce conflict for $end resolved using rule 10 (ROOT -> FOR_STRUCTURE .)
     $end            reduce using rule 10 (ROOT -> FOR_STRUCTURE .)
-    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    VARNAME         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    COMMENT         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    IF              reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    INTEGER         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    WHILE           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SWITCH          reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    INT             reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SHORT           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    LONG            reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    FLOAT           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    DOUBLE          reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
 
   ! $end            [ reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .) ]
 
@@ -709,7 +759,7 @@ state 11
 state 12
 
     (11) ROOT -> CODE .
-    (65) EXPRESSION -> CODE . SEMICOLON
+    (64) EXPRESSION -> CODE . SEMICOLON
 
     $end            reduce using rule 11 (ROOT -> CODE .)
     SEMICOLON       shift and go to state 82
@@ -722,18 +772,18 @@ state 13
     (67) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -750,7 +800,7 @@ state 13
 
   ! reduce/reduce conflict for $end resolved using rule 12 (ROOT -> EXPRESSION .)
     $end            reduce using rule 12 (ROOT -> EXPRESSION .)
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -767,16 +817,16 @@ state 13
     EXPRESSION                     shift and go to state 83
     EXPRESSIONS                    shift and go to state 84
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -820,37 +870,37 @@ state 17
 state 18
 
     (17) ROOT -> INTEGER_DECLARATION .
-    (61) CODE -> INTEGER_DECLARATION .
+    (60) CODE -> INTEGER_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 17 (ROOT -> INTEGER_DECLARATION .)
     $end            reduce using rule 17 (ROOT -> INTEGER_DECLARATION .)
-    SEMICOLON       reduce using rule 61 (CODE -> INTEGER_DECLARATION .)
+    SEMICOLON       reduce using rule 60 (CODE -> INTEGER_DECLARATION .)
 
-  ! $end            [ reduce using rule 61 (CODE -> INTEGER_DECLARATION .) ]
+  ! $end            [ reduce using rule 60 (CODE -> INTEGER_DECLARATION .) ]
 
 
 state 19
 
     (18) ROOT -> DECIMAL_DECLARATION .
-    (62) CODE -> DECIMAL_DECLARATION .
+    (61) CODE -> DECIMAL_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 18 (ROOT -> DECIMAL_DECLARATION .)
     $end            reduce using rule 18 (ROOT -> DECIMAL_DECLARATION .)
-    SEMICOLON       reduce using rule 62 (CODE -> DECIMAL_DECLARATION .)
+    SEMICOLON       reduce using rule 61 (CODE -> DECIMAL_DECLARATION .)
 
-  ! $end            [ reduce using rule 62 (CODE -> DECIMAL_DECLARATION .) ]
+  ! $end            [ reduce using rule 61 (CODE -> DECIMAL_DECLARATION .) ]
 
 
 state 20
 
     (19) ROOT -> ASSIGNMENT_DECLARATION .
-    (63) CODE -> ASSIGNMENT_DECLARATION .
+    (62) CODE -> ASSIGNMENT_DECLARATION .
 
   ! reduce/reduce conflict for $end resolved using rule 19 (ROOT -> ASSIGNMENT_DECLARATION .)
     $end            reduce using rule 19 (ROOT -> ASSIGNMENT_DECLARATION .)
-    SEMICOLON       reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .)
+    SEMICOLON       reduce using rule 62 (CODE -> ASSIGNMENT_DECLARATION .)
 
-  ! $end            [ reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .) ]
+  ! $end            [ reduce using rule 62 (CODE -> ASSIGNMENT_DECLARATION .) ]
 
 
 state 21
@@ -863,13 +913,13 @@ state 21
 state 22
 
     (21) ROOT -> COMENTARIOLEX .
-    (64) CODE -> COMENTARIOLEX .
+    (63) CODE -> COMENTARIOLEX .
 
   ! reduce/reduce conflict for $end resolved using rule 21 (ROOT -> COMENTARIOLEX .)
     $end            reduce using rule 21 (ROOT -> COMENTARIOLEX .)
-    SEMICOLON       reduce using rule 64 (CODE -> COMENTARIOLEX .)
+    SEMICOLON       reduce using rule 63 (CODE -> COMENTARIOLEX .)
 
-  ! $end            [ reduce using rule 64 (CODE -> COMENTARIOLEX .) ]
+  ! $end            [ reduce using rule 63 (CODE -> COMENTARIOLEX .) ]
 
 
 state 23
@@ -1030,7 +1080,17 @@ state 37
     LESS_THAN       reduce using rule 39 (NUMBER -> INTEGER .)
     GREATER_EQUAL   reduce using rule 39 (NUMBER -> INTEGER .)
     LESS_EQUAL      reduce using rule 39 (NUMBER -> INTEGER .)
-    SEMICOLON       reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    VARNAME         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    COMMENT         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    IF              reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    INTEGER         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    WHILE           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    SWITCH          reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    INT             reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    SHORT           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    LONG            reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    FLOAT           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    DOUBLE          reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
 
   ! $end            [ reduce using rule 57 (FOR_STRUCTURE -> INTEGER .) ]
 
@@ -1500,23 +1560,23 @@ state 81
 
 state 82
 
-    (65) EXPRESSION -> CODE SEMICOLON .
+    (64) EXPRESSION -> CODE SEMICOLON .
 
-    VARNAME         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    COMMENT         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    IF              reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    INTEGER         reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    WHILE           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    SWITCH          reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    INT             reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    SHORT           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    LONG            reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    FLOAT           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    DOUBLE          reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    $end            reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    BREAK           reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    CONTINUE        reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
-    RCURL_BRACE     reduce using rule 65 (EXPRESSION -> CODE SEMICOLON .)
+    VARNAME         reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    COMMENT         reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    IF              reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    INTEGER         reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    WHILE           reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    SWITCH          reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    INT             reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    SHORT           reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    LONG            reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    FLOAT           reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    DOUBLE          reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    $end            reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    BREAK           reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    CONTINUE        reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
+    RCURL_BRACE     reduce using rule 64 (EXPRESSION -> CODE SEMICOLON .)
 
 
 state 83
@@ -1525,18 +1585,18 @@ state 83
     (67) EXPRESSIONS -> EXPRESSION . EXPRESSIONS
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -1555,7 +1615,7 @@ state 83
     BREAK           reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
     CONTINUE        reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
     RCURL_BRACE     reduce using rule 66 (EXPRESSIONS -> EXPRESSION .)
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -1570,16 +1630,16 @@ state 83
     EXPRESSION                     shift and go to state 83
     EXPRESSIONS                    shift and go to state 84
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -1595,54 +1655,152 @@ state 84
 
 state 85
 
-    (65) EXPRESSION -> CODE . SEMICOLON
+    (64) EXPRESSION -> CODE . SEMICOLON
 
     SEMICOLON       shift and go to state 82
 
 
 state 86
 
+    (65) EXPRESSION -> CONTROL_STRUCTURES .
+
+    VARNAME         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    COMMENT         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    IF              reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    INTEGER         reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    WHILE           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    SWITCH          reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    INT             reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    SHORT           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    LONG            reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    FLOAT           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    DOUBLE          reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    $end            reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    BREAK           reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    CONTINUE        reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+    RCURL_BRACE     reduce using rule 65 (EXPRESSION -> CONTROL_STRUCTURES .)
+
+
+state 87
+
     (59) CODE -> FUNCTION .
 
     SEMICOLON       reduce using rule 59 (CODE -> FUNCTION .)
 
 
-state 87
-
-    (60) CODE -> CONTROL_STRUCTURES .
-
-    SEMICOLON       reduce using rule 60 (CODE -> CONTROL_STRUCTURES .)
-
-
 state 88
 
-    (61) CODE -> INTEGER_DECLARATION .
+    (60) CODE -> INTEGER_DECLARATION .
 
-    SEMICOLON       reduce using rule 61 (CODE -> INTEGER_DECLARATION .)
+    SEMICOLON       reduce using rule 60 (CODE -> INTEGER_DECLARATION .)
 
 
 state 89
 
-    (62) CODE -> DECIMAL_DECLARATION .
+    (61) CODE -> DECIMAL_DECLARATION .
 
-    SEMICOLON       reduce using rule 62 (CODE -> DECIMAL_DECLARATION .)
+    SEMICOLON       reduce using rule 61 (CODE -> DECIMAL_DECLARATION .)
 
 
 state 90
 
-    (63) CODE -> ASSIGNMENT_DECLARATION .
+    (62) CODE -> ASSIGNMENT_DECLARATION .
 
-    SEMICOLON       reduce using rule 63 (CODE -> ASSIGNMENT_DECLARATION .)
+    SEMICOLON       reduce using rule 62 (CODE -> ASSIGNMENT_DECLARATION .)
 
 
 state 91
 
-    (64) CODE -> COMENTARIOLEX .
+    (63) CODE -> COMENTARIOLEX .
 
-    SEMICOLON       reduce using rule 64 (CODE -> COMENTARIOLEX .)
+    SEMICOLON       reduce using rule 63 (CODE -> COMENTARIOLEX .)
 
 
 state 92
+
+    (41) CONTROL_STRUCTURES -> IF_STRUCTURE .
+
+    VARNAME         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    COMMENT         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    IF              reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    INTEGER         reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    WHILE           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    SWITCH          reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    INT             reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    SHORT           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    LONG            reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    FLOAT           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    DOUBLE          reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    $end            reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    BREAK           reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    CONTINUE        reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+    RCURL_BRACE     reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
+
+
+state 93
+
+    (42) CONTROL_STRUCTURES -> FOR_STRUCTURE .
+
+    VARNAME         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    COMMENT         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    IF              reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    INTEGER         reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    WHILE           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SWITCH          reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    INT             reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    SHORT           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    LONG            reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    FLOAT           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    DOUBLE          reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    $end            reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    BREAK           reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    CONTINUE        reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+    RCURL_BRACE     reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
+
+
+state 94
+
+    (43) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
+
+    VARNAME         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    COMMENT         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    IF              reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    INTEGER         reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    WHILE           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SWITCH          reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    INT             reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    SHORT           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    LONG            reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    FLOAT           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    DOUBLE          reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    $end            reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    BREAK           reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    CONTINUE        reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+    RCURL_BRACE     reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
+
+
+state 95
+
+    (44) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
+
+    VARNAME         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    COMMENT         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    IF              reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    INTEGER         reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    WHILE           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SWITCH          reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    INT             reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    SHORT           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    LONG            reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    FLOAT           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    DOUBLE          reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    $end            reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    BREAK           reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    CONTINUE        reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+    RCURL_BRACE     reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
+
+
+state 96
 
     (68) FUNCTION -> VARNAME . LPAREN RPAREN
     (76) ASSIGNMENT_DECLARATION -> VARNAME . ASSIGNMENT_OPERATOR SENTENCE
@@ -1675,34 +1833,6 @@ state 92
 
     ASSIGNMENT_OPERATOR            shift and go to state 112
 
-state 93
-
-    (41) CONTROL_STRUCTURES -> IF_STRUCTURE .
-
-    SEMICOLON       reduce using rule 41 (CONTROL_STRUCTURES -> IF_STRUCTURE .)
-
-
-state 94
-
-    (42) CONTROL_STRUCTURES -> FOR_STRUCTURE .
-
-    SEMICOLON       reduce using rule 42 (CONTROL_STRUCTURES -> FOR_STRUCTURE .)
-
-
-state 95
-
-    (43) CONTROL_STRUCTURES -> WHILE_STRUCTURE .
-
-    SEMICOLON       reduce using rule 43 (CONTROL_STRUCTURES -> WHILE_STRUCTURE .)
-
-
-state 96
-
-    (44) CONTROL_STRUCTURES -> SWITCH_STRUCTURE .
-
-    SEMICOLON       reduce using rule 44 (CONTROL_STRUCTURES -> SWITCH_STRUCTURE .)
-
-
 state 97
 
     (74) INTEGER_DECLARATION -> INTEGER_TYPE . VARNAME EQUAL INTEGER
@@ -1714,7 +1844,21 @@ state 98
 
     (57) FOR_STRUCTURE -> INTEGER .
 
-    SEMICOLON       reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    VARNAME         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    COMMENT         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    IF              reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    INTEGER         reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    WHILE           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    SWITCH          reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    INT             reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    SHORT           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    LONG            reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    FLOAT           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    DOUBLE          reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    $end            reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    BREAK           reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    CONTINUE        reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
+    RCURL_BRACE     reduce using rule 57 (FOR_STRUCTURE -> INTEGER .)
 
 
 state 99
@@ -1922,18 +2066,18 @@ state 116
     (50) SWITCH_DEFAULT -> DEFAULT COLON . EXPRESSIONS BREAK SEMICOLON
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -1948,7 +2092,7 @@ state 116
     (72) DECIMAL_TYPE -> . FLOAT
     (73) DECIMAL_TYPE -> . DOUBLE
 
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -1963,16 +2107,16 @@ state 116
     EXPRESSIONS                    shift and go to state 138
     EXPRESSION                     shift and go to state 83
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -2204,18 +2348,18 @@ state 137
     (49) SWITCH_CASE -> CASE INTEGER COLON . EXPRESSIONS BREAK SEMICOLON
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -2230,7 +2374,7 @@ state 137
     (72) DECIMAL_TYPE -> . FLOAT
     (73) DECIMAL_TYPE -> . DOUBLE
 
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -2245,16 +2389,16 @@ state 137
     EXPRESSIONS                    shift and go to state 144
     EXPRESSION                     shift and go to state 83
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -2324,18 +2468,18 @@ state 146
     (47) BODY_STRUCTURE -> . EXPRESSIONS CONTINUE SEMICOLON
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -2350,7 +2494,7 @@ state 146
     (72) DECIMAL_TYPE -> . FLOAT
     (73) DECIMAL_TYPE -> . DOUBLE
 
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -2366,16 +2510,16 @@ state 146
     EXPRESSIONS                    shift and go to state 152
     EXPRESSION                     shift and go to state 83
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -2400,18 +2544,18 @@ state 148
     (58) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE . EXPRESSIONS RCURL_BRACE
     (66) EXPRESSIONS -> . EXPRESSION
     (67) EXPRESSIONS -> . EXPRESSION EXPRESSIONS
-    (65) EXPRESSION -> . CODE SEMICOLON
+    (64) EXPRESSION -> . CODE SEMICOLON
+    (65) EXPRESSION -> . CONTROL_STRUCTURES
     (59) CODE -> . FUNCTION
-    (60) CODE -> . CONTROL_STRUCTURES
-    (61) CODE -> . INTEGER_DECLARATION
-    (62) CODE -> . DECIMAL_DECLARATION
-    (63) CODE -> . ASSIGNMENT_DECLARATION
-    (64) CODE -> . COMENTARIOLEX
-    (68) FUNCTION -> . VARNAME LPAREN RPAREN
+    (60) CODE -> . INTEGER_DECLARATION
+    (61) CODE -> . DECIMAL_DECLARATION
+    (62) CODE -> . ASSIGNMENT_DECLARATION
+    (63) CODE -> . COMENTARIOLEX
     (41) CONTROL_STRUCTURES -> . IF_STRUCTURE
     (42) CONTROL_STRUCTURES -> . FOR_STRUCTURE
     (43) CONTROL_STRUCTURES -> . WHILE_STRUCTURE
     (44) CONTROL_STRUCTURES -> . SWITCH_STRUCTURE
+    (68) FUNCTION -> . VARNAME LPAREN RPAREN
     (74) INTEGER_DECLARATION -> . INTEGER_TYPE VARNAME EQUAL INTEGER
     (75) DECIMAL_DECLARATION -> . DECIMAL_TYPE VARNAME EQUAL DECIMAL
     (76) ASSIGNMENT_DECLARATION -> . VARNAME ASSIGNMENT_OPERATOR SENTENCE
@@ -2426,7 +2570,7 @@ state 148
     (72) DECIMAL_TYPE -> . FLOAT
     (73) DECIMAL_TYPE -> . DOUBLE
 
-    VARNAME         shift and go to state 92
+    VARNAME         shift and go to state 96
     COMMENT         shift and go to state 60
     IF              shift and go to state 41
     INTEGER         shift and go to state 98
@@ -2441,16 +2585,16 @@ state 148
     EXPRESSIONS                    shift and go to state 154
     EXPRESSION                     shift and go to state 83
     CODE                           shift and go to state 85
-    FUNCTION                       shift and go to state 86
-    CONTROL_STRUCTURES             shift and go to state 87
+    CONTROL_STRUCTURES             shift and go to state 86
+    FUNCTION                       shift and go to state 87
     INTEGER_DECLARATION            shift and go to state 88
     DECIMAL_DECLARATION            shift and go to state 89
     ASSIGNMENT_DECLARATION         shift and go to state 90
     COMENTARIOLEX                  shift and go to state 91
-    IF_STRUCTURE                   shift and go to state 93
-    FOR_STRUCTURE                  shift and go to state 94
-    WHILE_STRUCTURE                shift and go to state 95
-    SWITCH_STRUCTURE               shift and go to state 96
+    IF_STRUCTURE                   shift and go to state 92
+    FOR_STRUCTURE                  shift and go to state 93
+    WHILE_STRUCTURE                shift and go to state 94
+    SWITCH_STRUCTURE               shift and go to state 95
     INTEGER_TYPE                   shift and go to state 97
     DECIMAL_TYPE                   shift and go to state 99
 
@@ -2516,7 +2660,20 @@ state 156
     (48) WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .
 
     $end            reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
-    SEMICOLON       reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    VARNAME         reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    COMMENT         reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    IF              reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    INTEGER         reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    WHILE           reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    SWITCH          reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    INT             reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    SHORT           reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    LONG            reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    FLOAT           reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    DOUBLE          reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    BREAK           reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    CONTINUE        reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
+    RCURL_BRACE     reduce using rule 48 (WHILE_STRUCTURE -> WHILE LPAREN COMPARISONS RPAREN LCURL_BRACE BODY_STRUCTURE RCURL_BRACE .)
 
 
 state 157
@@ -2538,7 +2695,20 @@ state 159
     (54) SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .
 
     $end            reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
-    SEMICOLON       reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    VARNAME         reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    COMMENT         reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    IF              reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    INTEGER         reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    WHILE           reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    SWITCH          reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    INT             reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    SHORT           reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    LONG            reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    FLOAT           reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    DOUBLE          reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    BREAK           reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    CONTINUE        reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
+    RCURL_BRACE     reduce using rule 54 (SWITCH_STRUCTURE -> SWITCH LPAREN COMPARISONS RPAREN LCURL_BRACE SWITCH_BODY RCURL_BRACE .)
 
 
 state 160
@@ -2546,7 +2716,20 @@ state 160
     (58) IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .
 
     $end            reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
-    SEMICOLON       reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    VARNAME         reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    COMMENT         reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    IF              reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    INTEGER         reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    WHILE           reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    SWITCH          reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    INT             reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    SHORT           reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    LONG            reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    FLOAT           reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    DOUBLE          reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    BREAK           reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    CONTINUE        reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
+    RCURL_BRACE     reduce using rule 58 (IF_STRUCTURE -> IF LPAREN COMPARISONS RPAREN LCURL_BRACE EXPRESSIONS RCURL_BRACE .)
 
 
 state 161
@@ -2574,7 +2757,7 @@ WARNING: rejected rule (VALUE -> NUMBER) in state 6
 WARNING: reduce/reduce conflict in state 6 resolved using rule (ROOT -> NUMBER)
 WARNING: rejected rule (SENTENCE -> NUMBER) in state 6
 WARNING: reduce/reduce conflict in state 7 resolved using rule (ROOT -> CONTROL_STRUCTURES)
-WARNING: rejected rule (CODE -> CONTROL_STRUCTURES) in state 7
+WARNING: rejected rule (EXPRESSION -> CONTROL_STRUCTURES) in state 7
 WARNING: reduce/reduce conflict in state 8 resolved using rule (ROOT -> WHILE_STRUCTURE)
 WARNING: rejected rule (CONTROL_STRUCTURES -> WHILE_STRUCTURE) in state 8
 WARNING: reduce/reduce conflict in state 9 resolved using rule (ROOT -> SWITCH_STRUCTURE)

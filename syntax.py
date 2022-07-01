@@ -170,11 +170,12 @@ def p_IF_STRUCTURE(p):
     """
     p[0] = ('IF_STRUCTURE', p[1])
 
+# def p_COMPARISON_ARGUMENT(p):
+
 
 def p_CODE(p):
     """
     CODE : FUNCTION
-        | CONTROL_STRUCTURES
         | INTEGER_DECLARATION
         | DECIMAL_DECLARATION
         | ASSIGNMENT_DECLARATION
@@ -186,6 +187,7 @@ def p_CODE(p):
 def p_EXPRESSION(p):
     """
     EXPRESSION : CODE SEMICOLON
+                | CONTROL_STRUCTURES
     """
     p[0] = ('EXPRESSION', p[1])
 
