@@ -33,7 +33,7 @@ def p_ROOT(p):
          | COMPARISON
          | COMPARISONS
          | LOGICAL_OPERATOR
-         | SENTENCE
+         | STATEMENT
          | SWITCH_BODY
          | BUCLE
          | ELSE_STRUCTURE
@@ -73,6 +73,7 @@ def p_VALUE(p):
     """
     VALUE : NUMBER 
           | STRING
+          | CHARACTER
     """
     p[0] = ('VALUE', p[1])
 
@@ -103,7 +104,7 @@ def p_BODY_STRUCTURE(p):
     """
     p[0] = ('BODY_STRUCTURE', p[1])
 
-# WHILE SENTENCE
+# WHILE STATEMENT
 
 
 def p_WHILE_STRUCTURE(p):
@@ -112,7 +113,7 @@ def p_WHILE_STRUCTURE(p):
     """
     p[0] = ('WHILE_STRUCTURE', p[1])
 
-# SWITCH SENTENCE
+# SWITCH STATEMENT
 
 
 def p_SWITCH_CASE(p):
@@ -145,7 +146,7 @@ def p_SWITCH_STRUCTURE(p):
     p[0] = ('SWITCH_STRUCTURE', p[1])
 
 
-# FOR SENTENCE
+# FOR STATEMENT
 
 def p_BUCLE(p):
     """
@@ -183,7 +184,7 @@ def p_FOR_BODY_STRUCTURE(p):
 
 # <----------- START PAUL SORIA ---------->
 
-# IF SENTENCE
+# IF STATEMENT
 
 def p_IF_STRUCTURE(p):
     """
@@ -245,7 +246,7 @@ def p_FUNCTION(p):
 
 def p_FUNCTION_ARGUMENTS(p):
     """
-    FUNCTION_ARGUMENTS : SENTENCES
+    FUNCTION_ARGUMENTS : STATEMENTS
                        | COMPARISONS
     """
     p[0] = ('FUNCTION_ARGUMENTS', p[1])
@@ -284,7 +285,7 @@ def p_DECIMAL_DECLARATION(p):
 
 def p_ASSIGNMENT_DECLARATION(p):
     """
-    ASSIGNMENT_DECLARATION : VARNAME ASSIGNMENT_OPERATOR SENTENCE
+    ASSIGNMENT_DECLARATION : VARNAME ASSIGNMENT_OPERATOR STATEMENT
     """
     p[0] = ('ASSIGNMENT_DECLARATION', p[1])
 
@@ -362,7 +363,7 @@ def p_COMPARISON_OPERATOR(p):
 def p_COMPARISON(p):
     """
     COMPARISON : VALUE COMPARISON_OPERATOR VALUE
-               | SENTENCE COMPARISON_OPERATOR SENTENCE
+               | STATEMENT COMPARISON_OPERATOR STATEMENT
     """
     p[0] = ('COMPARISON', p[1])
 
@@ -384,23 +385,67 @@ def p_LOGICAL_OPERATOR(p):
     p[0] = ('LOGICAL_OPERATOR', p[1])
 
 
-def p_SENTENCE(p):
+def p_STATEMENT(p):
     """
-    SENTENCE : NUMBER
+    STATEMENT : NUMBER
              | VARNAME
     """
-    p[0] = ('SENTENCE', p[1])
+    p[0] = ('STATEMENT', p[1])
 
 
-def p_SENTENCES(p):
+def p_STATEMENTS(p):
     """
-    SENTENCES : SENTENCE
-              | SENTENCE COMMA SENTENCES
+    STATEMENTS : STATEMENT
+               | STATEMENT COMMA STATEMENTS
     """
-    p[0] = ('SENTENCES', p[1])
+    p[0] = ('STATEMENTS', p[1])
 
 # <---------- END PAUL SORIA ---------->
 
+
+# <---------- START JUAN PITA---------->
+
+def p_VALUES(p):
+    """
+    VALUES : VALUE
+           | VALUE COMMA VALUES
+    """
+    p[0] = ('VALUES', p[1])
+
+
+def p_RETURN_TYPE(p):
+    """
+    RETURN_TYPE : INTEGER_TYPE
+                | DECIMAL_TYPE
+                | VOID
+    """
+    p[0] = ('RETURN_TYPE', p[1])
+
+
+def p_RETURN_STATEMENT(p):
+    """
+    RETURN_STATEMENT : RETURN PARAMETERS SEMICOLON
+                     | RETURN VALUES SEMICOLON
+    """
+    p[0] = ('RETURN_STATEMENT', p[1])
+
+
+def p_PARAMETERS(p):
+    """
+    PARAMETERS : VARNAME 
+               | VARNAME COMMA PARAMETERS
+    """
+    p[0] = ('PARAMETERS', p[1])
+
+
+def p_FUNCTION_PROTOTYPE(p):
+    """
+    FUNCTION_PROTOTYPE : RETURN_TYPE VARNAME LPAREN RPAREN LCURL_BRACE EXPRESSIONS RETURN_STATEMENT RCURL_BRACE
+                       | RETURN_TYPE VARNAME LPAREN PARAMETERS RPAREN LCURL_BRACE EXPRESSIONS RETURN_STATEMENT RCURL_BRACE
+    """
+    p[0] = ('FUNCTION_PROTOTYPE', p[1])
+
+# <---------- END JUAN PITA ---------->
 
 def p_error(p):
     print("Syntax error in input", p)
