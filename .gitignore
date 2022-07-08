@@ -6,4 +6,3 @@ node_modules/**/*
 *.lock
 ply/*
 ply
-GUI/*
