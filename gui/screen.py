@@ -7,25 +7,28 @@ root = Tk()
 
 # Basic Information
 root.title("C-Analyzer")
-root.geometry("1200x750")
+root.geometry("1100x800")
 eof = '\n'
 tab = '\t'
 
 input_code_height = 20
 input_code_width = 100
-input_code = Text(root, height=input_code_height, width=input_code_width)
+input_output_font = "Consolas", 11
+input_code = Text(root, height=input_code_height, width=input_code_width, font=input_output_font)
 input_code.configure(relief="sunken", borderwidth=5)
 input_code.grid(rowspan=3, columnspan=2, padx=20, pady=20)
 
 lexico_output_height = 20
 lexico_output_width = 50
-lexico_output = Text(root, height=lexico_output_height, width=lexico_output_width)
+lexico_output_font = "Consolas", 11
+lexico_output = Text(root, height=lexico_output_height, width=lexico_output_width, font=lexico_output_font)
 lexico_output.configure(relief="sunken", borderwidth=5)
 lexico_output.grid(row=4, column=0, padx=20, pady=20)
 
 syntactic_output_height = 20
 syntactic_output_width = 50
-syntactic_output = Text(root, height=syntactic_output_height, width=syntactic_output_width)
+syntactic_output_font = "Consolas", 11
+syntactic_output = Text(root, height=syntactic_output_height, width=syntactic_output_width, font=syntactic_output_font)
 syntactic_output.configure(relief="sunken", borderwidth=5)
 syntactic_output.grid(row=4, column=1, padx=20, pady=20)
 
