@@ -52,19 +52,19 @@ def syntax(code):
 
 
 def prettier(code):
-    var = ""
-    print(extract_tree(code, 0))
-    return var
+    return extract_tree(code, 0)
 
 
 def extract_tree(code, counter):
     var = ""
     code1 = code
     while len(code1) != 1:
-        print(code1, len(code1))
-        var += tab * counter + code1[0] + eof
-        counter += 1
-        code1 = code1[1]
+        if not str(code1[0]).isupper():
+            code1 = code1[1]
+        else:
+            var += tab * counter + code1[0] + eof
+            counter += 1
+            code1 = code1[1]
     return var
 
 
