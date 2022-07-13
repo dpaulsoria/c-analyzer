@@ -467,8 +467,6 @@ def syntax():
         print(result)
 
 
-def syntactic_analyzer(data):
+def syntax_analyzer(data):
     return parser.parse(data)
 
-
-syntax()

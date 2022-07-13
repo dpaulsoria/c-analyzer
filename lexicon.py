@@ -421,15 +421,14 @@ def getTokens(lexer):
             break
         print(tok)
 
+def lexicon(file):
+    code = open(file)
+    for line in code:
+        # print(">>>", line, len(line))
+        # print(type(line))
+        # print(bool(re.match(line, r'\t')))
+        validator.input(line)
+        getTokens(validator)
+    code.close()
 
-line = " "
-code = open("tests/keylogger.c")
-for line in code:
-    # print(">>>", line, len(line))
-    # print(type(line))
-    # print(bool(re.match(line, r'\t')))
-    validator.input(line)
-    getTokens(validator)
-code.close()
-
-print("End... :)")
+    print("End... :)")
