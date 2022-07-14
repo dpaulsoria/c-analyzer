@@ -65,7 +65,8 @@ def syntax(code):
     lines = code_to_analize.strip().split(eof)
     print(lines)
     for line in lines:
-        if line == "}":
+        k = line.replace("\t", "").replace(" ", "")
+        if k == "}" or k == "{":
             continue
         if line != "\n":
             print("Line:", line)
