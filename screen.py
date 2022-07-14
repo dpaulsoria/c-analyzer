@@ -55,7 +55,7 @@ def syntax(code):
     code_to_analize = code.get("1.0", 'end-1c')
     syntax_result = sx.syntax_analyzer(code_to_analize)
     syntax_result = prettier(syntax_result)
-    syntax_output.insert(INSERT, syntax_result)
+    syntax_output.insert(tk.INSERT, syntax_result)
 
 
 def prettier(code):
