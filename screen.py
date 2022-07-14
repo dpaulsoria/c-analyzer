@@ -50,6 +50,7 @@ def lexicon(code):
     lexicon_output.delete('1.0', tk.END)
     code_to_analize = code.get("1.0", 'end-1c')
     lexicon_result = lx.lexicon_analyzer(code_to_analize)
+    print(lexicon_result)
     for result in lexicon_result:
         lexicon_output.insert(tk.INSERT, result)
     # print(code_to_analize)
