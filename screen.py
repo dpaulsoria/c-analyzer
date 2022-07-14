@@ -1,5 +1,5 @@
 from tkinter import *
-import syntax as sx
+import analyzers.syntax as sx
 
 # import tkinter.scrolledtext as st
 

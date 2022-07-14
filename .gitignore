@@ -7,3 +7,5 @@ node_modules/**/*
 ply/*
 ply
 .idea/*
+*.out
+parsetab*
