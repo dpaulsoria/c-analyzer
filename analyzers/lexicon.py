@@ -422,6 +422,7 @@ def getTokens(lexer):
         print(tok)
         return tok
 
+
 def lexicon_analyzer(code):
     lines = code.split("\n")
     tokens = []
@@ -430,6 +431,7 @@ def lexicon_analyzer(code):
         tokens.append(str(getTokens(validator)) + "\n")
     print(tokens)
     return tokens
+
 
 def lexicon(file):
     code = open(file)

@@ -458,6 +458,7 @@ def p_FUNCTION_PROTOTYPE(p):
 
 # <---------- END JUAN PITA ---------->
 
+
 def p_error(p):
     print("Syntax error in input", p)
 

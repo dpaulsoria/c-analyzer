@@ -10,7 +10,7 @@ root = tk.Tk()
 root.title("C-Analyzer")
 root.geometry("1000x650")
 eof = '\n'
-tab = '\t'
+tab = '   '
 
 tk.Label(root, text = "INPUT").grid(row = 0, columnspan = 3)
 input_code_height = 15
@@ -82,23 +82,16 @@ def extract_tree(code, counter):
     return var
 
 
-'''
-    try:
-        if len(code[1]) > 0:
-            extract_tree(code[1], counter)
-    except IndexError:
-        return result
-'''
-
-
 def both(code):
     lexicon(code)
     syntax(code)
+
 
 def clear():
     input_code.delete('1.0', tk.END)
     lexicon_output.delete('1.0', tk.END)
     syntax_output.delete('1.0', tk.END)
+
 
 button_lex = tk.Button(root, text="Analyze Lexicon", padx=40, pady=10, command=lambda: lexicon(input_code))
 button_lex.grid(row=1, column=3, padx=20, pady=20)
