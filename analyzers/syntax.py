@@ -22,6 +22,7 @@ def p_ROOT(p):
          | DECIMAL_TYPE
          | INTEGER_DECLARATION
          | DECIMAL_DECLARATION
+         | CHARACTER_DECLARATION
          | ASSIGNMENT_DECLARATION
          | ASSIGNMENT_OPERATOR
          | COMENTARIOLEX
@@ -206,6 +207,7 @@ def p_DECLARATIONS(p):
     """
     DECLARATIONS : INTEGER_DECLARATION
                  | DECIMAL_DECLARATION
+                 | CHARACTER_DECLARATION
     """
     p[0] = ('DECLARATIONS', p[1])
 
@@ -215,6 +217,7 @@ def p_CODE(p):
     CODE : FUNCTION
          | INTEGER_DECLARATION
          | DECIMAL_DECLARATION
+         | CHARACTER_DECLARATION
          | ASSIGNMENT_DECLARATION
          | COMENTARIOLEX
     """
@@ -257,6 +260,7 @@ def p_INTEGER_TYPE(p):
     INTEGER_TYPE : INT
                  | SHORT
                  | LONG
+                 | CHAR
     """
     p[0] = ('INTEGER_TYPE', p[1])
 
@@ -281,6 +285,13 @@ def p_DECIMAL_DECLARATION(p):
     DECIMAL_DECLARATION : DECIMAL_TYPE VARNAME EQUAL DECIMAL
     """
     p[0] = ('DECIMAL_DECLARATION', p[1])
+
+
+def p_CHARACTER_DECLARATION(p):
+    """
+    CHARACTER_DECLARATION : CHAR VARNAME EQUAL CHARACTER
+    """
+    p[0] = ('CHARACTER_DECLARATION', p[1])
 
 
 def p_ASSIGNMENT_DECLARATION(p):

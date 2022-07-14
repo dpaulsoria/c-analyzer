@@ -66,6 +66,7 @@ def extract_tree(code, counter):
     var = ""
     code1 = code
     while len(code1) != 1:
+        print(code1)
         if not str(code1[0]).isupper():
             code1 = code1[1]
         else:
