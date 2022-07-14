@@ -140,19 +140,19 @@ tokens = (
     'PP_INCLUDE',  # #include
     'PP_DEFINE',  # #define
     'PP_UNDEF',  # #undef
-    'PP_IF',  # #if
-    'PP_IFDEF',  # #ifdef
-    'PP_IFNDEF',  # #ifndef
-    'PP_ERROR',  # error
-    'PP_PRAGMA',  # pragma
+    # 'PP_IF',  # #if
+    # 'PP_IFDEF',  # #ifdef
+    # 'PP_IFNDEF',  # #ifndef
+    # 'PP_ERROR',  # error
+    # 'PP_PRAGMA',  # pragma
     # Preprocessor Macros
-    'PP_FILE',  # __FILE__
-    'PP_LINE',  # __LINE__
-    'PP_DATE',  # __DATE__
-    'PP_TIME',  # __TIME__
-    'PP_TIMESTAMP',  # __TIMESTAMP__
-    'PP_STMACRO',  # # single token macro
-    'PP_DTMACRO',  # ## double token macro
+    # 'PP_FILE',  # __FILE__
+    # 'PP_LINE',  # __LINE__
+    # 'PP_DATE',  # __DATE__
+    # 'PP_TIME',  # __TIME__
+    # 'PP_TIMESTAMP',  # __TIMESTAMP__
+    # 'PP_STMACRO',  # # single token macro
+    # 'PP_DTMACRO',  # ## double token macro
     'HEADER_LIB',  # stdio.h || lib.h
 
     # Format specifiers
@@ -172,15 +172,15 @@ tokens = (
     'FS_LONG_DOUBLE',  # %LF
 
     # Secuencias de escape
-    'NEWLINE',  # \n
-    'BACKSPACE',  # \b
-    'HTAB',  # \t
-    'VTAB',  # \v
-    'BACKSLASH',  # \\
-    'FF_PAGEBREAK',  # \f
-    'SINGLE_APOS',  # \'
-    'DOUBLE_APOS',  # \"
-    'NULL',  # \0 end of line
+    # 'NEWLINE',  # \n
+    # 'BACKSPACE',  # \b
+    # 'HTAB',  # \t
+    # 'VTAB',  # \v
+    # 'BACKSLASH',  # \\
+    # 'FF_PAGEBREAK',  # \f
+    # 'SINGLE_APOS',  # \'
+    # 'DOUBLE_APOS',  # \"
+    # 'NULL',  # \0 end of line
 
 ) + tuple(reserved.values())
 
@@ -270,17 +270,17 @@ t_ignore = " \t"
 t_PP_INCLUDE = r'\#include'
 t_PP_DEFINE = r'\#define'
 t_PP_UNDEF = r'\#undef'
-t_PP_IF = r'\#if'
-t_PP_IFDEF = r'\#ifdef'
-t_PP_IFNDEF = r'\#ifndef'
-t_PP_ERROR = r'\#error'
-t_PP_PRAGMA = r'\#pragma'
-# Preprocessor Macros
-t_PP_FILE = r'__FILE__'
-t_PP_LINE = r'__LINE__'
-t_PP_DATE = r'__DATE__'
-t_PP_TIME = r'__TIME__'
-t_PP_TIMESTAMP = r'__TIMESTAMP__'
+# t_PP_IF = r'\#if'
+# t_PP_IFDEF = r'\#ifdef'
+# t_PP_IFNDEF = r'\#ifndef'
+# t_PP_ERROR = r'\#error'
+# t_PP_PRAGMA = r'\#pragma'
+# # Preprocessor Macros
+# t_PP_FILE = r'__FILE__'
+# t_PP_LINE = r'__LINE__'
+# t_PP_DATE = r'__DATE__'
+# t_PP_TIME = r'__TIME__'
+# t_PP_TIMESTAMP = r'__TIMESTAMP__'
 
 # t_PP_STMACRO = r'\S+\s\S+'  # Single token Macro
 # t_PP_DTMACRO = r'\#\S+\s.+'  # Double token Macro
@@ -304,15 +304,15 @@ t_FS_DOUBLE = r'%lf'
 t_FS_LONG_DOUBLE = r'%LF'
 
 # Secuencias de escape
-t_NEWLINE = r'\\n'
-t_BACKSPACE = r'\\b'
-t_HTAB = r'\\t'
-t_VTAB = r'\\v'
-t_BACKSLASH = r'\\\\'
-t_FF_PAGEBREAK = r'\\f'  # Formfeed Page Break
-t_SINGLE_APOS = r'\\\''
-t_DOUBLE_APOS = r'\\\"'
-t_NULL = r'\\0'  # end of line or null
+# t_NEWLINE = r'\\n'
+# t_BACKSPACE = r'\\b'
+# t_HTAB = r'\\t'
+# t_VTAB = r'\\v'
+# t_BACKSLASH = r'\\\\'
+# t_FF_PAGEBREAK = r'\\f'  # Formfeed Page Break
+# t_SINGLE_APOS = r'\\\''
+# t_DOUBLE_APOS = r'\\\"'
+# t_NULL = r'\\0'  # end of line or null
 
 
 # END GABRIELA RAMOS

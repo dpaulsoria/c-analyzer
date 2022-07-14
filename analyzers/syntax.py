@@ -42,8 +42,57 @@ def p_ROOT(p):
          | DECLARATIONS
          | FOR_BODY_STRUCTURE
          | FOR_ARGUMENTS_STRUCTURE
+         | INCREMENTS
+         | DECREMENTS
+         | FUNCTION_PROTOTYPE
+         | VALUES
+         | PARAMETERS
+         | RETURN_STATEMENT
+         | RETURN_TYPE
+         | BITWISE_OPERATOR
+         | BITWISE_OPERATIONS
     """
     p[0] = ('ROOT', p[1])
+
+
+def p_INCREMENTS(p):
+    """
+    INCREMENTS : VARNAME INCREASE
+    """
+    p[0] = ('INCREMENTS', p[1])
+
+
+def p_DECREMENTS(p):
+    """
+    DECREMENTS : VARNAME DECREASE
+    """
+    p[0] = ('DECREMENTS', p[1])
+
+
+def p_UNDEF(p):
+    """
+    UNDEF : PP_UNDEF VARNAME
+    """
+    p[0] = ('UNDEF', p[1])
+
+
+def p_BITWISE_OPERATIONS(p):
+    """
+    BITWISE_OPERATIONS : STATEMENT BITWISE_OPERATOR STATEMENT
+    """
+    p[0] = ('BITWISE_OPERATIONS', p[1])
+
+
+def p_BITWISE_OPERATOR(p):
+    """
+    BITWISE_OPERATOR : B_AND
+                     | B_OR
+                     | B_XOR
+                     | B_COMPLEMENT
+                     | SHIFT_LEFT
+                     | SHIFT_RIGHT
+    """
+    p[0] = ('BITWISE_OPERATOR', p[1])
 
 
 # <---------- START GABRIELA RAMOS ---------->
@@ -51,6 +100,7 @@ def p_PREPROCESOR_DIRECTIVE(p):
     """
     PREPROCESOR_DIRECTIVE : DEFINE
                           | INCLUDE
+                          | UNDEF
     """
     p[0] = ('PREPROCESOR_DIRECTIVE', p[1])
 
@@ -219,7 +269,8 @@ def p_CODE(p):
          | DECIMAL_DECLARATION
          | CHARACTER_DECLARATION
          | ASSIGNMENT_DECLARATION
-         | COMENTARIOLEX
+         | INCREMENTS
+         | DECREMENTS
     """
     p[0] = ('CODE', p[1])
 
@@ -228,6 +279,7 @@ def p_EXPRESSION(p):
     """
     EXPRESSION : CODE SEMICOLON
                | CONTROL_STRUCTURES
+               | COMENTARIOLEX
     """
     p[0] = ('EXPRESSION', p[1])
 
