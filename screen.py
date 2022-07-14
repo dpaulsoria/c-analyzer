@@ -62,20 +62,35 @@ def syntax(code):
     # syntax_result = sx.syntax_analyzer(code_to_analize)
     # syntax_result = prettier(syntax_result)
     # syntax_output.insert(tk.INSERT, syntax_result)
-    lines = code_to_analize.strip().split("\n")
+    lines = code_to_analize.strip().split(eof)
+    print(lines)
     for line in lines:
+        if line == "}":
+            continue
         if line != "\n":
-            print(line)
-            if line.startswith("for") or line.startswith("while") or line.startswith("if"):
-                newL = line
-                # print(line)
-                '''
-                for line in file:
-                    newL += " " + line
-                    if line[:3] == "}":
+            print("Line:", line)
+            start_curl_brace = 0
+            end_curl_brace = 0
+            print("curl counter:", start_curl_brace, end_curl_brace)
+            if line.startswith("for") or line.startswith("switch") or line.startswith("if"):
+                index = lines.index(line) + 1
+                print("Start analyzing a CONTROL STRUCTURE")
+
+                attach = line
+                print("start curl:", start_curl_brace)
+                print("end curl:", end_curl_brace)
+                print("attach:", attach)
+                while True:
+                    attach += " " + lines[index]
+                    index += 1
+                    print("current for:", attach)
+                    start_curl_brace += line.count("{")
+                    end_curl_brace += line.count("}")
+                    if index == len(lines):
+                        print("Attached lines:", attach)
+                        line = attach
                         break
-                line = newL
-                '''
+
             syntax_result = sx.syntax_analyzer(line)
             if syntax_result is not None:
                 syntax_result = prettier(syntax_result)
