@@ -476,7 +476,7 @@ def syntax():
         if not s:
             continue
         result = parser.parse(s)
-        print(result)
+        return result
 
 
 def syntax_analyzer(data):

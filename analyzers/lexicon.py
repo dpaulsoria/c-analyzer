@@ -419,18 +419,16 @@ def getTokens(lexer):
         tok = lexer.token()
         if not tok:
             break
-        print(tok)
         return tok
 
 
 def lexicon_analyzer(code):
-    lines = code.split("\n")
-    tokens = []
+    lines = code.split(" ")
+    tok = []
     for line in lines:
         validator.input(line)
-        tokens.append(str(getTokens(validator)) + "\n")
-    print(tokens)
-    return tokens
+        tok.append(str(getTokens(validator)) + "\n")
+    return tok
 
 
 def lexicon(file):
@@ -443,4 +441,4 @@ def lexicon(file):
         getTokens(validator)
     code.close()
 
-    print("End... :)")
+    print("@EOF")
