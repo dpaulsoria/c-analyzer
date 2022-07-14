@@ -420,6 +420,16 @@ def getTokens(lexer):
         if not tok:
             break
         print(tok)
+        return tok
+
+def lexicon_analyzer(code):
+    lines = code.split("\n")
+    tokens = []
+    for line in lines:
+        validator.input(line)
+        tokens.append(str(getTokens(validator)) + "\n")
+    print(tokens)
+    return tokens
 
 def lexicon(file):
     code = open(file)
