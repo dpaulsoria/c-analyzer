@@ -59,14 +59,22 @@ def lexicon(code):
     # print(code_to_analize)
 
 
+def skipping_condition(text):
+    end_of_structure = text == "}"
+    if_structure = text == "} else {" or text == "}else{" or text.__contains__("else if")
+    switch_structure = text == "default:" or text.__contains__("case")
+    return end_of_structure or if_structure or switch_structure
+
+
 def syntax(code):
     syntax_output.delete('1.0', tk.END)
     code_to_analize = code.get("1.0", 'end-1c')
     lines = code_to_analize.strip().split(eof)
     print(lines)
+
     for line in lines:
         k = line.replace("\t", "")
-        if k == "}" or k == "} else {" or k == "}else{" or k.__contains__("else if"):
+        if skipping_condition(k):
             continue
         if line != "\n":
             if line.startswith("for") or line.startswith("switch") or line.startswith("if"):
