@@ -54,21 +54,14 @@ def lexicon(code):
     lexicon_output.delete('1.0', tk.END)
     code_to_analize = code.get("1.0", 'end-1c')
     lexicon_result = lx.lexicon_analyzer(code_to_analize)
-    print(lexicon_result)
     for result in lexicon_result:
         lexicon_output.insert(tk.INSERT, result)
     # print(code_to_analize)
 
 
-regex = r'(if|\}\s?else if)\s?[\(\w\)\s?\{]+|(\}\s?else\s?\{)|\}+'
-
-
 def syntax(code):
     syntax_output.delete('1.0', tk.END)
     code_to_analize = code.get("1.0", 'end-1c')
-    # syntax_result = sx.syntax_analyzer(code_to_analize)
-    # syntax_result = prettier(syntax_result)
-    # syntax_output.insert(tk.INSERT, syntax_result)
     lines = code_to_analize.strip().split(eof)
     print(lines)
     for line in lines:
@@ -76,26 +69,14 @@ def syntax(code):
         if k == "}" or k == "} else {" or k == "}else{" or k.__contains__("else if"):
             continue
         if line != "\n":
-            print("Line:", line)
-            start_curl_brace = 0
-            end_curl_brace = 0
-            print("curl counter:", start_curl_brace, end_curl_brace)
             if line.startswith("for") or line.startswith("switch") or line.startswith("if"):
                 index = lines.index(line) + 1
                 print("Start analyzing a CONTROL STRUCTURE")
-
                 attach = line
-                print("start curl:", start_curl_brace)
-                print("end curl:", end_curl_brace)
-                print("attach:", attach)
                 while True:
                     attach += " " + lines[index]
                     index += 1
-                    print("current for:", attach)
-                    start_curl_brace += line.count("{")
-                    end_curl_brace += line.count("}")
                     if index == len(lines):
-                        print("Attached lines:", attach)
                         line = attach
                         break
             print_syntax_result(line)
@@ -109,7 +90,6 @@ def print_syntax_result(code):
         syntax_output.insert(tk.INSERT, syntax_result)
     else:
         syntax_result = "Error de sintaxis \n"
-        print("Error:", code)
         syntax_output.insert(tk.INSERT, syntax_result)
 
 
