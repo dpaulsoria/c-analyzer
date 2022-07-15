@@ -1,3 +1,4 @@
+import re
 import tkinter as tk
 import analyzers.syntax as sx
 import analyzers.lexicon as lx
@@ -8,39 +9,42 @@ root = tk.Tk()
 
 # Basic Information
 root.title("C-Analyzer")
-root.geometry("1000x650")
+root.geometry("950x700")
 eof = '\n'
 tab = '   '
 
-tk.Label(root, text = "INPUT").grid(row = 0, columnspan = 3)
+tk.Label(root, text="INPUT").grid(row=0, columnspan=3)
 input_code_height = 15
 input_code_width = 85
 input_output_font = "Consolas", 11
 input_scroll = tk.Scrollbar(root)
 input_scroll.grid(row=1, column=0, rowspan=6, columnspan=3, sticky=tk.N + tk.S + tk.E)
-input_code = tk.Text(root, height=input_code_height, width=input_code_width, font=input_output_font, yscrollcommand=input_scroll.set)
+input_code = tk.Text(root, height=input_code_height, width=input_code_width, font=input_output_font,
+                     yscrollcommand=input_scroll.set)
 input_code.configure(relief="ridge", borderwidth=5)
 input_code.grid(row=1, column=0, rowspan=6, columnspan=3, padx=20, pady=10)
 input_scroll.config(command=input_code.yview)
 
-tk.Label(root, text = "LEXICON ANALYZER").grid(row = 7, column = 0, columnspan=2)
+tk.Label(root, text="LEXICON ANALYZER").grid(row=7, column=0, columnspan=2)
 lexicon_output_height = 15
 lexicon_output_width = 50
 lexicon_output_font = "Consolas", 11
 lexicon_scroll = tk.Scrollbar(root)
 lexicon_scroll.grid(row=8, column=0, columnspan=2, sticky=tk.N + tk.S + tk.E)
-lexicon_output = tk.Text(root, height=lexicon_output_height, width=lexicon_output_width, font=lexicon_output_font, yscrollcommand=lexicon_scroll.set)
+lexicon_output = tk.Text(root, height=lexicon_output_height, width=lexicon_output_width, font=lexicon_output_font,
+                         yscrollcommand=lexicon_scroll.set)
 lexicon_output.configure(relief="ridge", borderwidth=5)
 lexicon_output.grid(row=8, column=0, columnspan=2, padx=0, pady=10)
 lexicon_scroll.config(command=lexicon_output.yview)
 
-tk.Label(root, text = "SYNTAX ANALYZER").grid(row = 7, column = 2, columnspan=2)
+tk.Label(root, text="SYNTAX ANALYZER").grid(row=7, column=2, columnspan=2)
 syntax_output_height = 15
 syntax_output_width = 50
 syntax_output_font = "Consolas", 11
 syntax_scroll = tk.Scrollbar(root)
 syntax_scroll.grid(row=8, column=2, columnspan=2, sticky=tk.N + tk.S + tk.E)
-syntax_output = tk.Text(root, height=syntax_output_height, width=syntax_output_width, font=syntax_output_font, yscrollcommand=syntax_scroll.set)
+syntax_output = tk.Text(root, height=syntax_output_height, width=syntax_output_width, font=syntax_output_font,
+                        yscrollcommand=syntax_scroll.set)
 syntax_output.configure(relief="ridge", borderwidth=5)
 syntax_output.grid(row=8, column=2, columnspan=2, padx=0, pady=10)
 syntax_scroll.config(command=syntax_output.yview)
@@ -56,6 +60,9 @@ def lexicon(code):
     # print(code_to_analize)
 
 
+regex = r'(if|\}\s?else if)\s?[\(\w\)\s?\{]+|(\}\s?else\s?\{)|\}+'
+
+
 def syntax(code):
     syntax_output.delete('1.0', tk.END)
     code_to_analize = code.get("1.0", 'end-1c')
@@ -65,8 +72,8 @@ def syntax(code):
     lines = code_to_analize.strip().split(eof)
     print(lines)
     for line in lines:
-        k = line.replace("\t", "").replace(" ", "")
-        if k == "}" or k == "{":
+        k = line.replace("\t", "")
+        if k == "}" or k == "} else {" or k == "}else{" or k.__contains__("else if"):
             continue
         if line != "\n":
             print("Line:", line)
@@ -91,15 +98,19 @@ def syntax(code):
                         print("Attached lines:", attach)
                         line = attach
                         break
+            print_syntax_result(line)
 
-            syntax_result = sx.syntax_analyzer(line)
-            if syntax_result is not None:
-                syntax_result = prettier(syntax_result)
-                syntax_result = str(syntax_result) + "\n"
-                syntax_output.insert(tk.INSERT, syntax_result)
-            else:
-                syntax_result = "Error de sintaxis \n"
-                syntax_output.insert(tk.INSERT, syntax_result)
+
+def print_syntax_result(code):
+    syntax_result = sx.syntax_analyzer(code)
+    if syntax_result is not None:
+        syntax_result = prettier(syntax_result)
+        syntax_result = str(syntax_result) + "\n"
+        syntax_output.insert(tk.INSERT, syntax_result)
+    else:
+        syntax_result = "Error de sintaxis \n"
+        print("Error:", code)
+        syntax_output.insert(tk.INSERT, syntax_result)
 
 
 def prettier(code):
@@ -113,7 +124,7 @@ def extract_tree(code, counter):
         if not str(code1[0]).isupper():
             code1 = code1[1]
         else:
-            var += tab * counter + code1[0] + eof
+            var += tab * counter + ">>" + code1[0] + eof
             counter += 1
             code1 = code1[1]
     return var
