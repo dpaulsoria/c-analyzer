@@ -51,6 +51,12 @@ def p_ROOT(p):
          | RETURN_TYPE
          | BITWISE_OPERATOR
          | BITWISE_OPERATIONS
+         | MATH_OPERATION
+         | INTEGER_OPERATION
+         | INTEGER_OPERATIONS
+         | DECIMAL_OPERATION
+         | DECIMAL_OPERATIONS
+         | MATH_OPERATIONS
     """
     p[0] = ('ROOT', p[1])
 
@@ -327,16 +333,32 @@ def p_DECIMAL_TYPE(p):
     p[0] = ('DECIMAL_TYPE', p[1])
 
 
+def p_INTEGER_VALUE(p):
+    """
+    INTEGER_VALUE : INTEGER
+                  | INTEGER_OPERATIONS
+    """
+    p[0] = ('INTEGER_VALUE', p[1])
+
+
 def p_INTEGER_DECLARATION(p):
     """
-    INTEGER_DECLARATION : INTEGER_TYPE VARNAME EQUAL INTEGER
+    INTEGER_DECLARATION : INTEGER_TYPE VARNAME EQUAL INTEGER_VALUE
     """
     p[0] = ('INTEGER_DECLARATION', p[1])
 
 
+def p_DECIMAL_VALUE(p):
+    """
+    DECIMAL_VALUE : DECIMAL
+                  | DECIMAL_OPERATIONS
+    """
+    p[0] = ('DECIMAL_VALUE', p[1])
+
+
 def p_DECIMAL_DECLARATION(p):
     """
-    DECIMAL_DECLARATION : DECIMAL_TYPE VARNAME EQUAL DECIMAL
+    DECIMAL_DECLARATION : DECIMAL_TYPE VARNAME EQUAL DECIMAL_VALUE
     """
     p[0] = ('DECIMAL_DECLARATION', p[1])
 
@@ -398,9 +420,58 @@ def p_OPERATOR(p):
     p[0] = ('OPERATOR', p[1])
 
 
+def p_MATH_OPERATION(p):
+    """
+    MATH_OPERATION : NUMBER OPERATOR NUMBER
+    """
+    p[0] = ('MATH_OPERATION', p[1])
+
+
+def p_MATH_OPERATIONS(p):
+    """
+    MATH_OPERATIONS : MATH_OPERATION
+                    | MATH_OPERATION OPERATOR MATH_OPERATIONS
+    """
+    p[0] = ('MATH_OPERATIONS', p[1])
+
+
+def p_INTEGER_OPERATION(p):
+    """
+    INTEGER_OPERATION : INTEGER OPERATOR INTEGER
+    """
+    p[0] = ('INTEGER_OPERATION', p[1])
+
+
+def p_INTEGER_OPERATIONS(p):
+    """
+    INTEGER_OPERATIONS : INTEGER_OPERATION
+                       | INTEGER_OPERATION OPERATOR INTEGER_OPERATIONS
+    """
+    p[0] = ('INTEGER_OPERATIONS', p[1])
+
+
+def p_DECIMAL_OPERATION(p):
+    """
+    DECIMAL_OPERATION : DECIMAL OPERATOR DECIMAL
+    """
+    p[0] = ('DECIMAL_OPERATION', p[1])
+
+
+def p_DECIMAL_OPERATIONS(p):
+    """
+    DECIMAL_OPERATIONS : DECIMAL_OPERATION
+                       | DECIMAL_OPERATION OPERATOR DECIMAL_OPERATIONS
+    """
+    p[0] = ('DECIMAL_OPERATIONS', p[1])
+
+
 def p_OPERATION(p):
     """
-    OPERATION : NUMBER OPERATOR NUMBER
+    OPERATION : MATH_OPERATION
+              | BITWISE_OPERATIONS
+              | INTEGER_OPERATION
+              | DECIMAL_OPERATION
+              | MATH_OPERATIONS
     """
     p[0] = ('OPERATION', p[1])
 
@@ -454,6 +525,7 @@ def p_STATEMENT(p):
     """
     STATEMENT : NUMBER
              | VARNAME
+             | OPERATIONS
     """
     p[0] = ('STATEMENT', p[1])
 

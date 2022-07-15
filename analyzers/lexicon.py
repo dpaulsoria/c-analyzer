@@ -206,8 +206,8 @@ t_DIV_EQUAL = r'\/='
 t_MOD_EQUAL = r'\%='
 
 
-t_INCREASE = r'\++'
-t_DECREASE = r'\--'
+t_INCREASE = r'\+\+'
+t_DECREASE = r'\-\-'
 
 # Bitwise Assignment Operators
 t_AND_EQUAL = r'\&='
@@ -362,7 +362,7 @@ def verify_reserved(value):
 
 
 def t_STRING(t):
-    r"""\"[^<[a-z\_\/]+\.h>|\"[a-z\_\/]+\.h\"].*\""""
+    r"""\".*\""""
 
     result_specifier = verify_format_spec(t.value[1:-1])
     if result_specifier[0]:
