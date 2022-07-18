@@ -40,7 +40,7 @@ def p_ROOT(p):
          | ELSE_STRUCTURE
          | FUNCTION_ARGUMENTS
          | DECLARATIONS
-         | FOR_BODY_STRUCTURE
+         | SKIP_STRUCTURE
          | FOR_ARGUMENTS_STRUCTURE
          | INCREMENTS
          | DECREMENTS
@@ -57,8 +57,42 @@ def p_ROOT(p):
          | DECIMAL_OPERATION
          | DECIMAL_OPERATIONS
          | MATH_OPERATIONS
+         | TYPEDEF_INTEGER
+         | TYPEDEF_DECIMAL
+         | TYPEDEF_CHAR
+         | TYPEDEF_STRUCT
     """
     p[0] = ('ROOT', p[1])
+
+
+def p_TYPEDEF_STRUCT(p):
+    """
+    TYPEDEF_STRUCT : TYPEDEF_INTEGER
+            | TYPEDEF_DECIMAL
+            | TYPEDEF_CHAR
+    """
+    p[0] = ('TYPEDEF_STRUCT', p[1])
+
+
+def p_TYPEDEF_INTEGER(p):
+    """
+    TYPEDEF_INTEGER : TYPEDEF INTEGER_TYPE VARNAME LBRACKET INTEGER RBRACKET
+    """
+    p[0] = ('TYPEDEF_INTEGER', p[1])
+
+
+def p_TYPEDEF_DECIMAL(p):
+    """
+    TYPEDEF_DECIMAL : TYPEDEF DECIMAL_TYPE VARNAME LBRACKET INTEGER RBRACKET
+    """
+    p[0] = ('TYPEDEF_DECIMAL', p[1])
+
+
+def p_TYPEDEF_CHAR(p):
+    """
+    TYPEDEF_CHAR : TYPEDEF CHAR VARNAME LBRACKET INTEGER RBRACKET
+    """
+    p[0] = ('TYPEDEF_CHAR', p[1])
 
 
 def p_INCREMENTS(p):
@@ -218,7 +252,7 @@ def p_BUCLE(p):
 # FOR LPAREN EXPRESSIONS COMPARISONS BUCLE RPAREN
 def p_FOR_STRUCTURE(p):
     """
-    FOR_STRUCTURE : FOR FOR_ARGUMENTS_STRUCTURE LCURL_BRACE FOR_BODY_STRUCTURE RCURL_BRACE
+    FOR_STRUCTURE : FOR FOR_ARGUMENTS_STRUCTURE LCURL_BRACE SKIP_STRUCTURE RCURL_BRACE
     """
     p[0] = ('FOR_STRUCTURE', p[1])
 
@@ -230,13 +264,13 @@ def p_FOR_ARGUMENTS_STRUCTURE(p):
     p[0] = ('FOR_ARGUMENTS_STRUCTURE', p[1])
 
 
-def p_FOR_BODY_STRUCTURE(p):
+def p_SKIP_STRUCTURE(p):
     """
-    FOR_BODY_STRUCTURE : EXPRESSIONS
+    SKIP_STRUCTURE : EXPRESSIONS
                        | BREAK SEMICOLON
                        | CONTINUE SEMICOLON
     """
-    p[0] = ('FOR_BODY_STRUCTURE', p[1])
+    p[0] = ('SKIP_STRUCTURE', p[1])
 
 # <---------- END GABRIELA RAMOS ---------->
 
@@ -279,6 +313,7 @@ def p_CODE(p):
          | ASSIGNMENT_DECLARATION
          | INCREMENTS
          | DECREMENTS
+         | TYPEDEF_STRUCT
     """
     p[0] = ('CODE', p[1])
 

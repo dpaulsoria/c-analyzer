@@ -63,7 +63,8 @@ def skipping_condition(text):
     end_of_structure = text == "}"
     if_structure = text == "} else {" or text == "}else{" or text.__contains__("else if")
     switch_structure = text == "default:" or text.__contains__("case")
-    return end_of_structure or if_structure or switch_structure
+    len_zero = len(text) == 0
+    return end_of_structure or if_structure or switch_structure or len_zero
 
 
 def syntax(code):
@@ -97,7 +98,7 @@ def print_syntax_result(code):
         syntax_result = str(syntax_result) + "\n"
         syntax_output.insert(tk.INSERT, syntax_result)
     else:
-        syntax_result = "Error de sintaxis \n"
+        syntax_result = "Error de sintaxis en >" + code + "<\n"
         syntax_output.insert(tk.INSERT, syntax_result)
 
 
