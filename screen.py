@@ -78,7 +78,7 @@ def syntax(code):
         if skipping_condition(k):
             continue
         if line != "\n":
-            if line.startswith("for") or line.startswith("switch") or line.startswith("if"):
+            if line.startswith("for") or line.startswith("switch") or line.startswith("if") or line.startswith("int") or line.startswith("double") or line.startswith("short") or line.startswith("long") or line.startswith("float"):
                 index = lines.index(line) + 1
                 print("Start analyzing a CONTROL STRUCTURE")
                 attach = line
