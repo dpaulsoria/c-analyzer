@@ -82,12 +82,13 @@ def syntax(code):
                 index = lines.index(line) + 1
                 print("Start analyzing a CONTROL STRUCTURE")
                 attach = line
-                while True:
-                    attach += " " + lines[index]
-                    index += 1
-                    if index == len(lines):
-                        line = attach
-                        break
+                if len(lines) > 1:
+                    while True:
+                        attach += " " + lines[index]
+                        index += 1
+                        if index == len(lines):
+                            line = attach
+                            break
             print_syntax_result(line)
 
 

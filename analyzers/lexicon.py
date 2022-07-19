@@ -3,8 +3,6 @@ import re
 
 import ply.lex as lexical
 
-# START PAUL SORIA
-
 # List of key/reserved words
 reserved = {
     # Control Structures
