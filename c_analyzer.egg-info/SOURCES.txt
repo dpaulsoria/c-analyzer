@@ -1,0 +1,13 @@
+LICENSE
+README.md
+pyproject.toml
+analyzers/__init__.py
+analyzers/lexicon.py
+analyzers/syntax.py
+c_analyzer.egg-info/PKG-INFO
+c_analyzer.egg-info/SOURCES.txt
+c_analyzer.egg-info/dependency_links.txt
+c_analyzer.egg-info/requires.txt
+c_analyzer.egg-info/top_level.txt
+ui/__init__.py
+ui/app.py

@@ -1,0 +1,32 @@
+[project]
+name = "c-analyzer"
+version = "1.0.0"
+description = "Desktop tool for lexical and syntax analysis of C using PLY + Tkinter."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+authors = [
+  { name = "Paul Soria" },
+  { name = "Gabriela Ramos" },
+  { name = "Juan Xavier Pita" }
+]
+dependencies = [
+  "ply>=3.11,<4"
+]
+
+[project.optional-dependencies]
+dev = [
+  "ruff>=0.6",
+  "black>=24.0"
+]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tools.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["analyzers*", "ui*"]

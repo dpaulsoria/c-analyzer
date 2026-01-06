@@ -247,7 +247,7 @@ t_RCURL_BRACE = r'\}'
 # Values
 # t_VARNAME = r'[a-zA-Z_][a-zA-Z0-9_]*'
 t_INTEGER = r'-\s*\d+|\d+'
-t_DECIMAL = r'-?\s*\d*\.\d+|\d+\.\d+'
+t_DECIMAL = r'-\s*\d*\.d+|\d*\.\d+'
 t_CHARACTER = r'\'\w+\''
 # t_STRING = r'\".*\"'
 
@@ -361,44 +361,44 @@ def verify_reserved(value):
 
 def t_STRING(t):
     r"""\".*\""""
-    inner = t.value[1:-1]
 
-    # si es un header tipo "util.h" -> tratar como HEADER_LIB
-    if re.fullmatch(r"[a-zA-Z_\/]+\.(h|hpp)", inner):
-        t.type = "HEADER_LIB"
-        return t
-
-    result_specifier = verify_format_spec(inner)
+    result_specifier = verify_format_spec(t.value[1:-1])
     if result_specifier[0]:
-        t.type = result_specifier[1]
+        t.type = reserved.get(t.value, result_specifier[1])
     else:
-        t.type = "STRING"
+        t.type = reserved.get(t.value, 'STRING')
     return t
 
 
-def verify_format_spec(value: str):
-    patterns = [
-        (t_FS_CHAR, "FS_CHAR"),
-        (t_FS_INT, "FS_INT"),
-        (t_FS_LONG, "FS_LONG"),
-        (t_FS_FLOAT, "FS_FLOAT"),
-        (t_FS_SCI_NOTATION, "FS_SCI_NOTATION"),
-        (t_FS_STRING, "FS_STRING"),
-        (t_FS_UNSIGNED_INT, "FS_UNSIGNED_INT"),
-        (t_FS_UNSIGNED_LONG, "FS_UNSIGNED_LONG"),
-        (t_FS_OCT, "FS_OCT"),
-        (t_FS_HEX, "FS_HEX"),
-        (t_FS_POINTER, "FS_POINTER"),
-        (t_FS_OCT_LONG, "FS_OCT_LONG"),
-        (t_FS_DOUBLE, "FS_DOUBLE"),
-        (t_FS_LONG_DOUBLE, "FS_LONG_DOUBLE"),
-    ]
-
-    for pattern, name in patterns:
-        if re.fullmatch(pattern, value):
-            return True, name
-
-    return False, None
+def verify_format_spec(value):
+    if bool(re.match(value, t_FS_CHAR)):
+        return True, 'FS_CHAR'
+    elif bool(re.match(value, t_FS_INT)):
+        return True, 'FS_INT'
+    elif bool(re.match(value, t_FS_LONG)):
+        return True, 'FS_LONG'
+    elif bool(re.match(value, t_FS_SCI_NOTATION)):
+        return True, 'FS_SCI_NOTATION'
+    elif bool(re.match(value, t_FS_STRING)):
+        return True, 'FS_STRING'
+    elif bool(re.match(value, t_FS_UNSIGNED_INT)):
+        return True, 'FS_UNSIGNED_INT'
+    elif bool(re.match(value, t_FS_UNSIGNED_LONG)):
+        return True, 'FS_UNSIGNED_LONG'
+    elif bool(re.match(value, t_FS_OCT)):
+        return True, 'FS_OCT'
+    elif bool(re.match(value, t_FS_HEX)):
+        return True, 'FS_HEX'
+    elif bool(re.match(value, t_FS_POINTER)):
+        return True, 'FS_POINTER'
+    elif bool(re.match(value, t_FS_OCT_LONG)):
+        return True, 'FS_OCT_LONG'
+    elif bool(re.match(value, t_FS_DOUBLE)):
+        return True, 'FS_DOUBLE'
+    elif bool(re.match(value, t_FS_LONG_DOUBLE)):
+        return True, 'FS_LONG_DOUBLE'
+    else:
+        return False, None
 
 
 # END PAUL SORIA

@@ -1,3 +1,18 @@
+Metadata-Version: 2.4
+Name: c-analyzer
+Version: 1.0.0
+Summary: Desktop tool for lexical and syntax analysis of C using PLY + Tkinter.
+Author: Paul Soria, Gabriela Ramos, Juan Xavier Pita
+License-Expression: MIT
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: ply<4,>=3.11
+Provides-Extra: dev
+Requires-Dist: ruff>=0.6; extra == "dev"
+Requires-Dist: black>=24.0; extra == "dev"
+Dynamic: license-file
+
 # C-analyzer — Lexical & Syntax Analyzer for C (Python + PLY)
 
 C-analyzer is a desktop tool that performs **lexical** and **syntax** analysis for a **subset of the C language**, built with **Python 3.10**, **PLY (lex/yacc)** and a **Tkinter GUI**.
