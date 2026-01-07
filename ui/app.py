@@ -51,26 +51,26 @@ def main():
     ttk.Label(toolbar, text="C-Analyzer", style="Header.TLabel").grid(row=0, column=0, padx=(0, 12))
 
     # Botones principales
-    btn_open = ttk.Button(toolbar, text="Abrir .c/.h", command=lambda: open_file(input_text, status_var))
+    btn_open = ttk.Button(toolbar, text="Open .c/.h", command=lambda: open_file(input_text, status_var))
     btn_open.grid(row=0, column=1, padx=4)
 
-    btn_lex = ttk.Button(toolbar, text="Analizar Léxico", command=lambda: analyze_lexicon(input_text, lexicon_text, status_var))
+    btn_lex = ttk.Button(toolbar, text="Analyze Lexicon", command=lambda: analyze_lexicon(input_text, lexicon_text, status_var))
     btn_lex.grid(row=0, column=2, padx=4)
 
-    btn_syn = ttk.Button(toolbar, text="Analizar Sintaxis", command=lambda: analyze_syntax(input_text, syntax_text, status_var))
+    btn_syn = ttk.Button(toolbar, text="Analyze Syntax", command=lambda: analyze_syntax(input_text, syntax_text, status_var))
     btn_syn.grid(row=0, column=3, padx=4)
 
-    btn_both = ttk.Button(toolbar, text="Analizar Ambos", command=lambda: analyze_both(input_text, lexicon_text, syntax_text, status_var))
+    btn_both = ttk.Button(toolbar, text="Analyze Both", command=lambda: analyze_both(input_text, lexicon_text, syntax_text, status_var))
     btn_both.grid(row=0, column=4, padx=4)
 
-    btn_clear = ttk.Button(toolbar, text="Limpiar", command=lambda: clear_all(input_text, lexicon_text, syntax_text, status_var))
+    btn_clear = ttk.Button(toolbar, text="Clean", command=lambda: clear_all(input_text, lexicon_text, syntax_text, status_var))
     btn_clear.grid(row=0, column=5, padx=4)
 
     # Toggle wrap (ajuste de línea)
     wrap_var = tk.BooleanVar(value=False)
     wrap_chk = ttk.Checkbutton(
         toolbar,
-        text="Ajustar líneas",
+        text="Adjust lines",
         variable=wrap_var,
         command=lambda: toggle_wrap(wrap_var, input_text, lexicon_text, syntax_text),
     )
@@ -80,7 +80,7 @@ def main():
     ttk.Label(toolbar, text="").grid(row=0, column=10, sticky="ew")
 
     # Hint atajos
-    ttk.Label(toolbar, text="Atajos: Ctrl+O Abrir | F5 Ambos | F6 Léxico | F7 Sintaxis | Ctrl+L Limpiar").grid(
+    ttk.Label(toolbar, text="Shortcuts: Ctrl+O Open File | F5 Both | F6 Lexicon | F7 Syntax | Ctrl+L Clean").grid(
         row=0, column=11, sticky="e"
     )
 
@@ -95,7 +95,7 @@ def main():
     input_frame.columnconfigure(0, weight=1)
     input_frame.rowconfigure(1, weight=1)
 
-    ttk.Label(input_frame, text="INPUT (Código C)").grid(row=0, column=0, sticky="w", pady=(0, 6))
+    ttk.Label(input_frame, text="INPUT (C Code)").grid(row=0, column=0, sticky="w", pady=(0, 6))
 
     input_text = ScrolledText(input_frame, font=MONO_FONT, height=12, undo=True, wrap="none")
     input_text.grid(row=1, column=0, sticky="nsew")
@@ -115,7 +115,7 @@ def main():
     lex_frame = ttk.Frame(out_pane, padding=(6, 6))
     lex_frame.columnconfigure(0, weight=1)
     lex_frame.rowconfigure(1, weight=1)
-    ttk.Label(lex_frame, text="LÉXICO").grid(row=0, column=0, sticky="w", pady=(0, 6))
+    ttk.Label(lex_frame, text="LEXICON").grid(row=0, column=0, sticky="w", pady=(0, 6))
     lexicon_text = ScrolledText(lex_frame, font=MONO_FONT, wrap="none")
     lexicon_text.grid(row=1, column=0, sticky="nsew")
     set_readonly(lexicon_text, True)
@@ -124,7 +124,7 @@ def main():
     syn_frame = ttk.Frame(out_pane, padding=(6, 6))
     syn_frame.columnconfigure(0, weight=1)
     syn_frame.rowconfigure(1, weight=1)
-    ttk.Label(syn_frame, text="SINTAXIS").grid(row=0, column=0, sticky="w", pady=(0, 6))
+    ttk.Label(syn_frame, text="SYNTAX").grid(row=0, column=0, sticky="w", pady=(0, 6))
     syntax_text = ScrolledText(syn_frame, font=MONO_FONT, wrap="none")
     syntax_text.grid(row=1, column=0, sticky="nsew")
     syntax_text.tag_configure("error", foreground="#b00020")  # rojo
@@ -179,7 +179,7 @@ def toggle_wrap(wrap_var: tk.BooleanVar, *widgets: tk.Text):
 
 def open_file(input_text: tk.Text, status_var: tk.StringVar):
     path = filedialog.askopenfilename(
-        title="Abrir archivo C",
+        title="Open File with C Code",
         filetypes=[("C / Header", "*.c *.h"), ("Todos", "*.*")],
     )
     if not path:
@@ -191,8 +191,8 @@ def open_file(input_text: tk.Text, status_var: tk.StringVar):
         input_text.insert("1.0", content)
         status_var.set(f"Abrí: {path}")
     except Exception as e:
-        messagebox.showerror("Error", f"No pude abrir el archivo.\n\n{e}")
-        status_var.set("Error al abrir archivo.")
+        messagebox.showerror("Error", f"Cannot open the file.\n\n{e}")
+        status_var.set("Error opening the file.")
 
 
 # -------------------------
@@ -206,10 +206,10 @@ def analyze_lexicon(input_text: tk.Text, lexicon_output: tk.Text, status_var: tk
     try:
         results = lx.lexicon_analyzer(code)
         lexicon_output.insert("1.0", "".join(results))
-        status_var.set("Análisis léxico completado.")
+        status_var.set("Lexicon analysis completed.")
     except Exception as e:
-        lexicon_output.insert("1.0", f"Error en análisis léxico:\n{e}\n")
-        status_var.set("Error en análisis léxico.")
+        lexicon_output.insert("1.0", f"Error in lexicon analysis:\n{e}\n")
+        status_var.set("Error in lexicon analysis.")
     finally:
         set_readonly(lexicon_output, True)
 
@@ -264,10 +264,10 @@ def analyze_syntax(input_text: tk.Text, syntax_output: tk.Text, status_var: tk.S
                 syntax_output.insert("end", f"Error de sintaxis en >{k}<\n", ("error",))
                 err_count += 1
 
-        status_var.set(f"Análisis sintáctico: OK={ok_count} | Errores={err_count}")
+        status_var.set(f"Syntax Analysis: OK={ok_count} | Errores={err_count}")
     except Exception as e:
-        syntax_output.insert("end", f"\nExcepción en análisis sintáctico:\n{e}\n", ("error",))
-        status_var.set("Error en análisis sintáctico.")
+        syntax_output.insert("end", f"\nException in syntax analysis:\n{e}\n", ("error",))
+        status_var.set("Error in syntax analysis.")
     finally:
         set_readonly(syntax_output, True)
 
